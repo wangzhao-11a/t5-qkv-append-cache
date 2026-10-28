@@ -2,7 +2,6 @@
 #include <c10/core/DeviceGuard.h>
 #include "torch_npu/csrc/core/npu/NPUStream.h"
 #include "torch_npu/csrc/core/npu/NPUCachingAllocator.h"
-#include "torch_npu/csrc/framework/OpCommand.h"
 #include "torch_npu/csrc/aten/CustomFunctions.h"
 #include "acl/acl.h"
 #include "aclnn_t5_split_qkv_append_cache.h"
@@ -59,15 +58,12 @@ Tensors Execute(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t head
   const auto options = xs[0].options().requires_grad(false);
   Tensors out{at::empty({b,h,1,d}, options), at::empty({b,h,l+1,d}, options), at::empty({b,h,l+1,d}, options)};
   auto stream = c10_npu::getCurrentNPUStream(xs[0].device().index());
-  const aclrtStream rawStream = stream.stream(false);
-  // Keep inputs/outputs alive until the host queue submits the kernel. Move
-  // handles out on execution so a recycled task slot cannot retain tensors.
-  // Inputs may belong to another stream and need recordStream protection.
-  // Outputs were allocated on this very stream: recording them adds needless
-  // lazy allocator events and prevents immediate active-byte reclamation.
-  auto call = [inputs = xs, outputs = out, shape, stream, rawStream, direct]() mutable -> int {
-    auto xs = std::move(inputs);
-    auto out = std::move(outputs);
+  // Official stream() drains pending host submissions, not device work. This
+  // preserves ordering with preceding PyTorch operations without another host
+  // callback/captured-output queue. Kernel execution remains asynchronous.
+  const aclrtStream rawStream = stream.stream();
+  TORCH_CHECK(rawStream, "failed to obtain ordered current NPU stream");
+  auto call = [&]() -> int {
     for (const auto& x : xs)
       if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
     if (direct) {
@@ -89,7 +85,7 @@ Tensors Execute(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t head
     TORCH_CHECK(status == ACL_SUCCESS, "aclnnT5SplitQkvAppendCache failed: ", status);
     return 0;
   };
-  at_npu::native::OpCommand::RunOpApi(direct ? "T5SplitQkvAppendCacheDirect" : "T5SplitQkvAppendCache", call);
+  call();
   return out;
 }
 }

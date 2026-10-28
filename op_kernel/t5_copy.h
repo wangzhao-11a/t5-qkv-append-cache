@@ -21,6 +21,12 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
+    // Large write-only outputs otherwise compete with cache input reads in L2.
+    // Use the documented write bypass for this streaming-output workload.
+    if (cacheSize_ >= 16 * 1024 * 1024) {
+      k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+    }
     pipe->InitBuffer(queue_, 2, tile_ * sizeof(uint16_t));
   }
 
