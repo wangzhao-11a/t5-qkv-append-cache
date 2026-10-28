@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+node_modules/
+build/
+*.so
+*.o
+*.egg-info/
+artifacts/
+reports/previews/
+research/*.part
+research/templates/
+research/*_tree.json
+research/xllm_tree.json
+research/official_task_submission.zip
+task_submission.zip
+*.tar

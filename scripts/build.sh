@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+TASK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+: "${ASCEND_HOME_PATH:?Load the assigned CANN 9.1.0 environment first}"
+: "${T5_OPP_ROOT:=$HOME/.local/t5_qkv_opp}"
+export T5_OPP_ROOT
+case "$(realpath -m -- "$T5_OPP_ROOT")" in
+  "$HOME"/*) ;;
+  *) echo 'T5_OPP_ROOT must be a private directory below HOME' >&2; exit 2 ;;
+esac
+for command in python3 msopgen cmake c++; do command -v "$command" >/dev/null; done
+python3 "$TASK_ROOT/tools/preflight.py" --static
+# Never overwrite an earlier generated/built baseline.
+if [[ -e "$TASK_ROOT/build/aclnn" ]]; then
+  echo 'build/aclnn already exists. Preserve its fingerprint; choose a fresh checkout for a rebuild.' >&2
+  exit 2
+fi
+mkdir -p "$TASK_ROOT/build" "$TASK_ROOT/artifacts" "$T5_OPP_ROOT"
+msopgen gen -i "$TASK_ROOT/op_project.json" -c ai_core-Ascend910_9382 -lan cpp \
+  -out "$TASK_ROOT/build/aclnn" -f aclnn
+cp -a "$TASK_ROOT/op_host/." "$TASK_ROOT/build/aclnn/op_host/"
+cp -a "$TASK_ROOT/op_kernel/." "$TASK_ROOT/build/aclnn/op_kernel/"
+cp -a "$TASK_ROOT/common" "$TASK_ROOT/build/aclnn/common"
+python3 "$TASK_ROOT/tools/configure_generated.py" "$TASK_ROOT/build/aclnn"
+( cd "$TASK_ROOT/build/aclnn"; bash -n build.sh; bash build.sh )
+mapfile -t packages < <(find "$TASK_ROOT/build/aclnn" -name '*.run' -type f)
+if [[ ${#packages[@]} -ne 1 ]]; then echo 'Expected one .run package' >&2; exit 2; fi
+cp -- "${packages[0]}" "$TASK_ROOT/artifacts/"
+bash "${packages[0]}" --quiet --install-path="$T5_OPP_ROOT"
+mapfile -t vendor_roots < <(find "$T5_OPP_ROOT" -path '*/vendors/*/bin/set_env.bash' -type f)
+if [[ ${#vendor_roots[@]} -ne 1 ]]; then echo 'Expected one private vendor environment script' >&2; exit 2; fi
+set +u
+source "${vendor_roots[0]}"
+set -u
+cmake -S "$TASK_ROOT/direct" -B "$TASK_ROOT/build/direct" \
+  -DASCEND_CANN_PACKAGE_PATH="$ASCEND_HOME_PATH" -DASCEND_COMPUTE_UNIT=ascend910_93
+cmake --build "$TASK_ROOT/build/direct" -j "${T5_BUILD_JOBS:-8}"
+( cd "$TASK_ROOT"; python3 setup.py build_ext --inplace )
+cmake -S "$TASK_ROOT/examples" -B "$TASK_ROOT/build/examples" \
+  -DCANN_ROOT="$ASCEND_HOME_PATH" -DT5_OPP_ROOT="$T5_OPP_ROOT"
+cmake --build "$TASK_ROOT/build/examples" -j "${T5_BUILD_JOBS:-8}"
+python3 "$TASK_ROOT/tools/fingerprint.py" --output "$TASK_ROOT/artifacts/build_manifest.json"
+echo 'Build completed. Run scripts/validate.sh only after checking the assigned device is free.'

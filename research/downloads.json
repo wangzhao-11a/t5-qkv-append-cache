@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/Ascend/samples/fc2aea93e48be8f8cee51d0c6c1b13a08155f83a/cplusplus/level1_single_api/4_op_dev/6_ascendc_custom_op/kernel_invocation/Add/CMakeLists.txt",
+    "file": "sample_direct_CMakeLists.txt",
+    "sha256": "069ffce0ba61e9df268914626c9eb555ee7a535005eec3b2e20fce2bec05bd1c"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ascend/samples/fc2aea93e48be8f8cee51d0c6c1b13a08155f83a/cplusplus/level1_single_api/4_op_dev/6_ascendc_custom_op/acl_invocation/op_dev/add_custom.json",
+    "file": "sample_add_custom.json",
+    "sha256": "4641fa001682f473837a122f57e7c5c8a5873bf992a0675d0f8213b98bfd507f"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ascend/samples/fc2aea93e48be8f8cee51d0c6c1b13a08155f83a/cplusplus/level1_single_api/4_op_dev/6_ascendc_custom_op/acl_invocation/op_dev/op_host/add_custom.cpp",
+    "file": "sample_add_host.cpp",
+    "sha256": "bc697fba79610680c4fd86bc2e0e96198373b8849268f16bebd1441d513116ed"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ascend/samples/fc2aea93e48be8f8cee51d0c6c1b13a08155f83a/cplusplus/level1_single_api/4_op_dev/6_ascendc_custom_op/kernel_invocation/Add/add_custom.cpp",
+    "file": "sample_add_kernel.cpp",
+    "sha256": "d467b20392dd7147517b8e9e8f37238d824575cd23ac9af5ce597417ae524b48"
+  },
+  {
+    "url": "https://api.github.com/repos/xLLM-AI/xllm/git/trees/fea4d5d6a3f46b37b3703262be182e0579914103?recursive=1",
+    "file": "xllm_tree.json",
+    "sha256": "1e8f24af4eb3c42145af39cbe5b36f12fb96f1558a74cec2edbb54efe12ad723"
+  },
+  {
+    "url": "https://api.github.com/search/issues?q=repo%3AxLLM-AI%2Fxllm+T5+in%3Atitle%2Cbody",
+    "file": "xllm_t5_issues.json",
+    "sha256": "a6f2aad391e77db7c48f1463bffb9edb04dbaf9f0f07caa6ed992b569d8f7a9b"
+  }
+]
