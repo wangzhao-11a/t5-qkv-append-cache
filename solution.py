@@ -22,28 +22,29 @@ def _arguments(inputs, attributes):
         raise ValueError("inputs must be a tuple/list of exactly three tensors")
     if not isinstance(attributes, dict):
         raise TypeError("attributes must be a dictionary")
-    if attributes.keys() - {"headNum", "headDim"}:
-        raise ValueError("unknown attributes")
-    values = []
-    for name, upper in (("headNum", 128), ("headDim", 256)):
-        if name not in attributes:
-            values.append(-2)  # Internal inference sentinel; never accepted from caller.
+    h = d = -2  # Internal inference sentinel; never accepted from caller.
+    for name, value in attributes.items():
+        if name == "headNum":
+            if type(value) is not int or not 1 <= value <= 128:
+                raise ValueError("headNum must be an integer in [1, 128]")
+            h = value
+        elif name == "headDim":
+            if type(value) is not int or not 1 <= value <= 256:
+                raise ValueError("headDim must be an integer in [1, 256]")
+            d = value
         else:
-            value = attributes[name]
-            if type(value) is not int or not 1 <= value <= upper:
-                raise ValueError(f"{name} must be an integer in [1, {upper}]")
-            values.append(value)
-    return values
+            raise ValueError("unknown attributes")
+    return h, d
 
 
 def run(inputs, attributes):
     h, d = _arguments(inputs, attributes)
-    return tuple(_extension().execute(inputs, h, d, False))
+    return _extension().execute(inputs, h, d, False)
 
 
 def run_direct(inputs, attributes):
     h, d = _arguments(inputs, attributes)
-    return tuple(_extension().execute(inputs, h, d, True))
+    return _extension().execute(inputs, h, d, True)
 
 
 class Prepared:

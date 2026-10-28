@@ -45,12 +45,19 @@ class T5Copy {
                              AscendC::GlobalTensor<uint16_t>& dst, uint32_t dstOffset, uint32_t n) {
     if (!n) return;
     auto local = queue_.AllocTensor<uint16_t>();
+    // The plain DMA path requires a complete 32-byte block count. Inspect the
+    // actual GM addresses too: contiguous storage-offset views may be unaligned.
+    const bool aligned = ((n & 15) == 0) &&
+        ((reinterpret_cast<uint64_t>(src.GetPhyAddr() + srcOffset) & 31) == 0) &&
+        ((reinterpret_cast<uint64_t>(dst.GetPhyAddr() + dstOffset) & 31) == 0);
     AscendC::DataCopyExtParams params{1, n * uint32_t(sizeof(uint16_t)), 0, 0, 0};
     AscendC::DataCopyPadExtParams<uint16_t> padding{false, 0, 0, 0};
-    AscendC::DataCopyPad(local, src[srcOffset], params, padding);
+    if (aligned) AscendC::DataCopy(local, src[srcOffset], n);
+    else AscendC::DataCopyPad(local, src[srcOffset], params, padding);
     queue_.EnQue(local);
     local = queue_.DeQue<uint16_t>();
-    AscendC::DataCopyPad(dst[dstOffset], local, params);
+    if (aligned) AscendC::DataCopy(dst[dstOffset], local, n);
+    else AscendC::DataCopyPad(dst[dstOffset], local, params);
     queue_.FreeTensor(local);
   }
 

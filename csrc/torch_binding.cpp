@@ -8,6 +8,7 @@
 #include "../common/t5_plan.h"
 #include <array>
 #include <memory>
+#include <tuple>
 
 extern "C" void t5LaunchDirect(void*, void*, void*, void*, void*, void*, void*,
                                uint32_t, uint32_t, uint32_t, uint32_t);
@@ -51,7 +52,8 @@ Descriptor Describe(const at::Tensor& x) {
   return Descriptor(p);
 }
 
-Tensors Execute(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim, bool direct) {
+std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
+    const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim, bool direct) {
   const auto shape = Validate(xs, headNum, headDim);
   const auto [b, h, l, d] = shape;
   c10::DeviceGuard deviceGuard(xs[0].device());
@@ -86,7 +88,7 @@ Tensors Execute(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t head
     return 0;
   };
   call();
-  return out;
+  return {std::move(out[0]), std::move(out[1]), std::move(out[2])};
 }
 }
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
