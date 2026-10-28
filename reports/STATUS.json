@@ -2,16 +2,51 @@
   "overall_status": "in_progress_not_accepted",
   "public_reference_files_unchanged": true,
   "original_manifest_valid": false,
-  "cpu_address_model": {"status": "passed", "public_shapes": 35, "random_shapes": 120},
-  "python_attribute_checks": {"status": "passed", "invalid_attributes_rejected": 14},
-  "aclnn_kernel_build": {"status": "passed", "source_commit": "2c8640a3256cc169f534f510cd7a1efb6e73b0f4"},
-  "private_run_package_install": {"status": "passed", "path": "/root/.local/t5_qkv_2c8640a3256c"},
-  "direct_build": {"status": "pending", "verified_fix": "SOC_VERSION=Ascend910_9382"},
-  "torch_binding_build": {"status": "pending"},
-  "npu_accuracy": {"status": "not_executed"},
-  "npu_engineering": {"status": "not_executed"},
-  "npu_memory": {"status": "not_executed"},
-  "npu_performance": {"status": "not_executed"},
+  "cpu_address_model": {
+    "status": "passed",
+    "public_shapes": 35,
+    "random_shapes": 120
+  },
+  "python_attribute_checks": {
+    "status": "passed",
+    "invalid_attributes_rejected": 14
+  },
+  "aclnn_kernel_build": {
+    "status": "passed",
+    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+  },
+  "private_run_package_install": {
+    "status": "passed",
+    "path": "/root/.local/t5_qkv_b2b0cca57a18"
+  },
+  "direct_build": {
+    "status": "passed",
+    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+  },
+  "torch_binding_build": {
+    "status": "passed",
+    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+  },
+  "npu_accuracy": {
+    "status": "passed",
+    "valid_entry_records": 94,
+    "negative_records": 84,
+    "verifier_counterexamples": 3
+  },
+  "npu_engineering": {
+    "status": "passed",
+    "records": 13
+  },
+  "npu_memory": {
+    "status": "passed",
+    "records": 20,
+    "reclaims_per_record": 20
+  },
+  "npu_performance": {
+    "status": "failed",
+    "fixed_limit_passed": 0,
+    "fixed_limit_total": 10
+  },
   "environment": {
     "container": "86d7c3021b9e",
     "soc": "Ascend910_9382",
@@ -28,8 +63,19 @@
     "ml_dtypes": "0.6.0",
     "selected_physical_device": 1,
     "logical_device": 0,
-    "image_identity": "unknown_inside_container"
+    "image_identity": "unknown_inside_container",
+    "driver_difference_accepted_by_user": true,
+    "numpy_actual": "2.2.6"
   },
-  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_2c8640a3256c",
-  "access_note": "Original connection retained; new jump session rejected by platform. Waiting for dependency command or refreshed connection credentials."
+  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_b2b0cca57a18",
+  "access_note": "Gateway revoked persistent session. Fresh credential requested; inspect remote state before resubmission.",
+  "report_source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923",
+  "candidate": {
+    "source_commit": "916c7d793f9eed978cdbebb4e028c63282a051b7",
+    "build_exit": 0,
+    "smoke_exit": 0,
+    "correctness_phase_exit": 0,
+    "full_logs_downloaded": false,
+    "performance_dispatch": "unconfirmed"
+  }
 }

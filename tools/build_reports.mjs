@@ -13,6 +13,8 @@ const eng=await maybe('reports/engineering.json');
 const mem=await maybe('reports/memory.json');
 const perf=await maybe('reports/performance.json');
 const base=await maybe('reports/baseline_comparison.json');
+const status=await maybe('reports/STATUS.json');
+const sourceLabel=status?.report_source_commit?` 数据对应提交 ${status.report_source_commit.slice(0,12)}。`:'';
 const out=path.join(root,'task_submission');await fs.mkdir(out,{recursive:true});
 await fs.mkdir(path.join(root,'reports/previews'),{recursive:true});
 const state=x=>x?.status==='passed'?'通过':x?.status==='failed'?'失败':'待实机验证';
@@ -23,7 +25,9 @@ function makeSheet(wb,name,title,summary,headers,rows,widths){
   const s=wb.worksheets.add(name); const n=headers.length;const last=String.fromCharCode(64+n);
   s.getRange(`A1:${last}${rows.length+5}`).format.font={name:'Arial',size:10};
   s.getRange('A1').values=[[title]];s.getRange('A1').format.font={name:'Arial',size:15,bold:true};
-  s.getRange('A2').values=[[summary]];s.getRange('A2').format.font={name:'Arial',size:10,color:'#9A3412'};
+  s.getRange('A2').values=[[summary+sourceLabel]];s.getRange('A2').format.font={name:'Arial',size:10,color:'#9A3412'};
+  s.getRange('A3').values=[['确认采用当前环境验收：Ascend910_9382，CANN 9.1.0，驱动 26.1.1；任务书指定驱动为 25.5.t6.b001。']];
+  s.getRange('A3').format.font={name:'Arial',size:10,color:'#9A3412'};
   s.getRangeByIndexes(3,0,1,n).values=[headers];
   s.getRangeByIndexes(3,0,1,n).format={fill:'#263D59',font:{name:'Arial',size:10,bold:true,color:'#FFFFFF'},wrapText:true,rowHeight:34,verticalAlignment:'center'};
   if(rows.length)s.getRangeByIndexes(4,0,rows.length,n).values=rows;
@@ -32,6 +36,8 @@ function makeSheet(wb,name,title,summary,headers,rows,widths){
   for(let i=0;i<n;i++)s.getRangeByIndexes(0,i,rows.length+5,1).format.columnWidthPx=widths[i]??130;
   s.freezePanes.freezeRows(4);
   s.getRange(`C5:C${rows.length+4}`).conditionalFormats.add('containsText',{text:'待实机',format:{fill:'#FFF3CD',font:{color:'#8A4B0F'}}});
+  s.getRange(`C5:C${rows.length+4}`).conditionalFormats.add('containsText',{text:'失败',format:{fill:'#FEE2E2',font:{color:'#991B1B'}}});
+  s.getRange(`C5:C${rows.length+4}`).conditionalFormats.add('containsText',{text:'通过',format:{fill:'#DCFCE7',font:{color:'#166534'}}});
   s.getRange(`C5:C${rows.length+4}`).dataValidation={rule:{type:'list',values:['通过','失败','待实机验证']}};
   return s;
 }
@@ -69,11 +75,12 @@ await save(aw,'2.1 精度自验证报告.xlsx','accuracy');
 const pw=Workbook.create();const pr=[];
 for(const t of targets.cases){const c=cases.find(x=>x.case_name===t.case_name);const r=perf?.cases?.find(x=>x.case_name===t.case_name)?.results?.custom;
   const b=base?.cases?.find(x=>x.case_name===t.case_name)?.results?.views_concat_q_copy;
-  pr.push([formatShape(c),dtype(c),r?(r.wall_us_median<=t.max_wall_us?'通过':'失败'):'待实机验证','',b?.wall_us_median??null,r?.wall_us_median??null,null,'50 次预热；5 轮 × 200 次',t.case_name,t.max_wall_us,...Array.from({length:5},(_,i)=>r?.wall_us_rounds?.[i]??null)]);
+  const paired=base?.cases?.find(x=>x.case_name===t.case_name)?.results?.custom;
+  pr.push([formatShape(c),dtype(c),r?(r.wall_us_median<=t.max_wall_us?'通过':'失败'):'待实机验证','',b?.wall_us_median??null,r?.wall_us_median??null,null,'50 次预热；5 轮 × 200 次。比值=P/E。',t.case_name,t.max_wall_us,...Array.from({length:5},(_,i)=>r?.wall_us_rounds?.[i]??null),paired?.wall_us_median??null]);
 }
-const ps=makeSheet(pw,'性能','T5 QKV 拆分与缓存追加：性能','正式判定按原包固定微秒上限；同机实测比值另存。未实测的耗时留空。',
-  ['shape (B,H,L,D)','dtype','性能是否通过','Ascend 截图','标杆算子耗时 (μs)','Ascend C 耗时 (μs)','耗时比','解释说明','用例 ID','固定上限 (μs)','第 1 轮 (μs)','第 2 轮 (μs)','第 3 轮 (μs)','第 4 轮 (μs)','第 5 轮 (μs)'],pr,[190,105,120,160,150,150,90,230,540,130,130,130,130,130,130]);
-for(let i=0;i<pr.length;i++){const row=i+5;ps.getRange(`G${row}`).formulas=[[`=IF(COUNT(E${row}:F${row})=2,F${row}/E${row},"")`]];}
+const ps=makeSheet(pw,'性能','T5 QKV 拆分与缓存追加：性能',`固定微秒上限通过 ${pr.filter(x=>x[2]==='通过').length}/10；失败 ${pr.filter(x=>x[2]==='失败').length}/10。同机耗时比不替代固定门槛。`,
+  ['shape (B,H,L,D)','dtype','性能是否通过','Ascend 截图','标杆算子耗时 (μs)','正式入口耗时 (μs)','同轮耗时比','解释说明','用例 ID','固定上限 (μs)','第 1 轮 (μs)','第 2 轮 (μs)','第 3 轮 (μs)','第 4 轮 (μs)','第 5 轮 (μs)','同机对照自定义 (μs)'],pr,[190,105,120,160,150,150,105,310,540,130,130,130,130,130,130,180]);
+for(let i=0;i<pr.length;i++){const row=i+5;ps.getRange(`G${row}`).formulas=[[`=IF(COUNT(E${row},P${row})=2,P${row}/E${row},"")`]];}
 ps.getRange(`E5:G${pr.length+4}`).setNumberFormat('0.000');
 await save(pw,'3.1 性能自验证报告.xlsx','performance');
 

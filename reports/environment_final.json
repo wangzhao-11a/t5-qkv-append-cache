@@ -1,0 +1,61 @@
+{
+  "reference_unchanged": true,
+  "script_encoding": "UTF-8 no BOM, LF",
+  "original_manifest_valid": false,
+  "inventory": {
+    "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+    "machine": "aarch64",
+    "python": "3.12.13",
+    "executable": "/workspace/vasc031_a3/bin/python",
+    "environment": {
+      "ASCEND_HOME_PATH": "/usr/local/Ascend/cann-9.1.0",
+      "ASCEND_RT_VISIBLE_DEVICES": "1",
+      "ASCEND_CUSTOM_OPP_PATH": "/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer:/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer/op_api/lib:/root/.local/t5_qkv_b2b0cca57a18/vendors/t5qkv",
+      "T5_OPP_ROOT": "/root/.local/t5_qkv_b2b0cca57a18"
+    },
+    "commands": [
+      {
+        "command": [
+          "npu-smi",
+          "info"
+        ],
+        "exit_code": 0,
+        "stdout": "+------------------------------------------------------------------------------------------------------------------+\n| npu-smi 26.1.1                              Version: 26.1.1                                                      |\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU   Name                | Health        | Power(W)             Temp(C)                 Hugepages-Usage(page)   |\n| Chip  Phy-ID              | Bus-Id        | AICore(%)            Memory-Usage(MB)        HBM-Usage(MB)           |\n+===========================+===============+======================================================================+\n| 0     Ascend910           | OK            | 162.8                48                      0    / 0                |\n| 0     0                   | 0000:9D:00.0  | 0                    0    / 0                3144 / 65536            |\n+------------------------------------------------------------------------------------------------------------------+\n| 0     Ascend910           | OK            | -                    47                      0    / 0                |\n| 1     1                   | 0000:9F:00.0  | 0                    0    / 0                2876 / 65536            |\n+===========================+===============+======================================================================+\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |\n+===========================+===============+======================================================================+\n| No running processes found in NPU 0                                                                              |\n+===========================+===============+======================================================================+\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ss",
+          "-lntp"
+        ],
+        "error": "[Errno 2] No such file or directory: 'ss'"
+      },
+      {
+        "command": [
+          "ps",
+          "-eo",
+          "pid,ppid,comm,args"
+        ],
+        "exit_code": 0,
+        "stdout": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            /bin/bash -c while true; do sleep 3600; done\n    161       1 sshd            sshd: /usr/sbin/sshd -e [listener] 0 of 10-60 startups\n    200       0 node            /root/codeserver/lib/node /root/codeserver --bind-addr 0.0.0.0:6988 --auth=none /workspace\n    247     200 node            /root/codeserver/lib/node /root/codeserver/out/node/entry\n    333       1 su              su - root -c /opt/clabagent/bin/start.sh -c /opt/clabagent/config/clabagent.yml\n    334     333 python3         python3 main/agent.py -c /opt/clabagent/config/clabagent.yml\n    643     334 vector          /opt/clabagent/plugins/vector/bin/vector -c /opt/clabagent/plugins/vector_blue_metric/runtime/vector_blue_metric.yml --watch-config\n    692     334 node_exporter   /opt/clabagent/plugins/node_exporter/bin/node_exporter --web.listen-address=127.0.0.1:9500\n2743909       1 sleep           sleep 3600\n2772518     161 sshd            sshd: root [priv]\n2772533 2772518 sshd            sshd: root@notty\n2772534 2772533 sftp-server     /usr/libexec/openssh/sftp-server\n2778567 2772533 bash            bash /tmp/t5_collect_b2b0cca.sh\n2778855 2778567 python          python tools/preflight.py --output reports/environment_final.json\n2778868     334 npu-smi         /usr/local/bin/npu-smi info -l\n2778880 2778855 ps              ps -eo pid,ppid,comm,args\n",
+        "stderr": ""
+      }
+    ],
+    "versions": {
+      "torch": "2.10.0+cpu",
+      "torch_npu": "2.10.0.post4",
+      "numpy": "2.2.6",
+      "ml_dtypes": "0.6.0"
+    },
+    "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+    "listening_tcp_ports": [
+      22,
+      6988,
+      9500,
+      9508,
+      36239
+    ],
+    "/etc/os-release": "NAME=\"openEuler\"\nVERSION=\"24.03 (LTS-SP3)\"\nID=\"openEuler\"\nVERSION_ID=\"24.03\"\nPRETTY_NAME=\"openEuler 24.03 (LTS-SP3)\"\nANSI_COLOR=\"0;31\"\n\n",
+    "/usr/local/Ascend/driver/version.info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n"
+  }
+}

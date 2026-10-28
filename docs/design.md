@@ -8,11 +8,11 @@
 
 ## 分核与缓冲
 
-各输出独立切分为 16384 元素（32 KiB）的连续 tile。工作编号顺序为 Q、K、V；最多 48 个 AIV 按 `blockIdx + n×blockNum` 领取 tile。所有 tile 起点均为 32 字节对齐；一个非对齐行跨 tile 时，两个核仍写入不同的对齐区间。每个 tile 内根据 batch/历史行/追加 token 边界分割 DMA 片段。
+各输出独立切分为 32768 元素（64 KiB）的连续 tile。工作编号顺序为 Q、K、V；最多 48 个 AIV 按 `blockIdx + n×blockNum` 领取 tile。所有 tile 起点均为 32 字节对齐；一个非对齐行跨 tile 时，两个核仍写入不同的对齐区间。每个 tile 内根据 batch/历史行/追加 token 边界分割 DMA 片段。
 
-使用 `TQueBind<VECIN,VECOUT,2>` 管理两份 32 KiB UB 缓冲，通过 DataCopyPad 搬运合法片段；不补读输入末尾，也不将 padding 写出。总片上队列缓冲 65536 字节，每核还使用少量标量状态。明确指定 `KERNEL_TYPE_AIV_ONLY`。
+使用 `TQueBind<VECIN,VECOUT,2>` 管理两份 64 KiB UB 缓冲。实际源/目的地址与片段长度均满足 32 字节对齐时使用 DataCopy；否则使用 DataCopyPad 搬运合法片段。判断包含真实 GM 基地址，不能仅凭逻辑索引推断偏移视图的对齐。两条路径均不补读输入末尾，也不将 padding 写出。总片上队列缓冲 131072 字节，每核还使用少量标量状态。明确指定 `KERNEL_TYPE_AIV_ONLY`。
 
-大缓存由所有 AIV 共同搬运；小输入减少到实际 tile 数个核。当前 tile 大小属于初始实现参数，性能必须在目标机验证，不能依据带宽模型宣布达标。对于 D=1 等小行，片段数可能较多，但这些边界仍必须先保证正确性。
+大缓存由所有 AIV 共同搬运；小输入减少到实际 tile 数个核。单个输出缓存达到 32 MiB 时，为只写的 K/V 输出设置官方 `CACHE_MODE_DISABLE`，历史输入仍使用默认 L2 策略。官方 msprof 在 `c5f6658` 上显示大输入 MTE2/MTE3 占比较高；`b2b0cca` 的输出绕过 L2 修改将正式大输入时延从约 228–232 微秒降至约 94–95 微秒，但这仍未满足 75/77 微秒固定门槛。性能结论以对应版本实测为准，不能依据带宽模型宣布达标。对于 D=1 等小行，片段数可能较多，但这些边界仍必须先保证正确性。
 
 ## 校验与资源
 
@@ -24,7 +24,9 @@ Host 用 int64/uint64 计算尺寸乘积，先检查 B/H/L/D 范围，再检查 
 
 ## stream 与生命周期
 
-调用时获取输入设备的当前 NPU stream。通过 torch_npu 的 OpCommand::RunOpApi 进入框架任务队列。提交回调捕获输入与输出张量句柄，使其至少存活到实际 launch；回调中对输入和输出 recordStream，使跨 stream 提前释放后的存储回收受设备事件约束。两个入口共用该策略。普通运行不进行设备同步。
+调用时获取输入设备的当前 NPU stream，再调用官方 `NPUStream::stream()` 排空先前的主机提交队列，使当前 stream 上的调用顺序与先前 PyTorch 操作一致。它不等待设备计算完成。随后直接在调用线程完成 ACLNN 两阶段提交或 kernel launch，省去额外主机回调及其张量捕获；设备执行仍为异步。提交前仅对输入 recordStream，保护跨 stream 输入提前释放场景。输出在当前 stream 分配，依靠同 stream 的分配/执行顺序安全复用，不添加多余回收事件。两个入口共用该策略。
+
+torch_npu 5dd8ef3 的 recordStream 不跳过分配 stream，早期版本对输出登记后产生延迟回收。旧失败日志与完整精度基线保存在 `artifacts/preserved_5ae7160.tar.gz`，修正必须通过原有严格峰值及 20 次释放检查，不能放宽验收值。`6245532` 和 `c5f6658` 两版已有全部精度、生命周期和内存通过记录。
 
 prepare 保存 shape/dtype/device/属性，不保存张量或 stream；每次调用重新验证并分配。旧元数据不匹配必须报错。
 
@@ -43,6 +45,7 @@ CPU 地址模型遍历全部 tile/片段的覆盖和界限，并以独立坐标�
 - [Ascend 官方 samples 固定版本](https://github.com/Ascend/samples/tree/fc2aea93e48be8f8cee51d0c6c1b13a08155f83a/cplusplus/level1_single_api/4_op_dev/6_ascendc_custom_op)
 - [torch_npu 2.10 OpCommand](https://github.com/Ascend/pytorch/blob/v2.10.0/torch_npu/csrc/framework/OpCommand.cpp)
 - [torch_npu 2.10 分配器 recordStream](https://github.com/Ascend/pytorch/blob/v2.10.0/torch_npu/csrc/core/npu/NPUCachingAllocator.h)
+- [本次运行版本的分配器实现](https://github.com/Ascend/pytorch/blob/5dd8ef3f9b375b5ae4a83538d5785754148c3302/torch_npu/csrc/core/npu/NPUCachingAllocator.cpp)
 - [官方纯搬运 TQueBind 说明](https://github.com/Ascend/agent-skills/blob/master/skills/ascendc-operator-performance-optim/references/api-usage-prof.md)
 - [CANN Kernel 类型](https://www.hiascend.com/doc_center/source/en/CANNCommunityEdition/900/API/ascendcopapi/atlasascendc_api_07_0218.html)
 

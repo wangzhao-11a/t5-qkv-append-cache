@@ -69,7 +69,11 @@ def main():
                 sftp.put(item['put'],item['remote'])
                 print(json.dumps({'uploaded':item['remote'],'sha256':hashlib.sha256(Path(item['put']).read_bytes()).hexdigest()}),flush=True)
             elif 'get' in item:
-                sftp.get(item['get'],item['local']);print(json.dumps({'downloaded':item['local']}),flush=True)
+                destination=Path(item['local'])
+                partial=destination.with_name(destination.name+'.part')
+                sftp.get(item['get'],str(partial))
+                partial.replace(destination)
+                print(json.dumps({'downloaded':str(destination),'sha256':hashlib.sha256(destination.read_bytes()).hexdigest()}),flush=True)
             elif 'command' in item:run(item['command'])
             else:raise ValueError('unknown request')
         except Exception as exc:print(json.dumps({'error':f'{type(exc).__name__}: {exc}'}),flush=True)

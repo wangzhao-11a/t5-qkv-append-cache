@@ -1,0 +1,29 @@
+[
+  {
+    "input_shapes": "\"4,1,1536;4,8;4,8\"",
+    "count": 20,
+    "Task Duration(us)": 4.8,
+    "aiv_time(us)": 3.475,
+    "aiv_scalar_ratio": 0.555,
+    "aiv_mte2_ratio": 0.192,
+    "aiv_mte3_ratio": 0.12
+  },
+  {
+    "input_shapes": "\"8,1,2304;8,12,512,64;8,12,512,64\"",
+    "count": 20,
+    "Task Duration(us)": 11.14,
+    "aiv_time(us)": 8.422,
+    "aiv_scalar_ratio": 0.336,
+    "aiv_mte2_ratio": 0.441,
+    "aiv_mte3_ratio": 0.47
+  },
+  {
+    "input_shapes": "\"16,1,3072;16,16,2048,64;16,16,2048,64\"",
+    "count": 20,
+    "Task Duration(us)": 230.185,
+    "aiv_time(us)": 217.246,
+    "aiv_scalar_ratio": 0.046,
+    "aiv_mte2_ratio": 0.735,
+    "aiv_mte3_ratio": 0.686
+  }
+]

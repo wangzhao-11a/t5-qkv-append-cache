@@ -8,7 +8,7 @@ python3 tools/preflight.py --output reports/environment_before.json
 : "${ASCEND_RT_VISIBLE_DEVICES:?Set the assigned single logical device visibility}"
 : "${T5_DEVICE_CONFIRMED:?Review ports, worker processes and device occupancy; set T5_DEVICE_CONFIRMED=1 only for your assigned free device}"
 [[ "$T5_DEVICE_CONFIRMED" == 1 ]] || exit 2
-python3 tools/check_environment.py --input reports/environment_before.json
+python3 tools/check_environment.py --input reports/environment_before.json --accepted-driver "${T5_ACCEPTED_DRIVER:-25.5.t6.b001}"
 for file in scripts/*.sh; do bash -n "$file"; done
 if [[ -e reports/public_accuracy.json ]]; then
   echo 'Existing device reports detected; preserve this baseline and use a new checkout for a discriminating rerun.' >&2

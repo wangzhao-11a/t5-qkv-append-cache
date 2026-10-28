@@ -10,6 +10,7 @@ CMakeLists.txt text eol=lf
 *.md text eol=lf
 *.json text eol=lf
 *.mjs text eol=lf
+*.log -text
 *.xlsx binary
 *.zip binary
 reference/* -text

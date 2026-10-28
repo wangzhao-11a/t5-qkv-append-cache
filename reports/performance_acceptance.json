@@ -1,0 +1,6 @@
+{
+  "scope": "performance_only",
+  "status": "failed",
+  "checks": [],
+  "error": "report.status must be 'passed' before checking performance evidence"
+}
