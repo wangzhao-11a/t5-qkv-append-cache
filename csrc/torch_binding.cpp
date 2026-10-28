@@ -60,13 +60,16 @@ Tensors Execute(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t head
   Tensors out{at::empty({b,h,1,d}, options), at::empty({b,h,l+1,d}, options), at::empty({b,h,l+1,d}, options)};
   auto stream = c10_npu::getCurrentNPUStream(xs[0].device().index());
   const aclrtStream rawStream = stream.stream(false);
-  // Captured tensor handles survive the host task queue. recordStream inside
-  // the handler protects cross-stream allocations until device completion.
-  auto call = [xs, out, shape, stream, rawStream, direct]() -> int {
+  // Keep inputs/outputs alive until the host queue submits the kernel. Move
+  // handles out on execution so a recycled task slot cannot retain tensors.
+  // Inputs may belong to another stream and need recordStream protection.
+  // Outputs were allocated on this very stream: recording them adds needless
+  // lazy allocator events and prevents immediate active-byte reclamation.
+  auto call = [inputs = xs, outputs = out, shape, stream, rawStream, direct]() mutable -> int {
+    auto xs = std::move(inputs);
+    auto out = std::move(outputs);
     for (const auto& x : xs)
       if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
-    for (const auto& x : out)
-      c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
     if (direct) {
       t5LaunchDirect(rawStream, xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
                      out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(),
