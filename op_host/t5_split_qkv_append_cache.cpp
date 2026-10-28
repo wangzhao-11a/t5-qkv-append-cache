@@ -39,6 +39,9 @@ static ge::graphStatus Tiling(gert::TilingContext* ctx) {
         s.GetDim(2) != (i == 0 ? 1 : l + 1) || s.GetDim(3) != *d) return ge::GRAPH_FAILED;
   }
   auto platform = platform_ascendc::PlatformAscendC(ctx->GetPlatformInfo());
+  uint64_t ubBytes = 0;
+  platform.GetCoreMemSize(platform_ascendc::CoreMemType::UB, ubBytes);
+  if (ubBytes < 2 * t5qkv::kTileElements * sizeof(uint16_t)) return ge::GRAPH_FAILED;
   uint32_t cores = platform.GetCoreNumAiv();
   if (!cores) return ge::GRAPH_FAILED;
   if (cores > t5qkv::kMaxVectorCores) cores = t5qkv::kMaxVectorCores;

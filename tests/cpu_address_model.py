@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import random
+import re
 import sys
 import time
 import numpy as np
@@ -11,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "reference"))
 import golden
 
-TILE = 16384
+TILE = int(re.search(r'kTileElements = (\d+)', (ROOT/'common/t5_plan.h').read_text()).group(1))
 
 def fragments(b, h, l, d, output):
     hd = h*d; qsize = b*hd; size = qsize if output == 0 else qsize*(l+1)
@@ -19,9 +20,9 @@ def fragments(b, h, l, d, output):
     for start in range(0, size, TILE):
         end = min(start+TILE, size); pos = start
         while pos < end:
-            if output == 0:
+            if output == 0 or l == 0:
                 batch, within = divmod(pos, hd)
-                n = min(end-pos, hd-within); source = 0; src = batch*3*hd+within
+                n = min(end-pos, hd-within); source = 0; src = batch*3*hd+output*hd+within
             else:
                 head, within = divmod(pos, row)
                 if within < old:
@@ -47,6 +48,7 @@ def check(shape, *, bitwise=False):
     b,h,l,d=shape
     input_sizes=[b*3*h*d,b*h*l*d,b*h*l*d]
     output_sizes=[b*h*d,b*h*(l+1)*d,b*h*(l+1)*d]
+    assert max(input_sizes+output_sizes) < 2**32
     count=0; outputs=[]
     if bitwise:
         inputs=[(np.arange(n,dtype=np.uint32)*997+i*7919).astype(np.uint16) for i,n in enumerate(input_sizes)]
