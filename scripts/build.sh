@@ -32,6 +32,7 @@ cmake -S "$TASK_ROOT/direct" -B "$TASK_ROOT/build/direct" \
   -DASCEND_CANN_PACKAGE_PATH="$ASCEND_HOME_PATH" -DASCEND_COMPUTE_UNIT=ascend910_93
 cmake --build "$TASK_ROOT/build/direct" -j "${T5_BUILD_JOBS:-8}"
 ( cd "$TASK_ROOT"; python3 setup.py build_ext --inplace )
+( cd "$TASK_ROOT"; python3 -c 'import torch, torch_npu, _t5_qkv; print("extension import passed")' )
 cmake -S "$TASK_ROOT/examples" -B "$TASK_ROOT/build/examples" \
   -DCANN_ROOT="$ASCEND_HOME_PATH" -DT5_OPP_ROOT="$T5_OPP_ROOT"
 cmake --build "$TASK_ROOT/build/examples" -j "${T5_BUILD_JOBS:-8}"

@@ -1,5 +1,6 @@
 """Static gate or read-only target inventory. Does not start a service/kernel."""
 import argparse
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -46,7 +47,21 @@ def inventory():
             data["versions"][name] = version(name)
         except Exception as exc:
             data["versions"][name] = {"unavailable": str(exc)}
-    for path in (Path("/etc/os-release"), Path("/usr/local/Ascend/driver/version.info")):
+    # Package metadata omits the git suffix; read the shipped version source
+    # without creating an NPU context merely to inventory the installation.
+    try:
+        from importlib.metadata import distribution
+        source = Path(distribution("torch_npu").locate_file("torch_npu/version.py"))
+        for node in ast.parse(source.read_text(encoding="utf-8")).body:
+            if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "git_version" for t in node.targets):
+                data["torch_npu_git_version"] = ast.literal_eval(node.value)
+    except Exception as exc:
+        data["torch_npu_git_version"] = {"unavailable": str(exc)}
+    data["listening_tcp_ports"] = sorted({int(line.split()[1].split(":")[1], 16)
+        for filename in ("/proc/net/tcp", "/proc/net/tcp6") if Path(filename).exists()
+        for line in Path(filename).read_text().splitlines()[1:] if line.split()[3] == "0A"})
+    for path in (Path("/etc/os-release"), Path("/usr/local/Ascend/driver/version.info"),
+                 Path(os.environ.get("ASCEND_HOME_PATH", "/nonexistent")) / "version.info"):
         if path.is_file(): data[str(path)] = path.read_text(encoding="utf-8", errors="replace")
     return data
 

@@ -3,7 +3,7 @@
 #include "torch_npu/csrc/core/npu/NPUStream.h"
 #include "torch_npu/csrc/core/npu/NPUCachingAllocator.h"
 #include "torch_npu/csrc/framework/OpCommand.h"
-#include "torch_npu/csrc/core/NPUBridge.h"
+#include "torch_npu/csrc/aten/CustomFunctions.h"
 #include "acl/acl.h"
 #include "aclnn_t5_split_qkv_append_cache.h"
 #include "../common/t5_plan.h"
@@ -24,7 +24,7 @@ Shape Validate(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headD
     TORCH_CHECK(x.device() == q.device(), "all inputs must use the same device");
     TORCH_CHECK(x.scalar_type() == q.scalar_type(), "input dtype mismatch");
     TORCH_CHECK(x.layout() == c10::kStrided && x.is_contiguous(), "contiguous ND input required");
-    const auto format = torch_npu::NPUBridge::GetNpuStorageImpl(x)->npu_desc_.npu_format_;
+    const auto format = at_npu::native::custom_ops::get_npu_format(x);
     // Base NCHW/NCDHW descriptors have the same contiguous physical bytes.
     // Reject padded/blocked internal formats instead of pretending they are ND.
     TORCH_CHECK(format == ACL_FORMAT_ND || format == ACL_FORMAT_NCHW || format == ACL_FORMAT_NCDHW,

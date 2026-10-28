@@ -19,6 +19,7 @@ cmake -S direct -B build/direct -DASCEND_CANN_PACKAGE_PATH="$ASCEND_HOME_PATH" \
   -DASCEND_COMPUTE_UNIT=ascend910_93 -DSOC_VERSION=Ascend910_9382 -DCMAKE_BUILD_TYPE=Release
 cmake --build build/direct -j "${T5_BUILD_JOBS:-4}"
 MAX_JOBS=4 python setup.py build_ext --inplace
+python -c 'import torch, torch_npu, _t5_qkv; print("extension import passed")'
 cmake -S examples -B build/examples -DCANN_ROOT="$ASCEND_HOME_PATH" -DT5_OPP_ROOT="$T5_OPP_ROOT"
 cmake --build build/examples -j 4
 python tools/fingerprint.py --output artifacts/build_manifest.json
