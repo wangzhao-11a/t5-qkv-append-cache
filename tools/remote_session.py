@@ -27,15 +27,24 @@ def main():
     client.connect('199.103.54.86',username='root',password=target_password,sock=channel,
                    allow_agent=False,look_for_keys=False,timeout=25,banner_timeout=25,auth_timeout=25)
     del jump_user,target_password
+    transport.set_keepalive(20)
+    client.get_transport().set_keepalive(20)
     key=client.get_transport().get_remote_server_key()
     print(json.dumps({'connected':True,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
     sftp=client.open_sftp()
     def run(command):
         _,stdout,stderr=client.exec_command(command,timeout=120)
         channel=stdout.channel
+        started=time.monotonic()
         while not channel.exit_status_ready() or channel.recv_ready() or channel.recv_stderr_ready():
             if channel.recv_ready():print(channel.recv(65536).decode('utf-8',errors='replace'),end='',flush=True)
             if channel.recv_stderr_ready():print(channel.recv_stderr(65536).decode('utf-8',errors='replace'),end='',flush=True)
+            if time.monotonic()-started>180:
+                # Keep the authenticated transport alive. Closing this command
+                # channel does NOT assert that its remote child was terminated.
+                channel.close()
+                print(json.dumps({'command_timeout_seconds':180,'remote_process_state':'must inspect before retry'}),flush=True)
+                return
             time.sleep(.05)
         print(json.dumps({'exit_code':channel.recv_exit_status()}),flush=True)
     for line in sys.stdin:
@@ -50,7 +59,12 @@ def main():
                 remote=item['remote']
                 with sftp.file(remote,'wb') as handle:handle.write(payload)
                 sftp.chmod(remote,0o700)
-                run('bash -n '+shlex.quote(remote)+' && bash '+shlex.quote(remote))
+                if item.get('background'):
+                    logfile=shlex.quote(item['log'])
+                    run('bash -n '+shlex.quote(remote)+' && (nohup bash '+shlex.quote(remote)+
+                        ' > '+logfile+' 2>&1 < /dev/null & echo $!)')
+                else:
+                    run('bash -n '+shlex.quote(remote)+' && bash '+shlex.quote(remote))
             elif 'put' in item:
                 sftp.put(item['put'],item['remote'])
                 print(json.dumps({'uploaded':item['remote'],'sha256':hashlib.sha256(Path(item['put']).read_bytes()).hexdigest()}),flush=True)

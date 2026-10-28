@@ -23,15 +23,11 @@ cp -a "$TASK_ROOT/op_kernel/." "$TASK_ROOT/build/aclnn/op_kernel/"
 cp -a "$TASK_ROOT/common" "$TASK_ROOT/build/aclnn/common"
 python3 "$TASK_ROOT/tools/configure_generated.py" "$TASK_ROOT/build/aclnn"
 ( cd "$TASK_ROOT/build/aclnn"; bash -n build.sh; bash build.sh )
-mapfile -t packages < <(find "$TASK_ROOT/build/aclnn" -name '*.run' -type f)
+mapfile -t packages < <(find "$TASK_ROOT/build/aclnn/build_out" -maxdepth 1 -name '*.run' -type f)
 if [[ ${#packages[@]} -ne 1 ]]; then echo 'Expected one .run package' >&2; exit 2; fi
 cp -- "${packages[0]}" "$TASK_ROOT/artifacts/"
 bash "${packages[0]}" --quiet --install-path="$T5_OPP_ROOT"
-mapfile -t vendor_roots < <(find "$T5_OPP_ROOT" -path '*/vendors/*/bin/set_env.bash' -type f)
-if [[ ${#vendor_roots[@]} -ne 1 ]]; then echo 'Expected one private vendor environment script' >&2; exit 2; fi
-set +u
-source "${vendor_roots[0]}"
-set -u
+export ASCEND_CUSTOM_OPP_PATH="$T5_OPP_ROOT/vendors/t5qkv${ASCEND_CUSTOM_OPP_PATH:+:$ASCEND_CUSTOM_OPP_PATH}"
 cmake -S "$TASK_ROOT/direct" -B "$TASK_ROOT/build/direct" \
   -DASCEND_CANN_PACKAGE_PATH="$ASCEND_HOME_PATH" -DASCEND_COMPUTE_UNIT=ascend910_93
 cmake --build "$TASK_ROOT/build/direct" -j "${T5_BUILD_JOBS:-8}"

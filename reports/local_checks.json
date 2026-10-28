@@ -1,0 +1,10 @@
+{
+  "python_syntax": "18 files passed before remote scripts were added",
+  "bash_syntax": [
+    "scripts/build.sh",
+    "scripts/validate.sh"
+  ],
+  "script_bytes": "LF without BOM checked by preflight",
+  "cpu_address_model": "35 public shapes + 120 randomized shapes passed",
+  "npu_executed": false
+}

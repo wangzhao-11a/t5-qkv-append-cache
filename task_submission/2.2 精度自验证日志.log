@@ -1,0 +1,17 @@
+T5 QKV task: original device logs
+Assembled at 2026-10-28T15:16:28.464839+00:00
+
+===== cpp_smoke.log =====
+NOT_EXECUTED_OR_NOT_COLLECTED: no device log available. This is not a passing result.
+
+===== aclnn_invalid_metadata.log =====
+NOT_EXECUTED_OR_NOT_COLLECTED: no device log available. This is not a passing result.
+
+===== public_accuracy.log =====
+NOT_EXECUTED_OR_NOT_COLLECTED: no device log available. This is not a passing result.
+
+===== extended_accuracy.log =====
+NOT_EXECUTED_OR_NOT_COLLECTED: no device log available. This is not a passing result.
+
+===== engineering.log =====
+NOT_EXECUTED_OR_NOT_COLLECTED: no device log available. This is not a passing result.

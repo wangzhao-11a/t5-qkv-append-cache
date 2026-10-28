@@ -1,6 +1,5 @@
 #include "../op_kernel/t5_copy.h"
 #include "../common/t5_plan.h"
-#include "acl/acl.h"
 
 extern "C" __global__ __aicore__ void t5_direct_kernel(
     GM_ADDR qkv, GM_ADDR pk, GM_ADDR pv, GM_ADDR q, GM_ADDR k, GM_ADDR v,
