@@ -17,6 +17,15 @@ TILE = int(re.search(r'kTileElements = (\d+)', (ROOT/'common/t5_plan.h').read_te
 def fragments(b, h, l, d, output):
     hd = h*d; qsize = b*hd; size = qsize if output == 0 else qsize*(l+1)
     row = (l+1)*d; old = l*d
+    if output and size >= 16*1024*1024 and d % 16 == 0 and l > 0:
+        old_tiles = (old+TILE-1)//TILE
+        for head in range(b*h):
+            for part in range(old_tiles):
+                within = part*TILE
+                yield head*(old_tiles+1)+part, head*row+within, min(TILE,old-within), output, head*old+within
+            batch,index_h = divmod(head,h)
+            yield head*(old_tiles+1)+old_tiles, head*row+old, d, 0, batch*3*hd+output*hd+index_h*d
+        return
     for start in range(0, size, TILE):
         end = min(start+TILE, size); pos = start
         while pos < end:
@@ -57,7 +66,11 @@ def check(shape, *, bitwise=False):
         if bitwise: actual=np.empty(size,dtype=np.uint16)
         for tile,pos,n,source,src in fragments(*shape,output):
             assert pos==cursor and n>0 and src>=0 and src+n<=input_sizes[source]
-            assert pos//TILE == tile and (pos+n-1)//TILE==tile
+            if output and size >= 16*1024*1024 and d % 16 == 0 and l > 0:
+                # Every independent row fragment owns complete 32-byte blocks.
+                assert pos % 16 == 0 and n % 16 == 0
+            else:
+                assert pos//TILE == tile and (pos+n-1)//TILE==tile
             for index in {0,n//2,n-1}:
                 assert (source,src+index)==oracle_address(shape,output,pos+index)
             if bitwise: actual[pos:pos+n]=inputs[source][src:src+n]

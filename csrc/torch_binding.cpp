@@ -15,6 +15,31 @@ extern "C" void t5LaunchDirect(void*, void*, void*, void*, void*, void*, void*,
 namespace {
 using Tensors = std::array<at::Tensor, 3>;
 using Shape = std::array<int64_t, 4>;
+struct Arguments {
+  std::vector<at::Tensor> inputs;
+  int64_t heads = -2, dim = -2;
+};
+Arguments ParseArguments(pybind11::handle inputs, pybind11::handle attributes) {
+  if ((!PyTuple_Check(inputs.ptr()) && !PyList_Check(inputs.ptr())) || PySequence_Size(inputs.ptr()) != 3)
+    throw pybind11::value_error("inputs must be a tuple/list of exactly three tensors");
+  if (!PyDict_Check(attributes.ptr())) throw pybind11::type_error("attributes must be a dictionary");
+  Arguments result;
+  Py_ssize_t position = 0;
+  PyObject *key, *value;
+  while (PyDict_Next(attributes.ptr(), &position, &key, &value)) {
+    const bool heads = PyUnicode_Check(key) && PyUnicode_CompareWithASCIIString(key, "headNum") == 0;
+    const bool dim = PyUnicode_Check(key) && PyUnicode_CompareWithASCIIString(key, "headDim") == 0;
+    if (!heads && !dim) throw pybind11::value_error("unknown attributes");
+    // Exact int excludes bool and int subclasses, matching the public contract.
+    if (!PyLong_CheckExact(value)) throw pybind11::value_error("attributes must be integers");
+    const int64_t number = PyLong_AsLongLong(value);
+    if (PyErr_Occurred()) throw pybind11::error_already_set();
+    if (number < 1 || number > (heads ? 128 : 256)) throw pybind11::value_error("attribute out of range");
+    (heads ? result.heads : result.dim) = number;
+  }
+  result.inputs = pybind11::cast<std::vector<at::Tensor>>(inputs);
+  return result;
+}
 Shape Validate(const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim) {
   TORCH_CHECK(xs.size() == 3, "expected qkv, pastKey, pastValue");
   const auto& q = xs[0]; const auto& k = xs[1]; const auto& v = xs[2];
@@ -92,6 +117,14 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
 }
 }
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-  m.def("validate", &Validate, pybind11::call_guard<pybind11::gil_scoped_release>());
-  m.def("execute", &Execute, pybind11::call_guard<pybind11::gil_scoped_release>());
+  m.def("validate", [](pybind11::handle inputs, pybind11::handle attributes) {
+    auto args = ParseArguments(inputs, attributes);
+    pybind11::gil_scoped_release release;
+    return Validate(args.inputs, args.heads, args.dim);
+  });
+  m.def("execute", [](pybind11::handle inputs, pybind11::handle attributes, bool direct) {
+    auto args = ParseArguments(inputs, attributes);
+    pybind11::gil_scoped_release release;
+    return Execute(args.inputs, args.heads, args.dim, direct);
+  });
 }

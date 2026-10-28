@@ -2,8 +2,9 @@
 set -euo pipefail
 TASK_ROOT=/workspace/t5_qkv_tasks/t5_qkv_916c7d793f9e
 cd "$TASK_ROOT"
-trap 'echo "$?" > reports/build_full.exit' EXIT
-exec > reports/build_full.log 2>&1
+mkdir -p artifacts/validation
+trap 'echo "$?" > artifacts/validation/build_full.exit' EXIT
+exec > artifacts/validation/build_full.log 2>&1
 set +u
 source /usr/local/Ascend/cann-9.1.0/set_env.sh
 set -u

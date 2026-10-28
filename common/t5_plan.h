@@ -20,6 +20,10 @@ inline Plan MakePlan(uint32_t b, uint32_t h, uint32_t l, uint32_t d,
   const uint64_t kv = q * (l + 1);
   p.queryTiles = (q + p.tileElements - 1) / p.tileElements;
   p.cacheTiles = (kv + p.tileElements - 1) / p.tileElements;
+  // Aligned large rows can be partitioned independently, avoiding fragments
+  // caused by the appended token shifting every following output tile.
+  if (kv >= 16 * 1024 * 1024 && (d % 16) == 0 && l > 0)
+    p.cacheTiles = b * h * ((l * d + p.tileElements - 1) / p.tileElements + 1);
   p.totalTiles = p.queryTiles + 2 * p.cacheTiles;
   // Small inputs still use one block per useful tile. Tile boundaries are 32B aligned.
   p.blocks = p.totalTiles < cores ? p.totalTiles : cores;

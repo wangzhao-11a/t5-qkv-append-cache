@@ -17,34 +17,12 @@ def _extension():
     return _EXTENSION
 
 
-def _arguments(inputs, attributes):
-    if not isinstance(inputs, (tuple, list)) or len(inputs) != 3:
-        raise ValueError("inputs must be a tuple/list of exactly three tensors")
-    if not isinstance(attributes, dict):
-        raise TypeError("attributes must be a dictionary")
-    h = d = -2  # Internal inference sentinel; never accepted from caller.
-    for name, value in attributes.items():
-        if name == "headNum":
-            if type(value) is not int or not 1 <= value <= 128:
-                raise ValueError("headNum must be an integer in [1, 128]")
-            h = value
-        elif name == "headDim":
-            if type(value) is not int or not 1 <= value <= 256:
-                raise ValueError("headDim must be an integer in [1, 256]")
-            d = value
-        else:
-            raise ValueError("unknown attributes")
-    return h, d
-
-
 def run(inputs, attributes):
-    h, d = _arguments(inputs, attributes)
-    return _extension().execute(inputs, h, d, False)
+    return _extension().execute(inputs, attributes, False)
 
 
 def run_direct(inputs, attributes):
-    h, d = _arguments(inputs, attributes)
-    return _extension().execute(inputs, h, d, True)
+    return _extension().execute(inputs, attributes, True)
 
 
 class Prepared:
@@ -60,8 +38,7 @@ class Prepared:
         self._dtype, self._device = inputs[0].dtype, inputs[0].device
 
     def _check(self, inputs):
-        h, d = _arguments(inputs, self._attributes)
-        shape = _extension().validate(inputs, h, d)
+        shape = _extension().validate(inputs, self._attributes)
         if (tuple(shape) != self._shape or inputs[0].dtype != self._dtype or inputs[0].device != self._device):
             raise ValueError("prepared metadata does not match inputs")
 
@@ -78,6 +55,5 @@ class Prepared:
 
 
 def prepare(inputs, attributes):
-    h, d = _arguments(inputs, attributes)
-    shape = _extension().validate(inputs, h, d)
+    shape = _extension().validate(inputs, attributes)
     return Prepared(inputs, attributes, shape)
