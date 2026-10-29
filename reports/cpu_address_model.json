@@ -84,7 +84,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 37,
+      "fragment_count": 35,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -98,7 +98,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 582,
+      "fragment_count": 520,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -112,7 +112,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 3086,
+      "fragment_count": 2404,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
@@ -126,7 +126,7 @@
         128
       ],
       "status": "passed",
-      "fragment_count": 67,
+      "fragment_count": 47,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -224,7 +224,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 37,
+      "fragment_count": 35,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -238,7 +238,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 582,
+      "fragment_count": 520,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -252,7 +252,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 3086,
+      "fragment_count": 2404,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
@@ -266,7 +266,7 @@
         128
       ],
       "status": "passed",
-      "fragment_count": 67,
+      "fragment_count": 47,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -294,7 +294,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 192,
+      "fragment_count": 255,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -308,7 +308,7 @@
         255
       ],
       "status": "passed",
-      "fragment_count": 519,
+      "fragment_count": 517,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -336,7 +336,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 192,
+      "fragment_count": 255,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -350,7 +350,7 @@
         255
       ],
       "status": "passed",
-      "fragment_count": 519,
+      "fragment_count": 517,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -378,7 +378,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 192,
+      "fragment_count": 255,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -392,7 +392,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 131,
+      "fragment_count": 89,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -406,7 +406,7 @@
         255
       ],
       "status": "passed",
-      "fragment_count": 30,
+      "fragment_count": 28,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -434,7 +434,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 192,
+      "fragment_count": 255,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -448,7 +448,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 131,
+      "fragment_count": 89,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -462,7 +462,7 @@
         255
       ],
       "status": "passed",
-      "fragment_count": 30,
+      "fragment_count": 28,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -490,11 +490,11 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 40640,
+      "fragment_count": 37973,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
     }
   ],
-  "seconds": 0.7307031000091229
+  "seconds": 0.48938100000304985
 }

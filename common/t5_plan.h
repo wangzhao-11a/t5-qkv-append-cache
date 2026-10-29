@@ -3,7 +3,7 @@
 
 // Plain scalar ABI shared by tiling, the direct launcher and CPU mapping tests.
 namespace t5qkv {
-constexpr uint32_t kTileElements = 32768;  // 64 KiB; two DMA buffers = 128 KiB UB.
+constexpr uint32_t kTileElements = 49152;  // 96 KiB; two DMA buffers = 192 KiB UB.
 constexpr uint32_t kMaxVectorCores = 48;
 struct Plan {
   uint32_t batch, heads, length, dim;
@@ -20,10 +20,6 @@ inline Plan MakePlan(uint32_t b, uint32_t h, uint32_t l, uint32_t d,
   const uint64_t kv = q * (l + 1);
   p.queryTiles = (q + p.tileElements - 1) / p.tileElements;
   p.cacheTiles = (kv + p.tileElements - 1) / p.tileElements;
-  // Aligned large rows can be partitioned independently, avoiding fragments
-  // caused by the appended token shifting every following output tile.
-  if (kv >= 16 * 1024 * 1024 && (d % 16) == 0 && l > 0)
-    p.cacheTiles = b * h * ((l * d + p.tileElements - 1) / p.tileElements + 1);
   p.totalTiles = p.queryTiles + 2 * p.cacheTiles;
   // Small inputs still use one block per useful tile. Tile boundaries are 32B aligned.
   p.blocks = p.totalTiles < cores ? p.totalTiles : cores;

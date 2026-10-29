@@ -77,20 +77,6 @@ class T5Copy {
     auto& out = isValue ? v_ : k_;
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
-    if (cacheSize_ >= 16 * 1024 * 1024 && (dim_ % 16) == 0 && length_ > 0) {
-      const uint32_t oldTiles = (oldRow + tile_ - 1) / tile_;
-      const uint32_t head = tileId / (oldTiles + 1), part = tileId % (oldTiles + 1);
-      if (part < oldTiles) {
-        const uint32_t within = part * tile_;
-        Copy(past, head * oldRow + within, out, head * row + within,
-             Min(tile_, oldRow - within));
-      } else {
-        const uint32_t b = head / heads_, h = head % heads_;
-        Copy(packed_, b * 3 * hd + (isValue ? 2 : 1) * hd + h * dim_,
-             out, head * row + oldRow, dim_);
-      }
-      return;
-    }
     uint32_t pos = uint32_t(tileId) * tile_, end = Min(pos + tile_, cacheSize_);
     if (length_ == 0) {
       // Empty cache is a whole HD segment per batch, not H separate tokens.
