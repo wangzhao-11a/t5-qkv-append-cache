@@ -25,18 +25,19 @@ class T5Copy {
     // Both views start from the raw pointer: the bypass view already carries
     // an L2 alias and must never be used to initialize the cached view.
     cachedKey_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
-    cachedKeyTiles_ = 0;
-    // Ascend910_9382 has 192 MiB L2. Retain a bounded key prefix alongside
-    // the inputs, leaving 8 MiB for unrelated traffic. Other outputs bypass
+    cachedValue_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
+    cachedTilesEach_ = 0;
+    // Ascend910_9382 has 192 MiB L2. Retain equal K/V prefixes alongside
+    // the inputs, leaving 16 MiB for unrelated traffic. Other outputs bypass
     // L2. Whole tiles use one policy, including unaligned-storage fallbacks.
     if (cacheSize_ >= 16 * 1024 * 1024) {
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-      constexpr uint32_t kWorkingSetBytes = 184 * 1024 * 1024;
+      constexpr uint32_t kWorkingSetBytes = 176 * 1024 * 1024;
       const uint32_t inputBytes = (3 * qSize_ + 2 * qSize_ * length_) * 2;
       if (inputBytes < kWorkingSetBytes) {
         const uint32_t cachedElements = Min(cacheSize_, (kWorkingSetBytes - inputBytes) / 2);
-        cachedKeyTiles_ = cachedElements / tile_;
+        cachedTilesEach_ = cachedElements / tile_ / 2;
       }
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
@@ -86,7 +87,8 @@ class T5Copy {
 
   __aicore__ inline void Cache(uint32_t tileId, bool isValue) {
     auto& past = isValue ? pv_ : pk_;
-    auto& out = isValue ? v_ : (tileId < cachedKeyTiles_ ? cachedKey_ : k_);
+    auto& out = tileId < cachedTilesEach_ ? (isValue ? cachedValue_ : cachedKey_)
+                                        : (isValue ? v_ : k_);
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
     uint32_t pos = uint32_t(tileId) * tile_, end = Min(pos + tile_, cacheSize_);
@@ -119,7 +121,7 @@ class T5Copy {
   }
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
-  uint32_t qSize_, cacheSize_, cachedKeyTiles_;
-  AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedKey_;
+  uint32_t qSize_, cacheSize_, cachedTilesEach_;
+  AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedKey_, cachedValue_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };
