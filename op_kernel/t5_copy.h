@@ -22,6 +22,12 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
+    coalesced_ = cacheSize_ >= 16 * 1024 * 1024 && (d & 15) == 0 &&
+        (reinterpret_cast<uint64_t>(packed) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(pastKey) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(pastValue) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(key) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(value) & 31) == 0;
     // Preserve cached history reads and bypass L2 only for write-only outputs.
     if (cacheSize_ >= 16 * 1024 * 1024) {
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
@@ -78,6 +84,31 @@ class T5Copy {
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
     uint32_t pos = uint32_t(tileId) * tile_, end = Min(pos + tile_, cacheSize_);
+    if (coalesced_) {
+      // Gather all fragments of one aligned output tile before one MTE3 store.
+      // Keep the two 64 KiB buffers and the original tile/core ownership.
+      const uint32_t start = pos;
+      auto local = queue_.AllocTensor<uint16_t>();
+      while (pos < end) {
+        const uint32_t head = pos / row, within = pos % row;
+        uint32_t n;
+        if (within < oldRow) {
+          n = Min(end - pos, oldRow - within);
+          AscendC::DataCopy(local[pos - start], past[head * oldRow + within], n);
+        } else {
+          n = Min(end - pos, row - within);
+          const uint32_t b = head / heads_, h = head % heads_;
+          const uint32_t src = b * 3 * hd + (isValue ? 2 : 1) * hd + h * dim_ + within - oldRow;
+          AscendC::DataCopy(local[pos - start], packed_[src], n);
+        }
+        pos += n;
+      }
+      queue_.EnQue(local);
+      local = queue_.DeQue<uint16_t>();
+      AscendC::DataCopy(out[start], local, end - start);
+      queue_.FreeTensor(local);
+      return;
+    }
     if (length_ == 0) {
       // Empty cache is a whole HD segment per batch, not H separate tokens.
       while (pos < end) {
@@ -108,6 +139,7 @@ class T5Copy {
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
   uint32_t qSize_, cacheSize_;
+  bool coalesced_;
   AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };

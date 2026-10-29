@@ -1,5 +1,6 @@
 """CPU-only address proof/check; explicitly not a substitute for NPU execution."""
 import hashlib
+import argparse
 import json
 from pathlib import Path
 import random
@@ -59,6 +60,10 @@ def check(shape, *, bitwise=False):
             tile_ids.add(tile)
             assert pos==cursor and n>0 and src>=0 and src+n<=input_sizes[source]
             assert pos//TILE == tile and (pos+n-1)//TILE==tile
+            if output and size >= 16*1024*1024 and d % 16 == 0:
+                # The gathered fast path uses plain DMA into disjoint UB spans.
+                assert (pos-tile*TILE) % 16 == src % 16 == n % 16 == 0
+                assert pos-tile*TILE+n <= TILE
             for index in {0,n//2,n-1}:
                 assert (source,src+index)==oracle_address(shape,output,pos+index)
             if bitwise: actual[pos:pos+n]=inputs[source][src:src+n]
@@ -74,6 +79,9 @@ def check(shape, *, bitwise=False):
     return count
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--output',type=Path,default=ROOT/'reports/cpu_address_model.json')
+    args=parser.parse_args()
     # The 192 KiB configuration was rejected by GetWorkspaceSize (561002).
     depth_match=re.search(r'kQueueDepth = (\d+)',(ROOT/'op_kernel/t5_copy.h').read_text())
     assert depth_match is not None, 'queue depth must be explicit for UB accounting'
@@ -96,7 +104,7 @@ def main():
     report={'status':'passed','test_type':'CPU address-model checks only','npu_executed':False,
             'public_shapes':len(records),'additional_random_shapes':120,'cases':records,
             'seconds':time.perf_counter()-start}
-    out=ROOT/'reports/cpu_address_model.json';out.parent.mkdir(exist_ok=True)
+    out=args.output;out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:v for k,v in report.items() if k!='cases'}))
 
