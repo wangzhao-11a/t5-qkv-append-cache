@@ -8,14 +8,14 @@
       "entry": "prepared_stream",
       "status": "passed",
       "calls": 10,
-      "stream_id": 825769800
+      "stream_id": 1016845064
     },
     {
       "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
       "entry": "prepared_stream",
       "status": "passed",
       "calls": 10,
-      "stream_id": 825548552
+      "stream_id": 1016623816
     },
     {
       "case_name": "prepared_metadata_0",

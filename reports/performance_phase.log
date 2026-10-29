@@ -1,0 +1,10 @@
+report.status must be 'passed' before checking performance evidence
+Performance evidence: failed; result saved to artifacts/validation/performance_acceptance.json
+{
+  "status": "failed",
+  "problems": [
+    "performance.json: not passed on device",
+    "performance evidence invalid: report.status must be 'passed' before checking performance evidence"
+  ],
+  "scope": "Automated coverage only. Environment evidence, build artifacts and source fingerprints also require review."
+}

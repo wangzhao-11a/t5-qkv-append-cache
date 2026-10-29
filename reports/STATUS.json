@@ -1,7 +1,20 @@
 {
-  "overall_status": "in_progress_not_accepted",
+  "overall_status": "validation_complete_performance_not_accepted",
   "public_reference_files_unchanged": true,
   "original_manifest_valid": false,
+  "report_source_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_c9decf212667",
+  "evidence": {
+    "full_logs_downloaded": true,
+    "archive_members": 45,
+    "archive_sha256": "64ff58d37a4babfe12edac255a08d9fb3e31bf6b9480a3f5bb393043c45ac61f",
+    "binary_manifest_source_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+    "build_exit": 0,
+    "smoke_exit": 0,
+    "correctness_phase_exit": 0,
+    "performance_phase_exit": 1,
+    "performance_phase_exit_reason": "fixed performance targets and automated coverage did not pass"
+  },
   "cpu_address_model": {
     "status": "passed",
     "public_shapes": 35,
@@ -13,19 +26,19 @@
   },
   "aclnn_kernel_build": {
     "status": "passed",
-    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+    "source_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e"
   },
   "private_run_package_install": {
     "status": "passed",
-    "path": "/root/.local/t5_qkv_b2b0cca57a18"
+    "path": "/root/.local/t5_qkv_c9decf212667"
   },
   "direct_build": {
     "status": "passed",
-    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+    "source_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e"
   },
   "torch_binding_build": {
     "status": "passed",
-    "source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923"
+    "source_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e"
   },
   "npu_accuracy": {
     "status": "passed",
@@ -44,8 +57,23 @@
   },
   "npu_performance": {
     "status": "failed",
-    "fixed_limit_passed": 0,
-    "fixed_limit_total": 10
+    "fixed_limit_passed": 5,
+    "fixed_limit_total": 10,
+    "protocol": "50 warmups; 5 rounds x 200 calls; median of wall-time round means",
+    "failed_cases": [
+      {"case_name": "T5SplitQkvAppendCache_005_float16_random", "wall_us_median": 28.8226, "max_wall_us": 28},
+      {"case_name": "T5SplitQkvAppendCache_006_float16_random", "wall_us_median": 29.0565, "max_wall_us": 29},
+      {"case_name": "T5SplitQkvAppendCache_007_float16_random", "wall_us_median": 94.08875, "max_wall_us": 75},
+      {"case_name": "T5SplitQkvAppendCache_015_bfloat16_random", "wall_us_median": 28.03855, "max_wall_us": 28},
+      {"case_name": "T5SplitQkvAppendCache_017_bfloat16_random", "wall_us_median": 94.47925, "max_wall_us": 77}
+    ]
+  },
+  "optimization_conclusion": {
+    "large_cache_measured_total_bandwidth_tb_per_s": 2.854,
+    "large_cache_required_total_bandwidth_tb_per_s": 3.581,
+    "batched_d2d_wall_us_fp16": 94.36665,
+    "batched_d2d_wall_us_bf16": 94.2349,
+    "conclusion": "AIV and batched D2D have essentially the same large-cache latency on this platform; cache, tile and queue variants did not meet the fixed limits. No performance acceptance is claimed."
   },
   "environment": {
     "container": "86d7c3021b9e",
@@ -54,28 +82,22 @@
     "cann": "9.1.0",
     "driver_actual": "26.1.1",
     "driver_required": "25.5.t6.b001",
+    "driver_difference_accepted_by_user": true,
+    "required_driver_tested": false,
     "python": "3.12.13",
     "torch": "2.10.0+cpu",
     "torch_npu": "2.10.0.post4",
     "torch_npu_source": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
-    "numpy_initial": "1.26.4",
+    "numpy_actual": "2.2.6",
     "numpy_required": "2.2.6",
     "ml_dtypes": "0.6.0",
     "selected_physical_device": 1,
     "logical_device": 0,
-    "image_identity": "unknown_inside_container",
-    "driver_difference_accepted_by_user": true,
-    "numpy_actual": "2.2.6"
+    "image_identity": "unknown_inside_container"
   },
-  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_b2b0cca57a18",
-  "access_note": "Gateway revoked persistent session. Fresh credential requested; inspect remote state before resubmission.",
-  "report_source_commit": "b2b0cca57a18cf6d89c53315a61d8de795943923",
-  "candidate": {
-    "source_commit": "916c7d793f9eed978cdbebb4e028c63282a051b7",
-    "build_exit": 0,
-    "smoke_exit": 0,
-    "correctness_phase_exit": 0,
-    "full_logs_downloaded": false,
-    "performance_dispatch": "unconfirmed"
+  "design_document_pr": {
+    "url": "https://github.com/xLLM-AI/xllm/pull/2604",
+    "status": "open",
+    "scope": "bilingual design documentation only; no implementation or performance acceptance claim"
   }
 }

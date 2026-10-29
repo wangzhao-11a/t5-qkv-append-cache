@@ -1437,73 +1437,73 @@
       "case_name": "headDim_'8'",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_'8'",
       "entry": "run",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_'8'",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_-1",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_-1",
       "entry": "run",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_-1",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_0",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_0",
       "entry": "run",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_0",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headDim_1.5",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_1.5",
       "entry": "run",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_1.5",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_65",
@@ -1527,91 +1527,91 @@
       "case_name": "headDim_True",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_True",
       "entry": "run",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headDim_True",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headDim must be an integer in [1, 256]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_'8'",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_'8'",
       "entry": "run",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_'8'",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_-1",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_-1",
       "entry": "run",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_-1",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_0",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_0",
       "entry": "run",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_0",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attribute out of range"
     },
     {
       "case_name": "headNum_1.5",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_1.5",
       "entry": "run",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_1.5",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_9",
@@ -1635,19 +1635,19 @@
       "case_name": "headNum_True",
       "entry": "prepare",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_True",
       "entry": "run",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "headNum_True",
       "entry": "run_direct",
       "status": "passed",
-      "rejection": "headNum must be an integer in [1, 128]"
+      "rejection": "attributes must be integers"
     },
     {
       "case_name": "input_count",

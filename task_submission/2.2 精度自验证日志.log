@@ -1,5 +1,5 @@
 T5 QKV task: original device logs
-Assembled at 2026-10-28T17:05:34.851936+00:00
+Assembled at 2026-10-29T09:48:04.722150+00:00
 
 ===== cpp_smoke.log =====
 {"status":"passed","workspace_bytes":0,"bit_mismatches":0}
@@ -13,7 +13,7 @@ Assembled at 2026-10-28T17:05:34.851936+00:00
 {"metadata_scenario":4,"status":"passed","acl_status":561002}
 
 ===== public_accuracy.log =====
-[W1028 16:23:57.600174420 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1029 09:42:04.451879180 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
 {"case_name": "T5SplitQkvAppendCache_000_float16_random", "status": "passed", "outputs": [{"output": "query", "elements": 1, "bit_mismatches": 0}, {"output": "key", "elements": 1, "bit_mismatches": 0}, {"output": "value", "elements": 1, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_001_float16_random", "status": "passed", "outputs": [{"output": "query", "elements": 2048, "bit_mismatches": 0}, {"output": "key", "elements": 2048, "bit_mismatches": 0}, {"output": "value", "elements": 2048, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_002_float16_random", "status": "passed", "outputs": [{"output": "query", "elements": 30, "bit_mismatches": 0}, {"output": "key", "elements": 90, "bit_mismatches": 0}, {"output": "value", "elements": 90, "bit_mismatches": 0}]}
@@ -51,7 +51,7 @@ Assembled at 2026-10-28T17:05:34.851936+00:00
 {"case_name": "T5SplitQkvAppendCache_audit_034_float16_bits", "status": "passed", "outputs": [{"output": "query", "elements": 2097152, "bit_mismatches": 0}, {"output": "key", "elements": 132120576, "bit_mismatches": 0}, {"output": "value", "elements": 132120576, "bit_mismatches": 0}]}
 
 ===== extended_accuracy.log =====
-[W1028 16:24:12.005302660 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1029 09:42:18.791909540 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
 {"case_name": "T5SplitQkvAppendCache_000_float16_random", "entry": "run_direct", "status": "passed", "outputs": [{"output": "query", "elements": 1, "bit_mismatches": 0}, {"output": "key", "elements": 1, "bit_mismatches": 0}, {"output": "value", "elements": 1, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "run_direct", "status": "passed", "outputs": [{"output": "query", "elements": 2048, "bit_mismatches": 0}, {"output": "key", "elements": 2048, "bit_mismatches": 0}, {"output": "value", "elements": 2048, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_002_float16_random", "entry": "run_direct", "status": "passed", "outputs": [{"output": "query", "elements": 30, "bit_mismatches": 0}, {"output": "key", "elements": 90, "bit_mismatches": 0}, {"output": "value", "elements": 90, "bit_mismatches": 0}]}
@@ -129,42 +129,42 @@ Assembled at 2026-10-28T17:05:34.851936+00:00
 {"case_name": "float32", "entry": "prepare", "status": "passed", "rejection": "FP16 or BF16 required"}
 {"case_name": "float32", "entry": "run", "status": "passed", "rejection": "FP16 or BF16 required"}
 {"case_name": "float32", "entry": "run_direct", "status": "passed", "rejection": "FP16 or BF16 required"}
-{"case_name": "headDim_'8'", "entry": "prepare", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_'8'", "entry": "run", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_'8'", "entry": "run_direct", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_-1", "entry": "prepare", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_-1", "entry": "run", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_-1", "entry": "run_direct", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_0", "entry": "prepare", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_0", "entry": "run", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_0", "entry": "run_direct", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_1.5", "entry": "prepare", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_1.5", "entry": "run", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_1.5", "entry": "run_direct", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
+{"case_name": "headDim_'8'", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_'8'", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_'8'", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_-1", "entry": "prepare", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_-1", "entry": "run", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_-1", "entry": "run_direct", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_0", "entry": "prepare", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_0", "entry": "run", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_0", "entry": "run_direct", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headDim_1.5", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_1.5", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_1.5", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
 {"case_name": "headDim_65", "entry": "prepare", "status": "passed", "rejection": "attribute/shape mismatch"}
 {"case_name": "headDim_65", "entry": "run", "status": "passed", "rejection": "attribute/shape mismatch"}
 {"case_name": "headDim_65", "entry": "run_direct", "status": "passed", "rejection": "attribute/shape mismatch"}
-{"case_name": "headDim_True", "entry": "prepare", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_True", "entry": "run", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headDim_True", "entry": "run_direct", "status": "passed", "rejection": "headDim must be an integer in [1, 256]"}
-{"case_name": "headNum_'8'", "entry": "prepare", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_'8'", "entry": "run", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_'8'", "entry": "run_direct", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_-1", "entry": "prepare", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_-1", "entry": "run", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_-1", "entry": "run_direct", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_0", "entry": "prepare", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_0", "entry": "run", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_0", "entry": "run_direct", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_1.5", "entry": "prepare", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_1.5", "entry": "run", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_1.5", "entry": "run_direct", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
+{"case_name": "headDim_True", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_True", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headDim_True", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_'8'", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_'8'", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_'8'", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_-1", "entry": "prepare", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_-1", "entry": "run", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_-1", "entry": "run_direct", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_0", "entry": "prepare", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_0", "entry": "run", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_0", "entry": "run_direct", "status": "passed", "rejection": "attribute out of range"}
+{"case_name": "headNum_1.5", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_1.5", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_1.5", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
 {"case_name": "headNum_9", "entry": "prepare", "status": "passed", "rejection": "attribute/shape mismatch"}
 {"case_name": "headNum_9", "entry": "run", "status": "passed", "rejection": "attribute/shape mismatch"}
 {"case_name": "headNum_9", "entry": "run_direct", "status": "passed", "rejection": "attribute/shape mismatch"}
-{"case_name": "headNum_True", "entry": "prepare", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_True", "entry": "run", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
-{"case_name": "headNum_True", "entry": "run_direct", "status": "passed", "rejection": "headNum must be an integer in [1, 128]"}
+{"case_name": "headNum_True", "entry": "prepare", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_True", "entry": "run", "status": "passed", "rejection": "attributes must be integers"}
+{"case_name": "headNum_True", "entry": "run_direct", "status": "passed", "rejection": "attributes must be integers"}
 {"case_name": "input_count", "entry": "prepare", "status": "passed", "rejection": "inputs must be a tuple/list of exactly three tensors"}
 {"case_name": "input_count", "entry": "run", "status": "passed", "rejection": "inputs must be a tuple/list of exactly three tensors"}
 {"case_name": "input_count", "entry": "run_direct", "status": "passed", "rejection": "inputs must be a tuple/list of exactly three tensors"}
@@ -200,9 +200,9 @@ Assembled at 2026-10-28T17:05:34.851936+00:00
 {"case_name": "offset overlapping storage rejected", "entry": "verifier", "status": "passed"}
 
 ===== engineering.log =====
-[W1028 16:24:27.344733380 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
-{"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 825769800}
-{"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 825548552}
+[W1029 09:42:32.917865490 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+{"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 1016845064}
+{"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 1016623816}
 {"case_name": "prepared_metadata_0", "entry": "prepare", "status": "passed", "rejection": "FP16 or BF16 required"}
 {"case_name": "prepared_metadata_1", "entry": "prepare", "status": "passed", "rejection": "invalid input rank"}
 {"case_name": "prepared_metadata_2", "entry": "prepare", "status": "passed", "rejection": "contiguous ND input required"}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-TASK_ROOT=/workspace/t5_qkv_tasks/t5_qkv_916c7d793f9e
+TASK_ROOT=/workspace/t5_qkv_tasks/t5_qkv_c9decf212667
 cd "$TASK_ROOT"
 mkdir -p artifacts/validation
 trap 'echo "$?" > artifacts/validation/smoke_phase.exit' EXIT
@@ -10,7 +10,7 @@ set +u
 source /usr/local/Ascend/cann-9.1.0/set_env.sh
 set -u
 export PATH=/workspace/vasc031_a3/bin:$PATH
-export T5_OPP_ROOT=/root/.local/t5_qkv_916c7d793f9e
+export T5_OPP_ROOT=/root/.local/t5_qkv_c9decf212667
 export ASCEND_RT_VISIBLE_DEVICES=1
 export ASCEND_CUSTOM_OPP_PATH="$T5_OPP_ROOT/vendors/t5qkv${ASCEND_CUSTOM_OPP_PATH:+:$ASCEND_CUSTOM_OPP_PATH}"
 export PYTHONPATH="/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps:$TASK_ROOT:$TASK_ROOT/reference${PYTHONPATH:+:$PYTHONPATH}"

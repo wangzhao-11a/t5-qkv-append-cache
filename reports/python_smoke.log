@@ -1,0 +1,5 @@
+[W1029 09:41:52.378383050 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+{'case_name': 'T5SplitQkvAppendCache_000_float16_random', 'entry': 'run', 'repeats': 20, 'status': 'passed'}
+{'case_name': 'T5SplitQkvAppendCache_000_float16_random', 'entry': 'run_direct', 'repeats': 20, 'status': 'passed'}
+{'case_name': 'T5SplitQkvAppendCache_010_bfloat16_random', 'entry': 'run', 'repeats': 20, 'status': 'passed'}
+{'case_name': 'T5SplitQkvAppendCache_010_bfloat16_random', 'entry': 'run_direct', 'repeats': 20, 'status': 'passed'}

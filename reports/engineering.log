@@ -1,6 +1,6 @@
-[W1028 16:24:27.344733380 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
-{"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 825769800}
-{"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 825548552}
+[W1029 09:42:32.917865490 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+{"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 1016845064}
+{"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "prepared_stream", "status": "passed", "calls": 10, "stream_id": 1016623816}
 {"case_name": "prepared_metadata_0", "entry": "prepare", "status": "passed", "rejection": "FP16 or BF16 required"}
 {"case_name": "prepared_metadata_1", "entry": "prepare", "status": "passed", "rejection": "invalid input rank"}
 {"case_name": "prepared_metadata_2", "entry": "prepare", "status": "passed", "rejection": "contiguous ND input required"}

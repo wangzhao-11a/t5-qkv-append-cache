@@ -12,9 +12,17 @@ import sys
 import time
 import paramiko
 
+def secret(prompt):
+    # Windows getpass reads the console directly even when stdin is a pipe.
+    # Non-interactive controller sessions supply the same two lines via stdin.
+    if sys.stdin.isatty():
+        return getpass.getpass(prompt)
+    return sys.stdin.readline().rstrip('\r\n')
+
+
 def main():
-    jump_user=getpass.getpass('Jump username/token (hidden): ')
-    target_password=getpass.getpass('Target password (hidden): ')
+    jump_user=secret('Jump username/token (hidden): ')
+    target_password=secret('Target password (hidden): ')
     transport=paramiko.Transport(('113.47.8.48',2234))
     transport.start_client(timeout=25)
     try:
@@ -32,18 +40,18 @@ def main():
     key=client.get_transport().get_remote_server_key()
     print(json.dumps({'connected':True,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
     sftp=client.open_sftp()
-    def run(command):
+    def run(command, timeout_seconds=180):
         _,stdout,stderr=client.exec_command(command,timeout=120)
         channel=stdout.channel
         started=time.monotonic()
         while not channel.exit_status_ready() or channel.recv_ready() or channel.recv_stderr_ready():
             if channel.recv_ready():print(channel.recv(65536).decode('utf-8',errors='replace'),end='',flush=True)
             if channel.recv_stderr_ready():print(channel.recv_stderr(65536).decode('utf-8',errors='replace'),end='',flush=True)
-            if time.monotonic()-started>180:
+            if time.monotonic()-started>timeout_seconds:
                 # Keep the authenticated transport alive. Closing this command
                 # channel does NOT assert that its remote child was terminated.
                 channel.close()
-                print(json.dumps({'command_timeout_seconds':180,'remote_process_state':'must inspect before retry'}),flush=True)
+                print(json.dumps({'command_timeout_seconds':timeout_seconds,'remote_process_state':'must inspect before retry'}),flush=True)
                 return
             time.sleep(.05)
         print(json.dumps({'exit_code':channel.recv_exit_status()}),flush=True)
@@ -74,7 +82,7 @@ def main():
                 sftp.get(item['get'],str(partial))
                 partial.replace(destination)
                 print(json.dumps({'downloaded':str(destination),'sha256':hashlib.sha256(destination.read_bytes()).hexdigest()}),flush=True)
-            elif 'command' in item:run(item['command'])
+            elif 'command' in item:run(item['command'],item.get('timeout_seconds',180))
             else:raise ValueError('unknown request')
         except Exception as exc:print(json.dumps({'error':f'{type(exc).__name__}: {exc}'}),flush=True)
     sftp.close();client.close();transport.close()
