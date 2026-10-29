@@ -1,6 +1,7 @@
 #include <torch/extension.h>
 #include <c10/core/DeviceGuard.h>
 #include "torch_npu/csrc/core/npu/NPUStream.h"
+#include "torch_npu/csrc/core/npu/NPUEvent.h"
 #include "torch_npu/csrc/core/npu/NPUCachingAllocator.h"
 #include "torch_npu/csrc/aten/CustomFunctions.h"
 #include "acl/acl.h"
@@ -13,6 +14,9 @@
 
 extern "C" void t5LaunchDirect(void*, void*, void*, void*, void*, void*, void*,
                                uint32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void t5LaunchDirectMode(void*, void*, void*, void*, void*, void*, void*,
+                                   uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void t5LaunchDirectAic(void*, void*, void*, void*, uint32_t, uint32_t, uint32_t, uint32_t);
 namespace {
 using Tensors = std::array<at::Tensor, 3>;
 using Shape = std::array<int64_t, 4>;
@@ -78,6 +82,32 @@ Descriptor Describe(const at::Tensor& x) {
   return Descriptor(p);
 }
 
+bool TryConcurrentCopy(const std::vector<at::Tensor>& xs, Tensors& out,
+                       int64_t b, int64_t h, int64_t l, int64_t d,
+                       const c10_npu::NPUStream& stream) {
+  const int64_t rows = b * h;
+  if (l <= 0 || rows * (l + 1) < 16 * 1024 * 1024 || (d & 15) != 0) return false;
+  for (const auto* x : {&xs[0], &xs[1], &xs[2], &out[0], &out[1], &out[2]})
+    if ((reinterpret_cast<uintptr_t>(x->data_ptr()) & 31) != 0) return false;
+
+  auto copyStream = c10_npu::getNPUStreamFromPool(xs[0].device().index());
+  const aclrtStream rawCopyStream = copyStream.stream();
+  TORCH_CHECK(rawCopyStream, "failed to obtain auxiliary NPU stream");
+  c10_npu::NPUEvent inputReady, copyDone;
+  inputReady.record(stream);
+  inputReady.block(copyStream);
+  for (const auto& x : xs)
+    if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), copyStream);
+  c10_npu::NPUCachingAllocator::recordStream(out[1].storage().data_ptr(), copyStream);
+
+  t5LaunchDirectAic(rawCopyStream, xs[0].data_ptr(), xs[1].data_ptr(), out[1].data_ptr(), b, h, l, d);
+  copyDone.record(copyStream);
+  t5LaunchDirectMode(stream.stream(), xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
+                     out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(), b, h, l, d, 2);
+  copyDone.block(stream);
+  return true;
+}
+
 std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
     const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim, bool direct) {
   const auto shape = Validate(xs, headNum, headDim);
@@ -94,6 +124,7 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
   auto call = [&]() -> int {
     for (const auto& x : xs)
       if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
+    if (!direct && TryConcurrentCopy(xs, out, b, h, l, d, stream)) return 0;
     if (direct) {
       t5LaunchDirect(rawStream, xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
                      out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(),
