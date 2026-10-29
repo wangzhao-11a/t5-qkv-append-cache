@@ -22,6 +22,13 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
+    wide_ = cacheSize_ >= 16 * 1024 * 1024 && (d & 15) == 0 &&
+        (reinterpret_cast<uint64_t>(packed) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(pastKey) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(pastValue) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(query) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(key) & 31) == 0 &&
+        (reinterpret_cast<uint64_t>(value) & 31) == 0;
     // Preserve cached history reads and bypass L2 only for write-only outputs.
     if (cacheSize_ >= 16 * 1024 * 1024) {
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
@@ -30,12 +37,9 @@ class T5Copy {
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
   }
 
-  __aicore__ inline void Process(uint32_t mode = 0) {
+  __aicore__ inline void Process() {
     for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
-      if (mode == 2) {
-        if (work < queryTiles_) Query(work);
-        else Cache(work - queryTiles_, true);
-      } else if (work < queryTiles_) Query(work);
+      if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
     }
@@ -47,6 +51,19 @@ class T5Copy {
   __aicore__ inline void Copy(AscendC::GlobalTensor<uint16_t>& src, uint32_t srcOffset,
                              AscendC::GlobalTensor<uint16_t>& dst, uint32_t dstOffset, uint32_t n) {
     if (!n) return;
+    if (wide_) {
+      auto local = queue_.AllocTensor<uint64_t>();
+      AscendC::GlobalTensor<uint64_t> wideSrc, wideDst;
+      wideSrc.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(src.GetPhyAddr()), 3 * cacheSize_ / 4);
+      wideDst.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(dst.GetPhyAddr()), 3 * cacheSize_ / 4);
+      wideDst.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      AscendC::DataCopy(local, wideSrc[srcOffset / 4], n / 4);
+      queue_.EnQue(local);
+      local = queue_.DeQue<uint64_t>();
+      AscendC::DataCopy(wideDst[dstOffset / 4], local, n / 4);
+      queue_.FreeTensor(local);
+      return;
+    }
     auto local = queue_.AllocTensor<uint16_t>();
     // The plain DMA path requires a complete 32-byte block count. Inspect the
     // actual GM addresses too: contiguous storage-offset views may be unaligned.
@@ -111,6 +128,7 @@ class T5Copy {
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
   uint32_t qSize_, cacheSize_;
+  bool wide_;
   AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };
