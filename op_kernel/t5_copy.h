@@ -27,20 +27,16 @@ class T5Copy {
     cachedKey_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     cachedKeyTiles_ = 0;
     // Ascend910_9382 has 192 MiB L2. Retain a bounded key prefix alongside
-    // the inputs, leaving 16 MiB for unrelated traffic. Other outputs bypass
+    // the inputs, leaving 32 MiB for unrelated traffic. Other outputs bypass
     // L2. Whole tiles use one policy, including unaligned-storage fallbacks.
     if (cacheSize_ >= 16 * 1024 * 1024) {
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-      constexpr uint32_t kWorkingSetBytes = 176 * 1024 * 1024;
+      constexpr uint32_t kWorkingSetBytes = 160 * 1024 * 1024;
       const uint32_t inputBytes = (3 * qSize_ + 2 * qSize_ * length_) * 2;
       if (inputBytes < kWorkingSetBytes) {
         const uint32_t cachedElements = Min(cacheSize_, (kWorkingSetBytes - inputBytes) / 2);
         cachedKeyTiles_ = cachedElements / tile_;
-        if (cachedKeyTiles_) {
-          pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
-          pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
-        }
       }
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
