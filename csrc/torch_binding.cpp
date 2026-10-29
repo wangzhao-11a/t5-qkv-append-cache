@@ -87,7 +87,8 @@ bool TryConcurrentCopy(const std::vector<at::Tensor>& xs, Tensors& out,
                        const c10_npu::NPUStream& stream) {
   const int64_t rows = b * h;
   if (l <= 0 || rows * (l + 1) < 16 * 1024 * 1024 || (d & 15) != 0) return false;
-  for (const auto* x : {&xs[0], &xs[1], &xs[2], &out[0], &out[1], &out[2]})
+  const std::array<const at::Tensor*, 6> tensors{&xs[0], &xs[1], &xs[2], &out[0], &out[1], &out[2]};
+  for (const auto* x : tensors)
     if ((reinterpret_cast<uintptr_t>(x->data_ptr()) & 31) != 0) return false;
 
   auto copyStream = c10_npu::getNPUStreamFromPool(xs[0].device().index());
