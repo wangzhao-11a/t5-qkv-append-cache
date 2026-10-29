@@ -56,7 +56,7 @@
         80
       ],
       "status": "passed",
-      "fragment_count": 87,
+      "fragment_count": 89,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -84,7 +84,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 35,
+      "fragment_count": 37,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -98,7 +98,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 544,
+      "fragment_count": 582,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -112,7 +112,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 2676,
+      "fragment_count": 3086,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
@@ -126,7 +126,7 @@
         128
       ],
       "status": "passed",
-      "fragment_count": 55,
+      "fragment_count": 67,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -196,7 +196,7 @@
         80
       ],
       "status": "passed",
-      "fragment_count": 87,
+      "fragment_count": 89,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -224,7 +224,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 35,
+      "fragment_count": 37,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -238,7 +238,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 544,
+      "fragment_count": 582,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -252,7 +252,7 @@
         64
       ],
       "status": "passed",
-      "fragment_count": 2676,
+      "fragment_count": 3086,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
@@ -266,7 +266,7 @@
         128
       ],
       "status": "passed",
-      "fragment_count": 55,
+      "fragment_count": 67,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -294,7 +294,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 309,
+      "fragment_count": 192,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -336,7 +336,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 309,
+      "fragment_count": 192,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -378,7 +378,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 309,
+      "fragment_count": 192,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -392,7 +392,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 107,
+      "fragment_count": 131,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -434,7 +434,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 309,
+      "fragment_count": 192,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -448,7 +448,7 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 107,
+      "fragment_count": 131,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": true,
       "npu_executed": false
@@ -490,11 +490,11 @@
         256
       ],
       "status": "passed",
-      "fragment_count": 39117,
+      "fragment_count": 40640,
       "address_ranges_checked": "all",
       "bitwise_cpu_arrays": false,
       "npu_executed": false
     }
   ],
-  "seconds": 0.5688265999997384
+  "seconds": 0.4852924999941024
 }
