@@ -58,7 +58,8 @@ class T5Copy {
       // zero-argument GetPhyAddr() returns const and cannot be reinterpreted.
       wideSrc.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(src.GetPhyAddr(0)), src.GetSize() / 4);
       wideDst.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(dst.GetPhyAddr(0)), dst.GetSize() / 4);
-      wideDst.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      // dst.GetPhyAddr(0) already contains the A3 L2-bypass alias when set.
+      // Reapplying DISABLE adds the alias offset twice and faults the DMA.
       AscendC::DataCopy(local, wideSrc[srcOffset / 4], n / 4);
       queue_.EnQue(local);
       local = queue_.DeQue<uint64_t>();

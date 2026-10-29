@@ -86,7 +86,11 @@ def main():
                 print(json.dumps({'downloaded':str(destination),'sha256':hashlib.sha256(destination.read_bytes()).hexdigest()}),flush=True)
             elif 'command' in item:run(item['command'],item.get('timeout_seconds',180))
             else:raise ValueError('unknown request')
-        except Exception as exc:print(json.dumps({'error':f'{type(exc).__name__}: {exc}'}),flush=True)
+        except Exception as exc:
+            print(json.dumps({'error':f'{type(exc).__name__}: {exc}'}),flush=True)
+            if not transport.is_active() or not client.get_transport().is_active():
+                print(json.dumps({'session_closed':True,'next_action':'reconnect and inspect remote state before retry'}),flush=True)
+                break
     sftp.close();client.close();transport.close()
 
 if __name__=='__main__':main()

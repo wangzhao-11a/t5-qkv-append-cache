@@ -25,14 +25,18 @@ PY
 build/examples/t5_example > artifacts/validation/cpp_smoke.log 2>&1
 build/examples/t5_example --bf16 >> artifacts/validation/cpp_smoke.log 2>&1
 python - <<'PY' > artifacts/validation/python_smoke.log 2>&1
-import json,torch,torch_npu,numpy as np
+import json,math,torch,torch_npu,numpy as np
 import solution,generate_data,golden,verify
 from pathlib import Path
 torch.npu.set_device(0)
 cases=json.loads(Path('reference/case.json').read_text())
 records=[]
+selected=[]
 for dtype in ('float16','bfloat16'):
-    case=next(c for c in cases if c['input_desc'][0]['data_type']==dtype)
+    matching=[c for c in cases if c['input_desc'][0]['data_type']==dtype]
+    # Exercise both the generic branch and the largest-cache optimized branch.
+    selected.extend((matching[0],max(matching,key=lambda c:math.prod(c['input_desc'][1]['shape']))))
+for case in selected:
     arrays=generate_data.generate(case)
     attrs={a['name']:a['value'] for a in case['attr_desc']}
     inputs=verify.device_inputs(case,arrays,'npu:0')
