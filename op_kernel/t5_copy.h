@@ -22,20 +22,17 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
-    // Preserve cached history reads and bypass L2 only for write-only outputs.
+    // Measure persistent output lines separately from normal write allocation.
     if (cacheSize_ >= 16 * 1024 * 1024) {
-      k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-      v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
+      v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
   }
 
-  __aicore__ inline void Process(uint32_t mode = 0) {
+  __aicore__ inline void Process() {
     for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
-      if (mode == 2) {
-        if (work < queryTiles_) Query(work);
-        else Cache(work - queryTiles_, true);
-      } else if (work < queryTiles_) Query(work);
+      if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
     }
