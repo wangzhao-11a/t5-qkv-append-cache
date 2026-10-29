@@ -2,7 +2,7 @@
 #include "kernel_operator.h"
 
 // All tensors are deliberately interpreted as uint16_t. No FP arithmetic/casts.
-constexpr uint32_t kQueueDepth = 3;
+constexpr uint32_t kQueueDepth = 2;
 // Host validation bounds every tensor to <2^28 elements; all linear indices and
 // products below fit uint32. Avoid software 64-bit division in per-tile loops.
 class T5Copy {
@@ -25,6 +25,8 @@ class T5Copy {
     // Large write-only outputs otherwise compete with cache input reads in L2.
     // The default cache policy was measured at 216 us versus 94 us for bypass.
     if (cacheSize_ >= 16 * 1024 * 1024) {
+      pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     }
