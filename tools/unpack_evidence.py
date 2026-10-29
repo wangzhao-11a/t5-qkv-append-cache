@@ -4,18 +4,26 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import tarfile
-import tempfile
+import uuid
 
 p=argparse.ArgumentParser()
 p.add_argument('archive',type=Path)
 p.add_argument('sha256')
 p.add_argument('destination',type=Path)
 a=p.parse_args()
+# Resolve both ends before Windows rename; relative parent traversal can be
+# rejected by the sandbox even when the identical absolute move is allowed.
+a.archive=a.archive.resolve()
+a.destination=a.destination.resolve()
 if hashlib.sha256(a.archive.read_bytes()).hexdigest()!=a.sha256:
     raise SystemExit('Reject incomplete or mismatched transfer before opening the archive')
 if a.destination.exists():raise SystemExit('Preserve existing evidence; choose a new destination')
 a.destination.parent.mkdir(parents=True,exist_ok=True)
-staging=Path(tempfile.mkdtemp(prefix='.evidence-',dir=a.destination.parent))
+# Python 3.14 mkdtemp applies a private Windows ACL for mode 0700. In the
+# desktop sandbox that ACL prevents even realpath/filtering and final rename.
+# Inherit the workspace ACL; the archive is still fully filtered below.
+staging=a.destination.parent/('.evidence-'+uuid.uuid4().hex)
+staging.mkdir(mode=0o755)
 with tarfile.open(a.archive) as tar:
     names=set()
     for member in tar.getmembers():

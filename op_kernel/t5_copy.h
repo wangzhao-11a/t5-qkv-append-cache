@@ -22,13 +22,6 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
-    wide_ = cacheSize_ >= 16 * 1024 * 1024 && (d & 15) == 0 &&
-        (reinterpret_cast<uint64_t>(packed) & 31) == 0 &&
-        (reinterpret_cast<uint64_t>(pastKey) & 31) == 0 &&
-        (reinterpret_cast<uint64_t>(pastValue) & 31) == 0 &&
-        (reinterpret_cast<uint64_t>(query) & 31) == 0 &&
-        (reinterpret_cast<uint64_t>(key) & 31) == 0 &&
-        (reinterpret_cast<uint64_t>(value) & 31) == 0;
     // Preserve cached history reads and bypass L2 only for write-only outputs.
     if (cacheSize_ >= 16 * 1024 * 1024) {
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
@@ -38,7 +31,16 @@ class T5Copy {
   }
 
   __aicore__ inline void Process() {
-    for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
+    const uint32_t core = AscendC::GetBlockIdx(), cores = AscendC::GetBlockNum();
+    uint32_t begin = core, end = total_, stride = cores;
+    if (cacheSize_ >= 16 * 1024 * 1024) {
+      // Balanced disjoint contiguous intervals keep each core's history reads
+      // sequential. Tile boundaries and buffer/cache policies are unchanged.
+      begin = total_ * core / cores;
+      end = total_ * (core + 1) / cores;
+      stride = 1;
+    }
+    for (uint32_t work = begin; work < end; work += stride) {
       if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
@@ -51,22 +53,6 @@ class T5Copy {
   __aicore__ inline void Copy(AscendC::GlobalTensor<uint16_t>& src, uint32_t srcOffset,
                              AscendC::GlobalTensor<uint16_t>& dst, uint32_t dstOffset, uint32_t n) {
     if (!n) return;
-    if (wide_) {
-      auto local = queue_.AllocTensor<uint64_t>();
-      AscendC::GlobalTensor<uint64_t> wideSrc, wideDst;
-      // The offset overload preserves the writable GM pointer type. The
-      // zero-argument GetPhyAddr() returns const and cannot be reinterpreted.
-      wideSrc.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(src.GetPhyAddr(0)), src.GetSize() / 4);
-      wideDst.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(dst.GetPhyAddr(0)), dst.GetSize() / 4);
-      // dst.GetPhyAddr(0) already contains the A3 L2-bypass alias when set.
-      // Reapplying DISABLE adds the alias offset twice and faults the DMA.
-      AscendC::DataCopy(local, wideSrc[srcOffset / 4], n / 4);
-      queue_.EnQue(local);
-      local = queue_.DeQue<uint64_t>();
-      AscendC::DataCopy(wideDst[dstOffset / 4], local, n / 4);
-      queue_.FreeTensor(local);
-      return;
-    }
     auto local = queue_.AllocTensor<uint16_t>();
     // The plain DMA path requires a complete 32-byte block count. Inspect the
     // actual GM addresses too: contiguous storage-offset views may be unaligned.
@@ -131,7 +117,6 @@ class T5Copy {
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
   uint32_t qSize_, cacheSize_;
-  bool wide_;
   AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };
