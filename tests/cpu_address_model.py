@@ -75,8 +75,11 @@ def check(shape, *, bitwise=False):
 
 def main():
     # The 192 KiB configuration was rejected by GetWorkspaceSize (561002).
-    ub_bytes=2*TILE*np.dtype(np.uint16).itemsize
-    assert ub_bytes<=160*1024, ('double-buffered UB budget',ub_bytes)
+    depth_match=re.search(r'kQueueDepth = (\d+)',(ROOT/'op_kernel/t5_copy.h').read_text())
+    assert depth_match is not None, 'queue depth must be explicit for UB accounting'
+    queue_depth=int(depth_match.group(1))
+    ub_bytes=queue_depth*TILE*np.dtype(np.uint16).itemsize
+    assert ub_bytes<=160*1024, ('queue UB budget',queue_depth,ub_bytes)
     start=time.perf_counter(); records=[]
     cases=json.loads((ROOT/'reference/case.json').read_text(encoding='utf-8'))
     for case in cases:
