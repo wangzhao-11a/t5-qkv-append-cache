@@ -21,6 +21,8 @@ inline Plan MakePlan(uint32_t b, uint32_t h, uint32_t l, uint32_t d,
   p.queryTiles = (q + p.tileElements - 1) / p.tileElements;
   p.cacheTiles = (kv + p.tileElements - 1) / p.tileElements;
   p.totalTiles = p.queryTiles + 2 * p.cacheTiles;
+  // Controlled core-scaling experiment for the L2-resident large-cache path.
+  if (kv >= 16 * 1024 * 1024 && cores > 24) cores = 24;
   // Small inputs still use one block per useful tile. Tile boundaries are 32B aligned.
   p.blocks = p.totalTiles < cores ? p.totalTiles : cores;
   return p;
