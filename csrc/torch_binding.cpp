@@ -1,6 +1,7 @@
 #include <torch/extension.h>
 #include <c10/core/DeviceGuard.h>
 #include "torch_npu/csrc/core/npu/NPUStream.h"
+#include "torch_npu/csrc/core/npu/NPUEvent.h"
 #include "torch_npu/csrc/core/npu/NPUCachingAllocator.h"
 #include "torch_npu/csrc/aten/CustomFunctions.h"
 #include "acl/acl.h"
@@ -13,6 +14,8 @@
 
 extern "C" void t5LaunchDirect(void*, void*, void*, void*, void*, void*, void*,
                                uint32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void t5LaunchDirectMode(void*, void*, void*, void*, void*, void*, void*,
+                                   uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
 namespace {
 using Tensors = std::array<at::Tensor, 3>;
 using Shape = std::array<int64_t, 4>;
@@ -78,6 +81,56 @@ Descriptor Describe(const at::Tensor& x) {
   return Descriptor(p);
 }
 
+bool TryConcurrentCopy(const std::vector<at::Tensor>& xs, Tensors& out,
+                       int64_t b, int64_t h, int64_t l, int64_t d,
+                       const c10_npu::NPUStream& stream) {
+  const int64_t rows = b * h;
+  if (l <= 0 || rows * (l + 1) < 16 * 1024 * 1024 || 2 * rows > 4096) return false;
+  const int64_t hd = h * d, oldRow = l * d, row = oldRow + d;
+  const size_t count = static_cast<size_t>(2 * rows);
+  std::vector<void*> dsts(count), srcs(count);
+  std::vector<size_t> destMaxs(count), sizes(count);
+  auto* packed = static_cast<char*>(xs[0].data_ptr());
+  auto* pastKey = static_cast<char*>(xs[1].data_ptr());
+  auto* key = static_cast<char*>(out[1].data_ptr());
+  constexpr size_t elementBytes = sizeof(uint16_t);
+  const size_t historyBytes = static_cast<size_t>(oldRow) * elementBytes;
+  const size_t tokenBytes = static_cast<size_t>(d) * elementBytes;
+  for (int64_t head = 0; head < rows; ++head) {
+    const int64_t batch = head / h, indexH = head % h;
+    const size_t index = static_cast<size_t>(2 * head);
+    dsts[index] = key + head * row * elementBytes;
+    srcs[index] = pastKey + head * oldRow * elementBytes;
+    destMaxs[index] = historyBytes; sizes[index] = historyBytes;
+    dsts[index + 1] = key + (head * row + oldRow) * elementBytes;
+    srcs[index + 1] = packed + ((batch * 3 + 1) * hd + indexH * d) * elementBytes;
+    destMaxs[index + 1] = tokenBytes; sizes[index + 1] = tokenBytes;
+  }
+
+  auto copyStream = c10_npu::getNPUStreamFromPool(xs[0].device().index());
+  const aclrtStream rawCopyStream = copyStream.stream();
+  TORCH_CHECK(rawCopyStream, "failed to obtain auxiliary NPU stream");
+  c10_npu::NPUEvent inputReady, copyDone;
+  inputReady.record(stream);
+  inputReady.block(copyStream);
+  for (const auto& x : xs)
+    if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), copyStream);
+  c10_npu::NPUCachingAllocator::recordStream(out[1].storage().data_ptr(), copyStream);
+
+  const auto device = static_cast<uint32_t>(xs[0].device().index());
+  aclrtMemLocation location{device, ACL_MEM_LOCATION_TYPE_DEVICE};
+  aclrtMemcpyBatchAttr attr{location, location, {}};
+  size_t attrIndex = 0;
+  auto status = aclrtMemcpyBatchAsyncV2(dsts.data(), destMaxs.data(), srcs.data(), sizes.data(),
+                                         count, &attr, &attrIndex, 1, rawCopyStream);
+  TORCH_CHECK(status == ACL_SUCCESS, "concurrent K copy failed: ", status);
+  copyDone.record(copyStream);
+  t5LaunchDirectMode(stream.stream(), xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
+                     out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(), b, h, l, d, 2);
+  copyDone.block(stream);
+  return true;
+}
+
 std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
     const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim, bool direct) {
   const auto shape = Validate(xs, headNum, headDim);
@@ -94,6 +147,7 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
   auto call = [&]() -> int {
     for (const auto& x : xs)
       if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
+    if (!direct && TryConcurrentCopy(xs, out, b, h, l, d, stream)) return 0;
     if (direct) {
       t5LaunchDirect(rawStream, xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
                      out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(),

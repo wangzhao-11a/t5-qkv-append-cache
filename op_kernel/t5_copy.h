@@ -30,9 +30,12 @@ class T5Copy {
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
   }
 
-  __aicore__ inline void Process() {
+  __aicore__ inline void Process(uint32_t mode = 0) {
     for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
-      if (work < queryTiles_) Query(work);
+      if (mode == 2) {
+        if (work < queryTiles_) Query(work);
+        else Cache(work - queryTiles_, true);
+      } else if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
     }
