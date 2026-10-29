@@ -25,8 +25,6 @@ class T5Copy {
     // Large write-only outputs otherwise compete with cache input reads in L2.
     // The default cache policy was measured at 216 us versus 94 us for bypass.
     if (cacheSize_ >= 16 * 1024 * 1024) {
-      pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-      pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     }
