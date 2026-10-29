@@ -78,50 +78,6 @@ Descriptor Describe(const at::Tensor& x) {
   return Descriptor(p);
 }
 
-bool TryBatchedCopy(const std::vector<at::Tensor>& xs, Tensors& out,
-                    int64_t b, int64_t h, int64_t l, int64_t d, aclrtStream stream) {
-  const int64_t rows = b * h;
-  if (l <= 0 || rows * (l + 1) < 16 * 1024 * 1024 || 5 * rows > 4096) return false;
-  const int64_t hd = h * d, oldRow = l * d, row = oldRow + d;
-  const size_t count = static_cast<size_t>(5 * rows);
-  std::vector<void*> dsts(count), srcs(count);
-  std::vector<size_t> destMaxs(count), sizes(count);
-  size_t index = 0;
-  auto add = [&](void* dst, void* src, size_t bytes) {
-    dsts[index] = dst; srcs[index] = src;
-    destMaxs[index] = bytes; sizes[index] = bytes;
-    ++index;
-  };
-  auto* packed = static_cast<char*>(xs[0].data_ptr());
-  auto* pastKey = static_cast<char*>(xs[1].data_ptr());
-  auto* pastValue = static_cast<char*>(xs[2].data_ptr());
-  auto* query = static_cast<char*>(out[0].data_ptr());
-  auto* key = static_cast<char*>(out[1].data_ptr());
-  auto* value = static_cast<char*>(out[2].data_ptr());
-  constexpr size_t elementBytes = sizeof(uint16_t);
-  for (int64_t head = 0; head < rows; ++head) {
-    const int64_t batch = head / h, indexH = head % h;
-    const size_t historyBytes = static_cast<size_t>(oldRow) * elementBytes;
-    const size_t tokenBytes = static_cast<size_t>(d) * elementBytes;
-    add(query + head * d * elementBytes,
-        packed + (batch * 3 * hd + indexH * d) * elementBytes, tokenBytes);
-    add(key + head * row * elementBytes, pastKey + head * oldRow * elementBytes, historyBytes);
-    add(key + (head * row + oldRow) * elementBytes,
-        packed + ((batch * 3 + 1) * hd + indexH * d) * elementBytes, tokenBytes);
-    add(value + head * row * elementBytes, pastValue + head * oldRow * elementBytes, historyBytes);
-    add(value + (head * row + oldRow) * elementBytes,
-        packed + ((batch * 3 + 2) * hd + indexH * d) * elementBytes, tokenBytes);
-  }
-  const auto device = static_cast<uint32_t>(xs[0].device().index());
-  aclrtMemLocation location{device, ACL_MEM_LOCATION_TYPE_DEVICE};
-  aclrtMemcpyBatchAttr attr{location, location, {}};
-  size_t attrIndex = 0;
-  const auto status = aclrtMemcpyBatchAsyncV2(dsts.data(), destMaxs.data(), srcs.data(), sizes.data(),
-                                               count, &attr, &attrIndex, 1, stream);
-  TORCH_CHECK(status == ACL_SUCCESS, "batched D2D copy failed: ", status);
-  return true;
-}
-
 std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
     const std::vector<at::Tensor>& xs, int64_t headNum, int64_t headDim, bool direct) {
   const auto shape = Validate(xs, headNum, headDim);
@@ -138,7 +94,6 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
   auto call = [&]() -> int {
     for (const auto& x : xs)
       if (x.numel()) c10_npu::NPUCachingAllocator::recordStream(x.storage().data_ptr(), stream);
-    if (!direct && TryBatchedCopy(xs, out, b, h, l, d, rawStream)) return 0;
     if (direct) {
       t5LaunchDirect(rawStream, xs[0].data_ptr(), xs[1].data_ptr(), xs[2].data_ptr(),
                      out[0].data_ptr(), out[1].data_ptr(), out[2].data_ptr(),

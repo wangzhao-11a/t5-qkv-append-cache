@@ -22,9 +22,11 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
-    // Large write-only outputs otherwise compete with cache input reads in L2.
-    // The default cache policy was measured at 216 us versus 94 us for bypass.
+    // Retain history reads across cache-appending calls, but bypass L2 for
+    // write-only outputs to avoid read-for-ownership traffic and cache thrash.
     if (cacheSize_ >= 16 * 1024 * 1024) {
+      pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
+      pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
       k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     }
