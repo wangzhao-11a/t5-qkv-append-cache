@@ -3,7 +3,7 @@
 
 // Plain scalar ABI shared by tiling, the direct launcher and CPU mapping tests.
 namespace t5qkv {
-constexpr uint32_t kTileElements = 49152;  // 96 KiB; two DMA buffers = 192 KiB UB.
+constexpr uint32_t kTileElements = 40960;  // 80 KiB; two DMA buffers = 160 KiB UB.
 constexpr uint32_t kMaxVectorCores = 48;
 struct Plan {
   uint32_t batch, heads, length, dim;
