@@ -37,6 +37,10 @@ class T5Copy {
       if (inputBytes < kWorkingSetBytes) {
         const uint32_t cachedElements = Min(cacheSize_, (kWorkingSetBytes - inputBytes) / 2);
         cachedKeyTiles_ = cachedElements / tile_;
+        if (cachedKeyTiles_) {
+          pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
+          pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_PERSISTENT);
+        }
       }
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
