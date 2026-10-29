@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
-TASK_ROOT=/workspace/t5_qkv_tasks/t5_qkv_c9decf212667
-cd "$TASK_ROOT"
-mkdir -p artifacts/validation
-trap 'echo "$?" > artifacts/validation/performance_phase.exit' EXIT
-exec > artifacts/validation/performance_phase.log 2>&1
+source "$(dirname -- "${BASH_SOURCE[0]}")/phase_common.sh"
+phase_begin performance_phase correctness_phase
 [[ $(cat artifacts/validation/correctness_phase.exit) == 0 ]] || exit 2
 [[ ! -e artifacts/validation/performance.json ]] || { echo 'Preserve previous performance evidence'; exit 2; }
 set +u
 source /usr/local/Ascend/cann-9.1.0/set_env.sh
 set -u
 export PATH=/workspace/vasc031_a3/bin:$PATH
-export T5_OPP_ROOT=/root/.local/t5_qkv_c9decf212667
 export ASCEND_RT_VISIBLE_DEVICES=1
 export ASCEND_CUSTOM_OPP_PATH="$T5_OPP_ROOT/vendors/t5qkv${ASCEND_CUSTOM_OPP_PATH:+:$ASCEND_CUSTOM_OPP_PATH}"
 export PYTHONPATH="/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps:$TASK_ROOT:$TASK_ROOT/reference${PYTHONPATH:+:$PYTHONPATH}"
+phase_device_inventory
 npu-smi info > artifacts/validation/device_before_performance.txt
 grep -q 'No running processes found' artifacts/validation/device_before_performance.txt || exit 2
 python reference/benchmark.py --solution-file "$TASK_ROOT/solution.py" --report artifacts/validation/performance.json > artifacts/validation/performance.log 2>&1 || true

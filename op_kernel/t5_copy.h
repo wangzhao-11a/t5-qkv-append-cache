@@ -54,8 +54,10 @@ class T5Copy {
     if (wide_) {
       auto local = queue_.AllocTensor<uint64_t>();
       AscendC::GlobalTensor<uint64_t> wideSrc, wideDst;
-      wideSrc.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(src.GetPhyAddr()), 3 * cacheSize_ / 4);
-      wideDst.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(dst.GetPhyAddr()), 3 * cacheSize_ / 4);
+      // The offset overload preserves the writable GM pointer type. The
+      // zero-argument GetPhyAddr() returns const and cannot be reinterpreted.
+      wideSrc.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(src.GetPhyAddr(0)), src.GetSize() / 4);
+      wideDst.SetGlobalBuffer(reinterpret_cast<__gm__ uint64_t*>(dst.GetPhyAddr(0)), dst.GetSize() / 4);
       wideDst.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       AscendC::DataCopy(local, wideSrc[srcOffset / 4], n / 4);
       queue_.EnQue(local);

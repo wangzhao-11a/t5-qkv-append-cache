@@ -23,6 +23,8 @@ def secret(prompt):
 def main():
     jump_user=secret('Jump username/token (hidden): ')
     target_password=secret('Target password (hidden): ')
+    if not jump_user or not target_password:
+        raise SystemExit('Missing credentials on stdin; refusing any network connection')
     transport=paramiko.Transport(('113.47.8.48',2234))
     transport.start_client(timeout=25)
     try:
