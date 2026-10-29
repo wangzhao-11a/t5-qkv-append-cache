@@ -20,7 +20,7 @@ if hashlib.sha256(a.archive.read_bytes()).hexdigest()!=a.sha256:
 if a.destination.exists():raise SystemExit('Preserve existing evidence; choose a new destination')
 a.destination.parent.mkdir(parents=True,exist_ok=True)
 # Python 3.14 mkdtemp applies a private Windows ACL for mode 0700. In the
-# desktop sandbox that ACL prevents even realpath/filtering and final rename.
+# desktop sandbox that ACL prevents even realpath/filtering.
 # Inherit the workspace ACL; the archive is still fully filtered below.
 staging=a.destination.parent/('.evidence-'+uuid.uuid4().hex)
 staging.mkdir(mode=0o755)

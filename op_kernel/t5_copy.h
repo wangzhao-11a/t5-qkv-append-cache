@@ -31,16 +31,7 @@ class T5Copy {
   }
 
   __aicore__ inline void Process() {
-    const uint32_t core = AscendC::GetBlockIdx(), cores = AscendC::GetBlockNum();
-    uint32_t begin = core, end = total_, stride = cores;
-    if (cacheSize_ >= 16 * 1024 * 1024) {
-      // Balanced disjoint contiguous intervals keep each core's history reads
-      // sequential. Tile boundaries and buffer/cache policies are unchanged.
-      begin = total_ * core / cores;
-      end = total_ * (core + 1) / cores;
-      stride = 1;
-    }
-    for (uint32_t work = begin; work < end; work += stride) {
+    for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
       if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
