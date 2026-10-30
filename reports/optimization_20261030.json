@@ -1719,14 +1719,169 @@
           "max_wall_us": 29
         }
       ]
+    },
+    {
+      "commit": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+      "experiment": "34829e0 kernel with bounded official ACLNN executor metadata reuse",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_1bba0d08e072",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-1bba0d0-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-1bba0d0-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "ae6b573e17d44a3d521a1b166fe7d794ec68f6a3df19ff6ad4891f1a60034b4f",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 8,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            30.01915,
+            28.48495,
+            22.43575,
+            22.12935,
+            22.390099999999997
+          ],
+          "wall_us_median": 22.43575,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.997,
+            22.93815,
+            22.99655,
+            23.3635,
+            23.1963
+          ],
+          "wall_us_median": 22.997,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            23.699450000000002,
+            23.734299999999998,
+            23.45185,
+            23.494049999999998,
+            23.817349999999998
+          ],
+          "wall_us_median": 23.699450000000002,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            77.49605,
+            77.19115,
+            77.20214999999999,
+            77.61914999999999,
+            77.01915
+          ],
+          "wall_us_median": 77.20214999999999,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            23.96295,
+            23.8458,
+            24.108,
+            24.0167,
+            24.009349999999998
+          ],
+          "wall_us_median": 24.009349999999998,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.761200000000002,
+            22.7562,
+            22.7153,
+            22.819599999999998,
+            22.7469
+          ],
+          "wall_us_median": 22.7562,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            23.86985,
+            23.8707,
+            23.8212,
+            23.84255,
+            23.7755
+          ],
+          "wall_us_median": 23.84255,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            24.019,
+            23.8646,
+            23.6345,
+            23.68105,
+            24.07875
+          ],
+          "wall_us_median": 23.8646,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            77.99064999999999,
+            77.65745,
+            77.48935,
+            77.44895,
+            77.59
+          ],
+          "wall_us_median": 77.59,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            28.57405,
+            28.2685,
+            28.1875,
+            28.37485,
+            28.1271
+          ],
+          "wall_us_median": 28.2685,
+          "max_wall_us": 29
+        }
+      ]
     }
   ],
   "pending": {
-    "last_completed_commit": "320224a1d0deebb77a4012e45c0f66870969ecd2",
-    "experiment": "34829e0 kernel restored; official ACLNN repeatable executor with fresh per-call addresses",
-    "status": "source prepared; requires new exact-commit deployment and full verification",
+    "last_completed_commit": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+    "experiment": "Same-build executor reuse off control and full-harness PipeUtilization diagnostics",
+    "status": "Full correctness passed; fixed performance 8/10, large cases 77.20215/77.59 us",
     "connection": "original target/container restored; persistent SSH heartbeat remains active",
-    "next_step": "validate executor reuse including changed-input and retained-output stress; control with T5_ACLNN_EXECUTOR_REUSE=0"
+    "next_step": "inspect control and profiler before selecting one remaining device-side change"
   },
   "confirmed_findings": [
     "L2 capacity is 201326592 bytes in installed Ascend910_9382.ini",

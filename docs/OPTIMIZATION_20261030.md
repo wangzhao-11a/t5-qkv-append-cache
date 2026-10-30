@@ -145,3 +145,15 @@ CPU 地址检查覆盖 35 个公开 shape、120 个随机 shape；增加 UB 片�
 增补 FP16/BF16 各 8 次同形状不同位模式/地址输入检查，同时保留全部旧输出，检查地址刷新与独立存储。固定 benchmark 未更改；`T5_ACLNN_EXECUTOR_REUSE=0` 仅作为显式同构建普通路径对照，默认开启复用，环境指纹记录该配置。
 
 依据为 CANN 9.1 [执行器复用 API](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/910/API/aolapi/operatorlist_00041.html)、官方 [地址刷新 API](https://www.hiascend.com/doc_center/source/en/canncommercial/850/API/aolapi/operatorlist_00047.html) 和目标安装的 `aclnn/acl_meta.h` 声明。官方源码站本次未能读取，未采用社区 PR 或博客实现。
+
+### 对照 12 结果：1bba0d0
+
+构建、Smoke、完整正确性/工程/内存通过，新增两组地址刷新检查通过。固定性能 8/10，八个小用例通过，007/017 为 77.20215/77.59 us。证据 SHA256：ae6b573e17d44a3d521a1b166fe7d794ec68f6a3df19ff6ad4891f1a60034b4f。
+
+随后同一源码/二进制、同一固定协议，仅设置 T5_ACLNN_EXECUTOR_REUSE=0：小用例约 28.6–30.2 us，两大用例 72.21455/71.52035 us 均过限。控制报告 SHA256：850770f4dddd82030a4a43100ecb466c721459e1574c02fcaa48c0642184081c。独立进程可能引入地址布局或状态差异，不能单凭两次结果断定复用导致大用例退化。官方完整 PipeUtilization 采样已完成全部 10 例正确性检查，待分析计数。
+
+## 对照 13：按搬运规模选择执行器路径
+
+设备内核、缓存预算均保持 1bba0d0/34829e0。仅将主机默认模式改为 auto：单份 K/V 输出小于 32 MiB 时复用执行器，否则销毁上一份元数据计划并采用普通两阶段 ACLNN。阈值按一般搬运规模判断，与原大缓存路径一致，不引用用例 ID。T5_ACLNN_EXECUTOR_REUSE=0/1 分别保留强制关闭/开启控制。
+
+此项由同构建控制组的新证据支持，但仍需全套验证才能确认组合是否达到 10/10；不把独立控制组的大用例结果拼接为候选验收结果。
