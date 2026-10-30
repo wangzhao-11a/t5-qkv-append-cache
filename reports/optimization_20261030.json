@@ -1564,14 +1564,169 @@
           "max_wall_us": 29
         }
       ]
+    },
+    {
+      "commit": "320224a1d0deebb77a4012e45c0f66870969ecd2",
+      "experiment": "176 MiB, same K/V cached count as 159b181 distributed three of every eight tiles",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_320224a1d0de",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-320224a-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-320224a-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "09758362ace3cb97362a0ce8237d5f39cd149ed42b728461c653229bf2a74878",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 8,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            30.26625,
+            25.27975,
+            24.9925,
+            25.0107,
+            25.01275
+          ],
+          "wall_us_median": 25.01275,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            25.49485,
+            25.41,
+            25.41235,
+            25.509349999999998,
+            25.5736
+          ],
+          "wall_us_median": 25.49485,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.37365,
+            26.2849,
+            26.24075,
+            26.14875,
+            26.2162
+          ],
+          "wall_us_median": 26.24075,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            127.76085,
+            127.61105,
+            127.2803,
+            126.79875,
+            126.4375
+          ],
+          "wall_us_median": 127.2803,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.4555,
+            26.48815,
+            26.0992,
+            26.284200000000002,
+            26.59945
+          ],
+          "wall_us_median": 26.4555,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.0463,
+            25.7937,
+            25.809150000000002,
+            25.84065,
+            25.91525
+          ],
+          "wall_us_median": 25.84065,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.13645,
+            27.24195,
+            26.6986,
+            27.6252,
+            27.8352
+          ],
+          "wall_us_median": 27.24195,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.6146,
+            26.6945,
+            26.604650000000003,
+            26.38675,
+            26.404700000000002
+          ],
+          "wall_us_median": 26.604650000000003,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            127.73075,
+            127.45960000000001,
+            126.08445,
+            126.48075,
+            126.89245
+          ],
+          "wall_us_median": 126.89245,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.05285,
+            26.8751,
+            26.82,
+            26.86705,
+            26.821849999999998
+          ],
+          "wall_us_median": 26.86705,
+          "max_wall_us": 29
+        }
+      ]
     }
   ],
   "pending": {
-    "last_completed_commit": "b9e1608dccca3cb9f7c93e137d9b109a99517066",
-    "experiment": "Same cached count and K/V split as 159b181, distributed three of every eight tiles",
+    "last_completed_commit": "320224a1d0deebb77a4012e45c0f66870969ecd2",
+    "experiment": "34829e0 kernel restored; official ACLNN repeatable executor with fresh per-call addresses",
     "status": "source prepared; requires new exact-commit deployment and full verification",
     "connection": "original target/container restored; persistent SSH heartbeat remains active",
-    "next_step": "validate distributed output caching; do not rerun failed output-first allocation"
+    "next_step": "validate executor reuse including changed-input and retained-output stress; control with T5_ACLNN_EXECUTOR_REUSE=0"
   },
   "confirmed_findings": [
     "L2 capacity is 201326592 bytes in installed Ascend910_9382.ini",

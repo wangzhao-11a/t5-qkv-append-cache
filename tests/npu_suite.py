@@ -147,6 +147,27 @@ def execute(report, args):
         del cpu, good, backing, overlap, arrays, inputs
 
     if args.group in ("all", "engineering"):
+        # An ACLNN metadata plan must refresh input and output addresses even
+        # when shape/dtype/stream stay unchanged. Keep all old results alive.
+        for case in (perf[1], perf[6]):
+            seed_arrays, seed_inputs = make(case)
+            del seed_inputs
+            retained = []
+            for iteration in range(8):
+                arrays = tuple(a.copy() for a in seed_arrays)
+                for array in arrays:
+                    bits = array.view(np.uint16)
+                    np.bitwise_xor(bits, np.uint16(iteration + 1), out=bits)
+                inputs = verify.device_inputs(case, arrays, device)
+                outputs = solution.run(inputs, attrs(case))
+                retained.append((arrays, inputs, outputs))
+            torch.npu.synchronize()
+            for arrays, inputs, outputs in retained:
+                check(case, arrays, inputs, outputs)
+            record("executor_address_refresh_" + case["case_name"], "run", calls=8,
+                   changed_inputs=True, retained_output_groups=len(retained))
+            del seed_arrays, retained, arrays, inputs, outputs, array, bits
+
         streams=[torch.npu.Stream(),torch.npu.Stream()]
         pending=[]
         for stream,name in zip(streams,req["stream_case_ids"]):

@@ -38,7 +38,7 @@ def command(argv):
 def inventory():
     data = {"platform": platform.platform(), "machine": platform.machine(),
             "python": platform.python_version(), "executable": sys.executable,
-            "environment": {k: os.environ.get(k) for k in ("ASCEND_HOME_PATH", "ASCEND_RT_VISIBLE_DEVICES", "ASCEND_CUSTOM_OPP_PATH", "T5_OPP_ROOT")},
+            "environment": {k: os.environ.get(k) for k in ("ASCEND_HOME_PATH", "ASCEND_RT_VISIBLE_DEVICES", "ASCEND_CUSTOM_OPP_PATH", "T5_OPP_ROOT", "T5_ACLNN_EXECUTOR_REUSE", "TASK_QUEUE_ENABLE")},
             "commands": [command(x) for x in (["npu-smi", "info"], ["ss", "-lntp"], ["ps", "-eo", "pid,ppid,comm,args"])],
             "versions": {}}
     for name in ("torch", "torch_npu", "numpy", "ml_dtypes"):

@@ -131,3 +131,17 @@ CPU 地址检查覆盖 35 个公开 shape、120 个随机 shape；增加 UB 片�
 恢复 159b181 的运行代码，输入 NORMAL、K/V 相等的缓存 tile 数、176 MiB 总预算保持一致。仅将连续前缀改为每 8 个 tile 选 3 个，并在达到原定 tile 数时停止；若这个掩码不能容纳原定数量则保留前缀策略。DMA 次数、访问顺序、缓冲大小和核数不变。
 
 此项区分缓存地址分布的影响，与已否证的两个连续 K/V 前缀及 K/V 访问顺序交错不同。根据完整 profiler 的输入 miss 和约 98.2% 缓存写命中率，重点检验输入驻留能否改善；不预先假定 L2 映射方式。
+
+### 对照 11 结果：320224a
+
+构建、Smoke、完整正确性/工程/内存通过；固定性能 8/10，大缓存 127.2803/126.89245 us，分散缓存更慢，撤销。证据归档 SHA256：09758362ace3cb97362a0ce8237d5f39cd149ed42b728461c653229bf2a74878。
+
+## 对照 12：官方 ACLNN 执行器复用
+
+设备内核逐字节恢复 34829e0。主机端使用 CANN 9.1 官方 `aclSetAclOpExecutorRepeatable`、`aclSetTensorAddr` 和 `aclDestroyAclOpExecutor`，省去相同元数据下反复创建六份描述符和执行第一阶段。每次仍进行输入验证、分配三个新输出、取得有序当前 stream、recordStream 输入并提交 ACLNN 第二阶段。不存在计算结果缓存或设备工作区。
+
+每个调用线程最多一份计划，shape/dtype/device/stream/输入 strides 变化时替换；每次刷新所有非空张量的地址。非 32B 对齐输入保留已验证的普通两阶段路径。描述符存活至执行器销毁后；主线程注册较晚的 atexit 清理，在 torch_npu runtime 结束前释放计划。复用接口若返回不支持，完成普通第二阶段并明确记录回退警告。
+
+增补 FP16/BF16 各 8 次同形状不同位模式/地址输入检查，同时保留全部旧输出，检查地址刷新与独立存储。固定 benchmark 未更改；`T5_ACLNN_EXECUTOR_REUSE=0` 仅作为显式同构建普通路径对照，默认开启复用，环境指纹记录该配置。
+
+依据为 CANN 9.1 [执行器复用 API](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/910/API/aolapi/operatorlist_00041.html)、官方 [地址刷新 API](https://www.hiascend.com/doc_center/source/en/canncommercial/850/API/aolapi/operatorlist_00047.html) 和目标安装的 `aclnn/acl_meta.h` 声明。官方源码站本次未能读取，未采用社区 PR 或博客实现。
