@@ -4,10 +4,11 @@
 
 - 新证据确认设备 L2 为 192 MiB。仅让部分输出进入 L2 的 34829e0 候选，两个大缓存降至 76.5275 / 79.2032 us，较基线 94.08875 / 94.47925 us 明显改善，仍未过 75/77 us。
 - 176 MiB 总工作集预算时输入读 miss 约 6.5%；增到 184 MiB 时约 20.8%，并退化至 86.88145 / 89.0899 us。160 MiB、PERSISTENT 输入和 24 核也未达到目标；详见 [OPTIMIZATION_20261030.md](OPTIMIZATION_20261030.md) 与 [结构化证据](../reports/optimization_20261030.json)。
-- 当前运行代码候选为 159b1811bd9f036ab4860492f2856add4bf57f59：恢复 176 MiB，将同样的缓存输出量平分到 K/V 前缀。它已归档、逐文件校验、通过 5 条部署门禁并启动远端完整流水线，最终结果尚未读回。
-- 远端目录 `/workspace/t5_qkv_tasks/t5_qkv_159b1811bd9f`，派发日志 `/tmp/t5_pipeline_dispatch_159b1811bd9f.log`。恢复后先读取已有 `artifacts/validation/*.exit` 与 `candidate_pipeline.log`，不得重复启动。
-- 聊天中断后原 SSH 长连接失效。使用已提供令牌尝试重连时跳板明确返回 `platform authorization denied / Administratively prohibited`，已请求刷新授权；密码无需重复。远端后台任务是否完成目前未确认。
-- 新的六组完整证据均已下载、校验与隔离解包。导入器支持 `@collector.log` 直接解析原始 SHA256；Windows 目录 rename 拒绝时，新目录复制后逐文件复验，保留暂存证据。相关事故和机械门禁已记入 memories。
+- 刷新授权后已读回 159b181：构建、Smoke、正确性/工程/内存通过，固定性能 8/10；007/017 为 87.1103 / 87.2277 us，均分 K/V 前缀更慢，已撤销。后台流水线已结束，不要重复启动。
+- 当前运行代码为 c09d875159970d0a2f287ecbb46a219baca326b4：恢复 176 MiB K 前缀，仅交错执行 K/V tile。CPU 检查通过；精确提交归档 `artifacts/source_c09d87515997.tar` 与 manifest 已生成。上传时连接已关闭，部署和设备验证尚未开始。
+- 刷新后的 SSH 曾成功连接并下载证据，之后再度断开；同令牌重连又被跳板以 `platform authorization denied / Administratively prohibited` 拒绝。已请求新授权。下次连接先检查 `/tmp/t5_source_c09d87515997.tar` 是否残留，核对哈希后再部署，不要视作已经上传成功。
+- 双层 20 秒 transport keepalive 未防止本次断线，原始断线原因尚未查明。客户端新增持续远端心跳会话及连接层状态/存活时长记录，效果待验证；上传改为临时文件、远端逐字节 SHA256 校验后发布，遇到不同内容旧文件拒绝覆盖。
+- 新的七组完整证据均已下载、校验与隔离解包。导入器支持 `@collector.log` 直接解析原始 SHA256；Windows 目录 rename 拒绝时，新目录复制后逐文件复验，保留暂存证据。相关事故和机械门禁已记入 memories。
 
 以下为前一轮接续快照，不能作为当前 HEAD 状态。
 

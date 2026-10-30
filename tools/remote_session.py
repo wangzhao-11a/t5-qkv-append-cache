@@ -10,6 +10,8 @@ from pathlib import Path
 import shlex
 import sys
 import time
+import uuid
+import threading
 import paramiko
 
 def secret(prompt):
@@ -42,6 +44,43 @@ def main():
     key=client.get_transport().get_remote_server_key()
     print(json.dumps({'connected':True,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
     sftp=client.open_sftp()
+    connected_at=time.monotonic()
+    heartbeat=client.get_transport().open_session()
+    heartbeat.exec_command("while sleep 20; do printf 't5-ssh-alive\\n' || exit; done")
+    heartbeat_count=0
+    def drain_heartbeat():
+        nonlocal heartbeat_count
+        try:
+            while data:=heartbeat.recv(1024):
+                heartbeat_count+=data.count(b't5-ssh-alive\n')
+        except (OSError,EOFError):
+            pass
+    threading.Thread(target=drain_heartbeat,daemon=True).start()
+    def connection_state():
+        return {'jump_active':transport.is_active(),
+                'target_active':client.get_transport().is_active(),
+                'connected_seconds':round(time.monotonic()-connected_at,1),
+                'remote_heartbeats_received':heartbeat_count}
+    def remote_digest(remote):
+        digest=hashlib.sha256()
+        with sftp.open(remote,'rb') as handle:
+            while chunk:=handle.read(1024*1024):digest.update(chunk)
+        return digest.hexdigest()
+    def upload_verified(local,remote):
+        expected=hashlib.sha256(Path(local).read_bytes()).hexdigest()
+        try:
+            existing=remote_digest(remote)
+        except FileNotFoundError:
+            existing=None
+        if existing is not None:
+            if existing!=expected:raise FileExistsError('Preserve differing remote file: '+remote)
+            print(json.dumps({'existing_upload_verified':remote,'sha256':expected}),flush=True)
+            return
+        partial=remote+'.upload-'+uuid.uuid4().hex+'.part'
+        sftp.put(local,partial)
+        if remote_digest(partial)!=expected:raise ValueError('Uploaded byte checksum mismatch; temporary file preserved')
+        sftp.rename(partial,remote)
+        print(json.dumps({'uploaded':remote,'sha256':expected,'remote_bytes_verified':True}),flush=True)
     def run(command, timeout_seconds=180):
         _,stdout,stderr=client.exec_command(command,timeout=120)
         channel=stdout.channel
@@ -62,12 +101,16 @@ def main():
         try:
             item=json.loads(line)
             if item.get('exit'):break
-            if 'script' in item:
+            if not transport.is_active() or not client.get_transport().is_active():
+                raise ConnectionError('Inactive SSH transport; refusing new transfer or remote command')
+            if item.get('status'):
+                print(json.dumps(connection_state()),flush=True)
+            elif 'script' in item:
                 payload=Path(item['script']).read_bytes()
                 if b'\r' in payload or payload.startswith(b'\xef\xbb\xbf'):raise ValueError('reject non-LF or BOM script')
                 payload.decode('utf-8')
                 remote=item['remote']
-                with sftp.file(remote,'wb') as handle:handle.write(payload)
+                upload_verified(item['script'],remote)
                 sftp.chmod(remote,0o700)
                 if item.get('background'):
                     logfile=shlex.quote(item['log'])
@@ -76,8 +119,7 @@ def main():
                 else:
                     run('bash -n '+shlex.quote(remote)+' && bash '+shlex.quote(remote))
             elif 'put' in item:
-                sftp.put(item['put'],item['remote'])
-                print(json.dumps({'uploaded':item['remote'],'sha256':hashlib.sha256(Path(item['put']).read_bytes()).hexdigest()}),flush=True)
+                upload_verified(item['put'],item['remote'])
             elif 'get' in item:
                 destination=Path(item['local'])
                 partial=destination.with_name(destination.name+'.part')
@@ -87,10 +129,10 @@ def main():
             elif 'command' in item:run(item['command'],item.get('timeout_seconds',180))
             else:raise ValueError('unknown request')
         except Exception as exc:
-            print(json.dumps({'error':f'{type(exc).__name__}: {exc}'}),flush=True)
+            print(json.dumps({'error':f'{type(exc).__name__}: {exc}',**connection_state()}),flush=True)
             if not transport.is_active() or not client.get_transport().is_active():
                 print(json.dumps({'session_closed':True,'next_action':'reconnect and inspect remote state before retry'}),flush=True)
                 break
-    sftp.close();client.close();transport.close()
+    heartbeat.close();sftp.close();client.close();transport.close()
 
 if __name__=='__main__':main()

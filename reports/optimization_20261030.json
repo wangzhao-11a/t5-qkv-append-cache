@@ -944,16 +944,171 @@
           "max_wall_us": 29
         }
       ]
+    },
+    {
+      "commit": "159b1811bd9f036ab4860492f2856add4bf57f59",
+      "experiment": "176 MiB working set, equal K/V cached prefixes, NORMAL history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_159b1811bd9f",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-159b181-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-159b181-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "2bb4a6da83caeabbf79142cfd71ab8d6f2f2a1233f3d39780515c4ab511ea223",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 8,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            32.1913,
+            26.3871,
+            25.9727,
+            26.0059,
+            26.005650000000003
+          ],
+          "wall_us_median": 26.0059,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.5307,
+            26.33475,
+            26.3629,
+            31.577150000000003,
+            26.47625
+          ],
+          "wall_us_median": 26.47625,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.26025,
+            27.0521,
+            27.3695,
+            27.361150000000002,
+            27.360349999999997
+          ],
+          "wall_us_median": 27.360349999999997,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            88.6792,
+            87.30025,
+            86.83825,
+            87.11030000000001,
+            86.65395
+          ],
+          "wall_us_median": 87.11030000000001,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.5954,
+            27.46275,
+            27.023,
+            27.93725,
+            27.8274
+          ],
+          "wall_us_median": 27.5954,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.198349999999998,
+            26.109,
+            26.01325,
+            26.14445,
+            26.211
+          ],
+          "wall_us_median": 26.14445,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.5119,
+            27.1805,
+            27.25345,
+            27.0379,
+            27.08175
+          ],
+          "wall_us_median": 27.1805,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.0093,
+            26.946,
+            26.8096,
+            26.83125,
+            27.07555
+          ],
+          "wall_us_median": 26.946,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            88.91964999999999,
+            87.2277,
+            87.31465,
+            87.1521,
+            86.87164999999999
+          ],
+          "wall_us_median": 87.2277,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.387900000000002,
+            27.244799999999998,
+            27.29855,
+            27.425900000000002,
+            27.969150000000003
+          ],
+          "wall_us_median": 27.387900000000002,
+          "max_wall_us": 29
+        }
+      ]
     }
   ],
   "pending": {
-    "commit": "159b1811bd9f036ab4860492f2856add4bf57f59",
-    "experiment": "176 MiB, equal cached K/V prefixes, same total cached tiles",
-    "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_159b1811bd9f",
-    "launch": "nohup bash scripts/run_candidate.sh > /tmp/t5_pipeline_dispatch_159b1811bd9f.log 2>&1 < /dev/null &",
-    "status": "launched_before_interruption; remote_completion_unverified",
-    "reconnect_blocker": "jump host platform authorization denied after interrupted SSH session",
-    "next_step": "read existing stage exits and logs; never start another pipeline without inspecting current state"
+    "commit": "c09d875159970d0a2f287ecbb46a219baca326b4",
+    "experiment": "176 MiB, cached K prefix, interleaved K/V tile visits",
+    "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_c09d87515997",
+    "launch": "nohup bash scripts/run_candidate.sh > /tmp/t5_pipeline_dispatch_c09d87515997.log 2>&1 < /dev/null &",
+    "status": "source_archive_ready; upload_failed_on_closed_socket; deployment_not_started",
+    "reconnect_blocker": "refreshed token connected successfully but session then closed; subsequent forwarding denied by platform",
+    "next_step": "inspect possible remote partial upload, transfer archive atomically, verify manifest, then start once"
   },
   "confirmed_findings": [
     "L2 capacity is 201326592 bytes in installed Ascend910_9382.ini",
