@@ -1,0 +1,569 @@
+{
+  "status": "failed",
+  "npu_executed": true,
+  "protocol": {
+    "warmup": 50,
+    "iterations": 200,
+    "rounds": 5
+  },
+  "cases": [
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            39.853300000000004,
+            33.5011,
+            33.918150000000004,
+            34.7219,
+            33.9371
+          ],
+          "device_event_us_rounds": [
+            33.87979984283447,
+            33.040900230407715,
+            33.44429969787598,
+            34.25950050354004,
+            33.53830099105835
+          ],
+          "wall_us_median": 33.9371,
+          "device_event_us_median": 33.53830099105835
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_005_float16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            34.0275,
+            34.115050000000004,
+            34.48165,
+            33.986,
+            34.310449999999996
+          ],
+          "device_event_us_rounds": [
+            33.576200008392334,
+            33.67379903793335,
+            34.068500995635986,
+            33.555099964141846,
+            33.93090009689331
+          ],
+          "wall_us_median": 34.115050000000004,
+          "device_event_us_median": 33.67379903793335
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_006_float16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            35.31165,
+            38.6023,
+            30.632450000000002,
+            30.4734,
+            30.63105
+          ],
+          "device_event_us_rounds": [
+            34.81369972229004,
+            38.01609992980957,
+            30.108699798583984,
+            29.843299388885498,
+            30.01120090484619
+          ],
+          "wall_us_median": 30.632450000000002,
+          "device_event_us_median": 30.108699798583984
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            87.12214999999999,
+            86.88145,
+            86.83235,
+            87.09255,
+            86.6998
+          ],
+          "device_event_us_rounds": [
+            86.27799987792969,
+            86.33090019226074,
+            86.30060195922852,
+            86.32599830627441,
+            86.22799873352051
+          ],
+          "wall_us_median": 86.88145,
+          "device_event_us_median": 86.30060195922852
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_008_float16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            31.054650000000002,
+            31.10125,
+            31.052400000000002,
+            30.62135,
+            30.443900000000003
+          ],
+          "device_event_us_rounds": [
+            30.527501106262207,
+            30.344700813293457,
+            30.323100090026855,
+            29.96999979019165,
+            30.003600120544434
+          ],
+          "wall_us_median": 31.052400000000002,
+          "device_event_us_median": 30.323100090026855
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            29.578200000000002,
+            29.346,
+            29.46595,
+            29.440549999999998,
+            29.76945
+          ],
+          "device_event_us_rounds": [
+            29.105799198150635,
+            28.874499797821045,
+            28.937900066375732,
+            28.842298984527588,
+            29.195499420166016
+          ],
+          "wall_us_median": 29.46595,
+          "device_event_us_median": 28.937900066375732
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            30.729,
+            30.59995,
+            30.7411,
+            30.3573,
+            30.5276
+          ],
+          "device_event_us_rounds": [
+            30.089900493621826,
+            29.969799518585205,
+            30.09049892425537,
+            29.93530035018921,
+            30.037400722503662
+          ],
+          "wall_us_median": 30.59995,
+          "device_event_us_median": 30.037400722503662
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            30.8259,
+            30.14855,
+            30.19555,
+            30.6311,
+            30.33115
+          ],
+          "device_event_us_rounds": [
+            30.243699550628662,
+            29.61090087890625,
+            29.62130069732666,
+            30.00920057296753,
+            29.668700695037842
+          ],
+          "wall_us_median": 30.33115,
+          "device_event_us_median": 29.668700695037842
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            91.86895,
+            88.94035000000001,
+            89.0899,
+            89.11435,
+            88.955
+          ],
+          "device_event_us_rounds": [
+            91.0591983795166,
+            88.3961009979248,
+            88.55210304260254,
+            88.40129852294922,
+            88.44889640808105
+          ],
+          "wall_us_median": 89.0899,
+          "device_event_us_median": 88.44889640808105
+        }
+      }
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "accuracy": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ],
+      "results": {
+        "custom": {
+          "wall_us_rounds": [
+            31.0281,
+            30.96635,
+            31.1843,
+            31.38145,
+            30.74795
+          ],
+          "device_event_us_rounds": [
+            30.366098880767822,
+            30.302700996398926,
+            30.519399642944336,
+            30.685200691223145,
+            30.285799503326416
+          ],
+          "wall_us_median": 31.0281,
+          "device_event_us_median": 30.366098880767822
+        }
+      }
+    }
+  ],
+  "started_at_utc": "2026-10-29T18:33:28.332848+00:00",
+  "solution_file": "/workspace/t5_qkv_tasks/t5_qkv_0aa9f7f2852b/solution.py",
+  "solution_file_sha256": "0a8a64a66c0b38f12ad2cc7302656f44b960e22e306e5f3232c66114d2344256",
+  "implementation_manifest_note": "This hash covers only the entry file; attach a manifest covering all implementation sources and built artifacts.",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+    "torch": "2.10.0+cpu",
+    "torch_npu": "2.10.0.post4",
+    "device_index": 0,
+    "device_name": "Ascend910_9382",
+    "cann_installation_info": {
+      "source": "/usr/local/Ascend/cann-9.1.0/aarch64-linux/ascend_toolkit_install.info",
+      "content": "package_name=Ascend-cann-toolkit\nversion=9.1.0\ninnerversion=V100R001C11SPC001B243\ncompatible_version=[V100R001C15],[V100R001C21],[V100R001C23],[V100R001C10]\narch=aarch64\nos=linux\npath=/usr/local/Ascend/cann-9.1.0\n"
+    },
+    "cann_runtime_version": "unknown",
+    "driver_version": "unknown"
+  },
+  "performance_checks": {
+    "scope": "performance_only",
+    "status": "failed",
+    "unit": "us",
+    "metric": "api_to_completion_wall_time",
+    "statistic": "median_of_round_means",
+    "checks": [
+      {
+        "case_name": "T5SplitQkvAppendCache_001_float16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          39.853300000000004,
+          33.5011,
+          33.918150000000004,
+          34.7219,
+          33.9371
+        ],
+        "wall_us_median": 33.9371,
+        "max_wall_us": 28
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_005_float16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          34.0275,
+          34.115050000000004,
+          34.48165,
+          33.986,
+          34.310449999999996
+        ],
+        "wall_us_median": 34.115050000000004,
+        "max_wall_us": 28
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_006_float16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          35.31165,
+          38.6023,
+          30.632450000000002,
+          30.4734,
+          30.63105
+        ],
+        "wall_us_median": 30.632450000000002,
+        "max_wall_us": 29
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_007_float16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          87.12214999999999,
+          86.88145,
+          86.83235,
+          87.09255,
+          86.6998
+        ],
+        "wall_us_median": 86.88145,
+        "max_wall_us": 75
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_008_float16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          31.054650000000002,
+          31.10125,
+          31.052400000000002,
+          30.62135,
+          30.443900000000003
+        ],
+        "wall_us_median": 31.052400000000002,
+        "max_wall_us": 29
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          29.578200000000002,
+          29.346,
+          29.46595,
+          29.440549999999998,
+          29.76945
+        ],
+        "wall_us_median": 29.46595,
+        "max_wall_us": 28
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          30.729,
+          30.59995,
+          30.7411,
+          30.3573,
+          30.5276
+        ],
+        "wall_us_median": 30.59995,
+        "max_wall_us": 28
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          30.8259,
+          30.14855,
+          30.19555,
+          30.6311,
+          30.33115
+        ],
+        "wall_us_median": 30.33115,
+        "max_wall_us": 29
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          91.86895,
+          88.94035000000001,
+          89.0899,
+          89.11435,
+          88.955
+        ],
+        "wall_us_median": 89.0899,
+        "max_wall_us": 77
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+        "status": "failed",
+        "wall_us_rounds": [
+          31.0281,
+          30.96635,
+          31.1843,
+          31.38145,
+          30.74795
+        ],
+        "wall_us_median": 31.0281,
+        "max_wall_us": 29
+      }
+    ]
+  },
+  "finished_at_utc": "2026-10-29T18:33:35.874142+00:00"
+}

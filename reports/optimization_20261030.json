@@ -1,0 +1,965 @@
+{
+  "status": "in_progress_performance_not_accepted",
+  "baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+  "baseline_report_and_delivery_preserved": true,
+  "environment": {
+    "container": "86d7c3021b9e",
+    "soc": "Ascend910_9382",
+    "cann": "9.1.0",
+    "driver_actual": "26.1.1",
+    "driver_required": "25.5.t6.b001",
+    "driver_difference_accepted": true,
+    "physical_device": 1,
+    "logical_device": 0,
+    "model_path": null,
+    "new_service_ports": []
+  },
+  "experiments": [
+    {
+      "commit": "d08fad9bfb72ae41aef642d2c962ac812ad989a7",
+      "experiment": "output tile coalescing, baseline cache policy",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_d08fad9bfb72",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-d08fad9-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-d08fad9-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "a9ba3da354dad516b422ba16c4ca22b234295243e77411b641fd8bdc0942f183",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 0,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            36.369550000000004,
+            30.546349999999997,
+            30.81305,
+            30.13505,
+            30.00585
+          ],
+          "wall_us_median": 30.546349999999997,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.5883,
+            30.4302,
+            29.68075,
+            30.276349999999997,
+            31.8097
+          ],
+          "wall_us_median": 30.276349999999997,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.2299,
+            32.32235,
+            32.5034,
+            31.724700000000002,
+            31.97405
+          ],
+          "wall_us_median": 31.97405,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            94.3839,
+            94.1436,
+            94.46865,
+            94.03085,
+            93.99785
+          ],
+          "wall_us_median": 94.1436,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.30005,
+            29.0703,
+            28.77875,
+            29.15745,
+            29.305349999999997
+          ],
+          "wall_us_median": 29.15745,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.14475,
+            29.156599999999997,
+            28.93625,
+            28.9739,
+            29.03475
+          ],
+          "wall_us_median": 29.03475,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.11325,
+            29.818,
+            29.92575,
+            29.683349999999997,
+            29.54835
+          ],
+          "wall_us_median": 29.818,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.07015,
+            30.7916,
+            30.3828,
+            29.5811,
+            29.50345
+          ],
+          "wall_us_median": 30.07015,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            94.1313,
+            93.92110000000001,
+            93.9224,
+            93.8214,
+            94.2436
+          ],
+          "wall_us_median": 93.9224,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.7213,
+            29.579099999999997,
+            29.5955,
+            29.5925,
+            29.78755
+          ],
+          "wall_us_median": 29.5955,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "8f00c2ca1f6fe8b75a94e34aee34caef8ac213e5",
+      "experiment": "24 AIV large-cache core scaling, baseline cache policy",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_8f00c2ca1f6f",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-8f00c2c-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-8f00c2c-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "825099da7fd1d0c67711067ad8e6dbb2c4c772928b6b2cb991239b0dcdcb6b29",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 8,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            31.149150000000002,
+            25.9626,
+            25.645,
+            25.782700000000002,
+            25.5797
+          ],
+          "wall_us_median": 25.782700000000002,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.10135,
+            26.15475,
+            26.30795,
+            26.200599999999998,
+            26.265549999999998
+          ],
+          "wall_us_median": 26.200599999999998,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.49125,
+            27.21435,
+            27.222450000000002,
+            27.0597,
+            27.131349999999998
+          ],
+          "wall_us_median": 27.21435,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            97.69415,
+            97.29639999999999,
+            97.2775,
+            97.1705,
+            97.22
+          ],
+          "wall_us_median": 97.2775,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.59965,
+            27.35205,
+            27.7545,
+            27.486099999999997,
+            27.3934
+          ],
+          "wall_us_median": 27.486099999999997,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.8191,
+            26.7075,
+            26.4647,
+            26.6444,
+            26.65975
+          ],
+          "wall_us_median": 26.65975,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.922900000000002,
+            27.92315,
+            27.9949,
+            28.54105,
+            27.988599999999998
+          ],
+          "wall_us_median": 27.988599999999998,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.533849999999997,
+            27.47,
+            27.410349999999998,
+            27.3804,
+            27.38375
+          ],
+          "wall_us_median": 27.410349999999998,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            96.077,
+            95.9519,
+            95.9874,
+            95.8873,
+            98.3416
+          ],
+          "wall_us_median": 95.9874,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            28.73975,
+            28.85,
+            28.66405,
+            28.648400000000002,
+            28.5572
+          ],
+          "wall_us_median": 28.66405,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "34829e06eb1664da89db546cc2a489e609b5c5f3",
+      "experiment": "176 MiB working set, cached K prefix, NORMAL history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_34829e06eb16",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-34829e0-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-34829e0-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "628ce0a79aef377fa9b0711f029ac9c0700790006a6f23e811f64884ca8ec547",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 0,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            36.45285,
+            30.5088,
+            30.61225,
+            31.57125,
+            30.7147
+          ],
+          "wall_us_median": 30.7147,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.873150000000003,
+            32.268,
+            32.152,
+            31.4985,
+            31.1263
+          ],
+          "wall_us_median": 31.873150000000003,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.0872,
+            32.58465,
+            32.99435,
+            32.13485,
+            31.9155
+          ],
+          "wall_us_median": 32.13485,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            76.78045,
+            76.5275,
+            76.59094999999999,
+            76.42745,
+            76.5035
+          ],
+          "wall_us_median": 76.5275,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.541700000000002,
+            30.087349999999997,
+            29.75945,
+            29.762349999999998,
+            29.25575
+          ],
+          "wall_us_median": 29.75945,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            28.97155,
+            28.5066,
+            28.886400000000002,
+            28.67745,
+            28.8292
+          ],
+          "wall_us_median": 28.8292,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.736549999999998,
+            29.94425,
+            30.638,
+            30.3266,
+            30.24615
+          ],
+          "wall_us_median": 30.24615,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.181099999999997,
+            30.42205,
+            30.346,
+            30.584799999999998,
+            30.51435
+          ],
+          "wall_us_median": 30.42205,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            79.19064999999999,
+            79.20575,
+            79.2032,
+            79.25715,
+            79.02114999999999
+          ],
+          "wall_us_median": 79.2032,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.163400000000003,
+            29.832,
+            30.2638,
+            30.44205,
+            30.493599999999997
+          ],
+          "wall_us_median": 30.2638,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "2386c9ccd8d2ae2352f0e301b4f9ea81fb1f0fa0",
+      "experiment": "176 MiB working set, cached K prefix, PERSISTENT history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_2386c9ccd8d2",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-2386c9c-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-2386c9c-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "f13ab3867613fadb76c4cdfab9c6b6a5e232b65375d4a6a7eb45d71c17b31ee9",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 0,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            34.9838,
+            30.025,
+            29.77725,
+            29.87555,
+            28.7092
+          ],
+          "wall_us_median": 29.87555,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.98065,
+            29.6693,
+            30.115,
+            29.66275,
+            29.7655
+          ],
+          "wall_us_median": 29.7655,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.0842,
+            30.6703,
+            30.296349999999997,
+            32.545700000000004,
+            31.37425
+          ],
+          "wall_us_median": 31.0842,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            78.5465,
+            78.5675,
+            78.54315,
+            78.6008,
+            78.80765
+          ],
+          "wall_us_median": 78.5675,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.5306,
+            29.561799999999998,
+            29.3334,
+            29.7769,
+            29.28545
+          ],
+          "wall_us_median": 29.5306,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            27.998,
+            27.971700000000002,
+            28.1993,
+            28.72705,
+            28.315099999999997
+          ],
+          "wall_us_median": 28.1993,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.6932,
+            30.0135,
+            29.7127,
+            29.36505,
+            29.37575
+          ],
+          "wall_us_median": 29.6932,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.6815,
+            29.4578,
+            29.03955,
+            28.6017,
+            29.145599999999998
+          ],
+          "wall_us_median": 29.145599999999998,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            81.04685,
+            81.10310000000001,
+            81.2087,
+            81.097,
+            81.36545
+          ],
+          "wall_us_median": 81.10310000000001,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.667849999999998,
+            29.2539,
+            29.31295,
+            29.309,
+            29.479
+          ],
+          "wall_us_median": 29.31295,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "39e022c0b4309b349ed2e6c48dd104ab7dab1046",
+      "experiment": "160 MiB working set, cached K prefix, NORMAL history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_39e022c0b430",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-39e022c-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-39e022c-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "6fb69e58a2ff172d676844bba5c99a3ce540ad5405ba3685009361bfd537b6f1",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 7,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            33.05545,
+            26.81655,
+            27.49475,
+            27.355349999999998,
+            28.508950000000002
+          ],
+          "wall_us_median": 27.49475,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            29.06035,
+            29.1681,
+            27.9147,
+            27.3852,
+            27.708
+          ],
+          "wall_us_median": 27.9147,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            28.357200000000002,
+            27.98755,
+            27.8627,
+            27.6658,
+            27.9381
+          ],
+          "wall_us_median": 27.9381,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            86.0216,
+            85.39685,
+            85.4357,
+            86.89215,
+            85.1664
+          ],
+          "wall_us_median": 85.4357,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            32.0972,
+            31.471700000000002,
+            31.010849999999998,
+            30.71565,
+            30.75855
+          ],
+          "wall_us_median": 31.010849999999998,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.85935,
+            26.78895,
+            26.88475,
+            27.030900000000003,
+            26.5717
+          ],
+          "wall_us_median": 26.85935,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            28.0132,
+            27.458,
+            27.5886,
+            28.0198,
+            27.3388
+          ],
+          "wall_us_median": 27.5886,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.368,
+            27.10995,
+            27.16925,
+            27.2432,
+            27.4753
+          ],
+          "wall_us_median": 27.2432,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            88.0183,
+            87.9469,
+            88.51525,
+            87.65095,
+            87.95230000000001
+          ],
+          "wall_us_median": 87.95230000000001,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            28.572400000000002,
+            28.033099999999997,
+            28.00235,
+            28.592200000000002,
+            28.3
+          ],
+          "wall_us_median": 28.3,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "0aa9f7f2852b18e56be1e6b1ac8a9ad2c7076904",
+      "experiment": "184 MiB working set, cached K prefix, NORMAL history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_0aa9f7f2852b",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-0aa9f7f-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-0aa9f7f-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "887f869ba94f5147d153c0536a18d61935a56af1f3df2bf3647bbbba99f0414b",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 0,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            39.853300000000004,
+            33.5011,
+            33.918150000000004,
+            34.7219,
+            33.9371
+          ],
+          "wall_us_median": 33.9371,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            34.0275,
+            34.115050000000004,
+            34.48165,
+            33.986,
+            34.310449999999996
+          ],
+          "wall_us_median": 34.115050000000004,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            35.31165,
+            38.6023,
+            30.632450000000002,
+            30.4734,
+            30.63105
+          ],
+          "wall_us_median": 30.632450000000002,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            87.12214999999999,
+            86.88145,
+            86.83235,
+            87.09255,
+            86.6998
+          ],
+          "wall_us_median": 86.88145,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.054650000000002,
+            31.10125,
+            31.052400000000002,
+            30.62135,
+            30.443900000000003
+          ],
+          "wall_us_median": 31.052400000000002,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.578200000000002,
+            29.346,
+            29.46595,
+            29.440549999999998,
+            29.76945
+          ],
+          "wall_us_median": 29.46595,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.729,
+            30.59995,
+            30.7411,
+            30.3573,
+            30.5276
+          ],
+          "wall_us_median": 30.59995,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            30.8259,
+            30.14855,
+            30.19555,
+            30.6311,
+            30.33115
+          ],
+          "wall_us_median": 30.33115,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            91.86895,
+            88.94035000000001,
+            89.0899,
+            89.11435,
+            88.955
+          ],
+          "wall_us_median": 89.0899,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            31.0281,
+            30.96635,
+            31.1843,
+            31.38145,
+            30.74795
+          ],
+          "wall_us_median": 31.0281,
+          "max_wall_us": 29
+        }
+      ]
+    }
+  ],
+  "pending": {
+    "commit": "159b1811bd9f036ab4860492f2856add4bf57f59",
+    "experiment": "176 MiB, equal cached K/V prefixes, same total cached tiles",
+    "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_159b1811bd9f",
+    "launch": "nohup bash scripts/run_candidate.sh > /tmp/t5_pipeline_dispatch_159b1811bd9f.log 2>&1 < /dev/null &",
+    "status": "launched_before_interruption; remote_completion_unverified",
+    "reconnect_blocker": "jump host platform authorization denied after interrupted SSH session",
+    "next_step": "read existing stage exits and logs; never start another pipeline without inspecting current state"
+  },
+  "confirmed_findings": [
+    "L2 capacity is 201326592 bytes in installed Ascend910_9382.ini",
+    "176 MiB cached-K candidate lowered large FP16/BF16 to 76.5275/79.2032 us",
+    "L2 input miss ratio was approximately 6.5% at 176 MiB and 20.8% at 184 MiB",
+    "default zero_ write probe is not evidence of bypass HBM write throughput"
+  ],
+  "acceptance_note": "No candidate has passed all ten fixed performance limits; do not claim completion."
+}

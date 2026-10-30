@@ -1,3 +1,18 @@
+# 2026-10-30 后续优化进展（优先于下方旧快照）
+
+用户目标仍是固定性能 10/10，尚未完成。c9decf2 基线、原 reports/STATUS.json、performance.json 和交付 ZIP 均保留。
+
+- 新证据确认设备 L2 为 192 MiB。仅让部分输出进入 L2 的 34829e0 候选，两个大缓存降至 76.5275 / 79.2032 us，较基线 94.08875 / 94.47925 us 明显改善，仍未过 75/77 us。
+- 176 MiB 总工作集预算时输入读 miss 约 6.5%；增到 184 MiB 时约 20.8%，并退化至 86.88145 / 89.0899 us。160 MiB、PERSISTENT 输入和 24 核也未达到目标；详见 [OPTIMIZATION_20261030.md](OPTIMIZATION_20261030.md) 与 [结构化证据](../reports/optimization_20261030.json)。
+- 当前运行代码候选为 159b1811bd9f036ab4860492f2856add4bf57f59：恢复 176 MiB，将同样的缓存输出量平分到 K/V 前缀。它已归档、逐文件校验、通过 5 条部署门禁并启动远端完整流水线，最终结果尚未读回。
+- 远端目录 `/workspace/t5_qkv_tasks/t5_qkv_159b1811bd9f`，派发日志 `/tmp/t5_pipeline_dispatch_159b1811bd9f.log`。恢复后先读取已有 `artifacts/validation/*.exit` 与 `candidate_pipeline.log`，不得重复启动。
+- 聊天中断后原 SSH 长连接失效。使用已提供令牌尝试重连时跳板明确返回 `platform authorization denied / Administratively prohibited`，已请求刷新授权；密码无需重复。远端后台任务是否完成目前未确认。
+- 新的六组完整证据均已下载、校验与隔离解包。导入器支持 `@collector.log` 直接解析原始 SHA256；Windows 目录 rename 拒绝时，新目录复制后逐文件复验，保留暂存证据。相关事故和机械门禁已记入 memories。
+
+以下为前一轮接续快照，不能作为当前 HEAD 状态。
+
+---
+
 # 2026-10-30 接续后的当前状态
 
 任务仍未通过固定性能验收。运行代码已恢复到已知可用基线 c9decf212667337d518e3a1d48dc3e07cd5fef0e，保留本轮流程门禁修复；当前工作区不再包含 64 位 DMA 或连续区间调度实验。
