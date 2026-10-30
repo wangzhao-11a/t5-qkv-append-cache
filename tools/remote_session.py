@@ -126,9 +126,15 @@ def main():
                 upload_verified(item['put'],item['remote'])
             elif 'get' in item:
                 destination=Path(item['local'])
+                destination.parent.mkdir(parents=True,exist_ok=True)
                 partial=destination.with_name(destination.name+'.part')
                 sftp.get(item['get'],str(partial))
-                partial.replace(destination)
+                if destination.exists():
+                    if destination.read_bytes()!=partial.read_bytes():
+                        raise FileExistsError(f'Preserve existing evidence and new partial: {destination}')
+                    partial.unlink()
+                else:
+                    partial.rename(destination)
                 print(json.dumps({'downloaded':str(destination),'sha256':hashlib.sha256(destination.read_bytes()).hexdigest()}),flush=True)
             elif 'command' in item:run(item['command'],item.get('timeout_seconds',180))
             else:raise ValueError('unknown request')

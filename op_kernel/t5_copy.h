@@ -22,24 +22,25 @@ class T5Copy {
     q_.SetGlobalBuffer((__gm__ uint16_t*)query, qSize_);
     k_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
     v_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
-    // Construct both views from the raw pointer before applying a bypass hint.
-    cachedPastValue_.SetGlobalBuffer((__gm__ uint16_t*)pastValue, qSize_ * l);
-    cachedPastValueElements_ = 0;
-    // Reserve L2 for outputs and a bounded input prefix. Streaming the other
-    // history reads tests whether HBM reads are cheaper than bypassed writes.
-    // Keep the original bypass-output policy when the outputs alone do not fit.
+    // Both views start from the raw pointer: the bypass view already carries
+    // an L2 alias and must never be used to initialize the cached view.
+    cachedKey_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
+    cachedValue_.SetGlobalBuffer((__gm__ uint16_t*)value, cacheSize_);
+    cachedTilesEach_ = 0;
+    scatteredCache_ = false;
+    // Keep the same total and K/V split as the prefix experiment, but spread
+    // cached tiles across both output address ranges (three of every eight).
+    // This tests placement sensitivity without changing the DMA count/order.
     if (cacheSize_ >= 16 * 1024 * 1024) {
+      k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       constexpr uint32_t kWorkingSetBytes = 176 * 1024 * 1024;
-      const uint32_t outputAndPackedBytes = 4 * cacheSize_ + 8 * qSize_;
-      if (outputAndPackedBytes < kWorkingSetBytes) {
-        pk_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-        pv_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-        const uint32_t cachedElements = Min(qSize_ * length_,
-                                            (kWorkingSetBytes - outputAndPackedBytes) / 2);
-        cachedPastValueElements_ = (cachedElements / tile_) * tile_;
-      } else {
-        k_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-        v_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      const uint32_t inputBytes = (3 * qSize_ + 2 * qSize_ * length_) * 2;
+      if (inputBytes < kWorkingSetBytes) {
+        const uint32_t cachedElements = Min(cacheSize_, (kWorkingSetBytes - inputBytes) / 2);
+        cachedTilesEach_ = cachedElements / tile_ / 2;
+        const uint32_t maskedTiles = (cacheTiles_ / 8) * 3 + Min(cacheTiles_ % 8, 3);
+        scatteredCache_ = cachedTilesEach_ <= maskedTiles;
       }
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
@@ -88,7 +89,13 @@ class T5Copy {
   }
 
   __aicore__ inline void Cache(uint32_t tileId, bool isValue) {
-    auto& out = isValue ? v_ : k_;
+    auto& past = isValue ? pv_ : pk_;
+    const uint32_t lane = tileId & 7;
+    const uint32_t cachedRank = (tileId >> 3) * 3 + lane;
+    const bool cached = scatteredCache_ ? (lane < 3 && cachedRank < cachedTilesEach_)
+                                       : tileId < cachedTilesEach_;
+    auto& out = cached ? (isValue ? cachedValue_ : cachedKey_)
+                                        : (isValue ? v_ : k_);
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
     uint32_t pos = uint32_t(tileId) * tile_, end = Min(pos + tile_, cacheSize_);
@@ -109,11 +116,7 @@ class T5Copy {
       uint32_t n;
       if (within < oldRow) {
         n = Min(end - pos, oldRow - within);
-        const uint32_t pastOffset = head * oldRow + within;
-        const bool cached = isValue && pastOffset < cachedPastValueElements_;
-        if (cached) n = Min(n, cachedPastValueElements_ - pastOffset);
-        auto& past = cached ? cachedPastValue_ : (isValue ? pv_ : pk_);
-        Copy(past, pastOffset, out, pos, n);
+        Copy(past, head * oldRow + within, out, pos, n);
       } else {
         n = Min(end - pos, row - within);
         const uint32_t b = head / heads_, h = head % heads_;
@@ -125,7 +128,8 @@ class T5Copy {
   }
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
-  uint32_t qSize_, cacheSize_, cachedPastValueElements_;
-  AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedPastValue_;
+  uint32_t qSize_, cacheSize_, cachedTilesEach_;
+  bool scatteredCache_;
+  AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedKey_, cachedValue_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };
