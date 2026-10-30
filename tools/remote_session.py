@@ -13,6 +13,7 @@ import time
 import uuid
 import threading
 import paramiko
+import argparse
 
 def secret(prompt):
     # Windows getpass reads the console directly even when stdin is a pipe.
@@ -23,6 +24,9 @@ def secret(prompt):
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--host',required=True,help='Target from the currently authorized SSH command')
+    args=parser.parse_args()
     jump_user=secret('Jump username/token (hidden): ')
     target_password=secret('Target password (hidden): ')
     if not jump_user or not target_password:
@@ -34,15 +38,15 @@ def main():
     except paramiko.BadAuthenticationType as exc:
         if 'password' not in exc.allowed_types:raise
         transport.auth_password(jump_user,'')
-    channel=transport.open_channel('direct-tcpip',('199.103.54.86',22),('127.0.0.1',0),timeout=25)
+    channel=transport.open_channel('direct-tcpip',(args.host,22),('127.0.0.1',0),timeout=25)
     client=paramiko.SSHClient();client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect('199.103.54.86',username='root',password=target_password,sock=channel,
+    client.connect(args.host,username='root',password=target_password,sock=channel,
                    allow_agent=False,look_for_keys=False,timeout=25,banner_timeout=25,auth_timeout=25)
     del jump_user,target_password
     transport.set_keepalive(20)
     client.get_transport().set_keepalive(20)
     key=client.get_transport().get_remote_server_key()
-    print(json.dumps({'connected':True,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
+    print(json.dumps({'connected':True,'target':args.host,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
     sftp=client.open_sftp()
     connected_at=time.monotonic()
     heartbeat=client.get_transport().open_session()

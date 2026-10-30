@@ -39,10 +39,23 @@ phase_begin() {
 }
 
 phase_device_inventory() {
+  local scope="${1:-selected}"
   python tools/preflight.py --output "artifacts/validation/environment_${T5_PHASE}.json"
   npu-smi info > "artifacts/validation/device_${T5_PHASE}.txt"
-  # This conservative gate requires the whole visible board to be idle.
-  grep -q 'No running processes found' "artifacts/validation/device_${T5_PHASE}.txt" || {
-    echo 'Device occupancy needs review'; exit 2;
-  }
+  if [[ "$scope" == board ]]; then
+    # Timed comparisons retain the original isolated-board requirement.
+    grep -q 'No running processes found' "artifacts/validation/device_${T5_PHASE}.txt" || {
+      echo 'Performance requires an idle board'; exit 2;
+    }
+  elif [[ "$scope" == selected && "${ASCEND_RT_VISIBLE_DEVICES:-}" == 1 ]]; then
+    # Verified mapping on this 910_9382 container: physical 1 = card 0/chip 1.
+    # Query the official per-chip process list, not a guessed text-table column.
+    npu-smi info -t proc-mem -i 0 -c 1 > "artifacts/validation/selected_device_${T5_PHASE}.txt"
+    grep -Eq '^[[:space:]]*No process in device\.[[:space:]]*$' \
+      "artifacts/validation/selected_device_${T5_PHASE}.txt" || {
+      echo 'Selected physical device 1 occupancy needs review'; exit 2;
+    }
+  else
+    echo 'Unknown occupancy scope or device mapping'; exit 2
+  fi
 }

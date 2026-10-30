@@ -13,7 +13,6 @@ export PYTHONPATH="/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps:$TASK
 python tools/preflight.py --output artifacts/validation/environment_before.json
 phase_device_inventory
 npu-smi info > artifacts/validation/device_before.txt
-grep -q 'No running processes found' artifacts/validation/device_before.txt || { echo 'Device occupancy needs review'; exit 2; }
 python - <<'PY'
 import sys,torch,torch_npu,numpy,ml_dtypes,json
 assert sys.version_info[:3]==(3,12,13)
