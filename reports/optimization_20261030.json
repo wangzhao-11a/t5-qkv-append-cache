@@ -1099,21 +1099,333 @@
           "max_wall_us": 29
         }
       ]
+    },
+    {
+      "commit": "829bb14d4db602c850e736fe9d2c1ed201b9e584",
+      "experiment": "176 MiB cached K prefix, interleaved K/V visits; resumed after occupancy-only block",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_829bb14d4db6",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-829bb14-completed-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-829bb14-completed-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "9f83639698b8639f5f014bacf916a807235ed42fa2f3c8c081f3dd3305da6110",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 7,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            32.09895,
+            25.9666,
+            26.088099999999997,
+            25.806900000000002,
+            25.8914
+          ],
+          "wall_us_median": 25.9666,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.3172,
+            26.56235,
+            26.4674,
+            26.243599999999997,
+            26.3247
+          ],
+          "wall_us_median": 26.3247,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.4118,
+            29.3014,
+            29.514,
+            29.40935,
+            29.3682
+          ],
+          "wall_us_median": 29.40935,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            106.03785,
+            105.23985,
+            105.943,
+            105.7108,
+            105.7087
+          ],
+          "wall_us_median": 105.7108,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            43.24935,
+            26.67725,
+            26.99335,
+            26.867,
+            27.030849999999997
+          ],
+          "wall_us_median": 26.99335,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            25.8998,
+            26.0392,
+            26.08905,
+            25.805,
+            26.350900000000003
+          ],
+          "wall_us_median": 26.0392,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.0321,
+            27.221400000000003,
+            27.585150000000002,
+            27.340700000000002,
+            27.652099999999997
+          ],
+          "wall_us_median": 27.340700000000002,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.322,
+            27.3745,
+            27.8895,
+            27.6947,
+            27.767799999999998
+          ],
+          "wall_us_median": 27.6947,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            102.6755,
+            101.84814999999999,
+            102.21935,
+            101.49055,
+            101.7905
+          ],
+          "wall_us_median": 101.84814999999999,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.8672,
+            27.6405,
+            27.9315,
+            27.86295,
+            27.54225
+          ],
+          "wall_us_median": 27.86295,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    {
+      "commit": "708c67016932c6f3202c3c0c8460eeab52cd7eca",
+      "experiment": "172 MiB working set, cached K prefix, NORMAL history",
+      "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_708c67016932",
+      "binary_manifest": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-708c670-extracted-20261030\\artifacts\\binary_manifest.json",
+      "evidence_archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\.codex-tmp\\t5-708c670-evidence-20261030\\evidence.tar.gz",
+      "evidence_sha256": "02739a5535f701b0d3d9320151c9bc49e57e95630b56c542d46a6524cc74d82e",
+      "phases": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0,
+        "performance_phase": 1
+      },
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed",
+        "coverage_acceptance": "failed"
+      },
+      "performance_passed": 5,
+      "performance_total": 10,
+      "performance_checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            33.20025,
+            29.21675,
+            28.003049999999998,
+            26.5091,
+            26.81205
+          ],
+          "wall_us_median": 28.003049999999998,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            28.48855,
+            29.78955,
+            27.7248,
+            29.0202,
+            28.300099999999997
+          ],
+          "wall_us_median": 28.48855,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            29.4573,
+            29.18105,
+            29.471,
+            28.600450000000002,
+            28.17695
+          ],
+          "wall_us_median": 29.18105,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            116.7212,
+            116.50014999999999,
+            116.0931,
+            116.39725,
+            116.63105
+          ],
+          "wall_us_median": 116.50014999999999,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.80815,
+            26.2847,
+            26.408900000000003,
+            26.4589,
+            26.6328
+          ],
+          "wall_us_median": 26.4589,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            26.42765,
+            26.21295,
+            26.47425,
+            26.30225,
+            26.1998
+          ],
+          "wall_us_median": 26.30225,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.373549999999998,
+            27.417650000000002,
+            27.4938,
+            27.692700000000002,
+            27.32575
+          ],
+          "wall_us_median": 27.417650000000002,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.190849999999998,
+            27.1103,
+            27.105349999999998,
+            27.18505,
+            27.31225
+          ],
+          "wall_us_median": 27.18505,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            116.5856,
+            116.5804,
+            116.3714,
+            116.817,
+            116.1101
+          ],
+          "wall_us_median": 116.5804,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            27.5423,
+            27.15005,
+            27.01055,
+            27.0296,
+            27.251
+          ],
+          "wall_us_median": 27.15005,
+          "max_wall_us": 29
+        }
+      ]
     }
   ],
   "pending": {
-    "commit": "c09d875159970d0a2f287ecbb46a219baca326b4",
-    "experiment": "176 MiB, cached K prefix, interleaved K/V tile visits",
-    "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_c09d87515997",
-    "launch": "nohup bash scripts/run_candidate.sh > /tmp/t5_pipeline_dispatch_c09d87515997.log 2>&1 < /dev/null &",
-    "status": "source_archive_ready; upload_failed_on_closed_socket; deployment_not_started",
-    "reconnect_blocker": "refreshed token connected successfully but session then closed; subsequent forwarding denied by platform",
-    "next_step": "inspect possible remote partial upload, transfer archive atomically, verify manifest, then start once"
+    "commit": "708c67016932c6f3202c3c0c8460eeab52cd7eca",
+    "experiment": "Reverse cache allocation: NORMAL outputs and bounded NORMAL V input prefix; other history bypasses L2",
+    "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_708c67016932",
+    "status": "172 MiB candidate failed; c9 current control and full-harness profiler completed",
+    "connection": "original target/container restored; persistent SSH heartbeat remains active",
+    "next_step": "validate reverse-cache candidate in a fresh exact-commit deployment"
   },
   "confirmed_findings": [
     "L2 capacity is 201326592 bytes in installed Ascend910_9382.ini",
     "176 MiB cached-K candidate lowered large FP16/BF16 to 76.5275/79.2032 us",
-    "L2 input miss ratio was approximately 6.5% at 176 MiB and 20.8% at 184 MiB",
+    "Short profiling workloads showed approximately 6.5% miss at 176 MiB and 20.8% at 184 MiB; these are not full-harness results",
+    "Current c9 control remains 94.57235/94.3156 us for large FP16/BF16",
+    "172 MiB full-harness profiling showed 26.43%/25.82% input misses; fixed performance was 116.50015/116.5804 us",
+    "176 MiB full-harness profiling showed 15.57%/17.57% input misses; short-profile behavior does not generalize",
     "default zero_ write probe is not evidence of bypass HBM write throughput"
   ],
   "acceptance_note": "No candidate has passed all ten fixed performance limits; do not claim completion."

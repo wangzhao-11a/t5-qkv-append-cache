@@ -1,0 +1,77 @@
+{
+  "purpose": "diagnostic_only_not_acceptance_timing",
+  "results": [
+    {
+      "source": "708",
+      "dtype": "FLOAT16;FLOAT16;FLOAT16",
+      "samples": 1000,
+      "median_profiled_task_us": 112.483,
+      "read_miss_ratio": 0.26428520317549853,
+      "counters": {
+        "aic_r0_read_cache_hit": 0.0,
+        "aic_r0_read_cache_miss_allocate": 0.0,
+        "aic_r1_read_cache_hit": 0.0,
+        "aic_r1_read_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 386086460.0,
+        "aiv_r0_read_cache_miss_allocate": 138681538.0,
+        "aiv_r1_read_cache_hit": 386072705.0,
+        "aiv_r1_read_cache_miss_allocate": 138695297.0
+      },
+      "csv_sha256": "e497a622caf6980eb3283f86054a8fbbdd45196577a7f775183948f56631cad6"
+    },
+    {
+      "source": "708",
+      "dtype": "DT_BF16;DT_BF16;DT_BF16",
+      "samples": 1000,
+      "median_profiled_task_us": 111.022,
+      "read_miss_ratio": 0.25821912254558205,
+      "counters": {
+        "aic_r0_read_cache_hit": 0.0,
+        "aic_r0_read_cache_miss_allocate": 0.0,
+        "aic_r1_read_cache_hit": 0.0,
+        "aic_r1_read_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 389260300.0,
+        "aiv_r0_read_cache_miss_allocate": 135507741.0,
+        "aiv_r1_read_cache_hit": 389265435.0,
+        "aiv_r1_read_cache_miss_allocate": 135502524.0
+      },
+      "csv_sha256": "e497a622caf6980eb3283f86054a8fbbdd45196577a7f775183948f56631cad6"
+    },
+    {
+      "source": "348",
+      "dtype": "FLOAT16;FLOAT16;FLOAT16",
+      "samples": 1000,
+      "median_profiled_task_us": 90.042,
+      "read_miss_ratio": 0.1556624794194768,
+      "counters": {
+        "aic_r0_read_cache_hit": 0.0,
+        "aic_r0_read_cache_miss_allocate": 0.0,
+        "aic_r1_read_cache_hit": 0.0,
+        "aic_r1_read_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 443085135.0,
+        "aiv_r0_read_cache_miss_allocate": 81682850.0,
+        "aiv_r1_read_cache_hit": 443077489.0,
+        "aiv_r1_read_cache_miss_allocate": 81690526.0
+      },
+      "csv_sha256": "256b4518ad78de5c0da0d0e67e714f2839bbcc4f75cb9e2834fcfb5c8bdcd17e"
+    },
+    {
+      "source": "348",
+      "dtype": "DT_BF16;DT_BF16;DT_BF16",
+      "samples": 1000,
+      "median_profiled_task_us": 91.222,
+      "read_miss_ratio": 0.17568869957771815,
+      "counters": {
+        "aic_r0_read_cache_hit": 0.0,
+        "aic_r0_read_cache_miss_allocate": 0.0,
+        "aic_r1_read_cache_hit": 0.0,
+        "aic_r1_read_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 432573771.0,
+        "aiv_r0_read_cache_miss_allocate": 92194212.0,
+        "aiv_r1_read_cache_hit": 432570614.0,
+        "aiv_r1_read_cache_miss_allocate": 92197403.0
+      },
+      "csv_sha256": "256b4518ad78de5c0da0d0e67e714f2839bbcc4f75cb9e2834fcfb5c8bdcd17e"
+    }
+  ]
+}

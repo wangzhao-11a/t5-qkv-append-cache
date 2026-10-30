@@ -3,12 +3,14 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@unittest.skipUnless(sys.platform.startswith('linux'), 'Run native Linux phase guards on the remote host')
 class PhaseGuards(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
