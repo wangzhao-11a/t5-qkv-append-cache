@@ -44,9 +44,19 @@ phase_device_inventory() {
   npu-smi info > "artifacts/validation/device_${T5_PHASE}.txt"
   if [[ "$scope" == board ]]; then
     # Timed comparisons retain the original isolated-board requirement.
-    grep -q 'No running processes found' "artifacts/validation/device_${T5_PHASE}.txt" || {
-      echo 'Performance requires an idle board'; exit 2;
-    }
+    local idle_checks=0 attempt
+    for attempt in $(seq 1 90); do
+      npu-smi info > "artifacts/validation/device_${T5_PHASE}_idle_probe.txt"
+      if grep -q 'No running processes found' "artifacts/validation/device_${T5_PHASE}_idle_probe.txt"; then
+        idle_checks=$((idle_checks+1))
+      else
+        idle_checks=0
+      fi
+      printf 'Board idle check %s: %s consecutive\n' "$attempt" "$idle_checks"
+      if [[ "$idle_checks" == 3 ]]; then break; fi
+      sleep 10
+    done
+    [[ "$idle_checks" == 3 ]] || { echo 'Performance requires an idle board'; exit 2; }
   elif [[ "$scope" == selected && "${ASCEND_RT_VISIBLE_DEVICES:-}" == 1 ]]; then
     # Verified mapping on this 910_9382 container: physical 1 = card 0/chip 1.
     # Query the official per-chip process list, not a guessed text-table column.
