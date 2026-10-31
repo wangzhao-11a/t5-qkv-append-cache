@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/phase_common.sh"
+[[ "${T5_PHYSICAL_DEVICE:-}" =~ ^[0-9]+$ ]] || {
+  echo 'Refuse to invent the physical device identity; set verified T5_PHYSICAL_DEVICE' >&2; exit 2;
+}
 [[ ! -e artifacts/binary_manifest.json ]] || { echo 'Preserve previous collection'; exit 2; }
 phase_begin collect_evidence
 set +u
@@ -28,7 +31,9 @@ root=Path.cwd()
 manifest={'build_source_commit':json.loads(Path('DEPLOYMENT_MANIFEST.json').read_text())['commit'],
  'native_source_commit':json.loads(Path('DEPLOYMENT_MANIFEST.json').read_text())['commit'],
  'aclnn_source_commit':json.loads(Path('DEPLOYMENT_MANIFEST.json').read_text())['commit'],
- 'private_installation':os.environ['T5_OPP_ROOT'],'physical_device':1,'logical_device':0,
+ 'private_installation':os.environ['T5_OPP_ROOT'],
+ 'physical_device':int(os.environ['T5_PHYSICAL_DEVICE']),'logical_device':0,
+ 'visible_device_selector':os.environ['ASCEND_RT_VISIBLE_DEVICES'],
  'model_path':None,'service_ports':[],
  'commands':['bash '+str(root/'scripts'/name) for name in ('start_optimized_build.sh',
  'phase_smoke.sh','phase_correctness.sh','phase_performance.sh')],

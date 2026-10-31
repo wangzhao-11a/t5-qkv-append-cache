@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/phase_common.sh"
+[[ "${T5_PHYSICAL_DEVICE:-}" =~ ^[0-9]+$ ]] || {
+  echo 'Set T5_PHYSICAL_DEVICE from verified runtime-to-physical device mapping' >&2; exit 2;
+}
 phase_begin candidate_pipeline
 # Each child owns its log/exit/lock and verifies the exact deployment manifest.
 for script in start_optimized_build phase_smoke phase_correctness; do

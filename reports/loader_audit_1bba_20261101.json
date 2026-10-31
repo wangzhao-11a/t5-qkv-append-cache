@@ -1,0 +1,31 @@
+{
+  "status": "identity_checks_passed_after_offline_guard_correction",
+  "original_audit_exit": 1,
+  "original_log_sha256": "26fb51b178d708bb3841325f369e35ed5bebdf7ae622ff4dd0bf945a93a8e02a",
+  "npu_rerun": false,
+  "installed_binary_and_small_correctness_assertions_completed_before_guard": true,
+  "mapped_task_libraries": [
+    "/root/.local/t5_qkv_1bba0d08e072/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+    "/root/.local/t5_qkv_1bba0d08e072/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+    "/root/.local/t5_qkv_1bba0d08e072/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_1bba0d08e072/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_1bba0d08e072/build/direct/lib/libt5_direct.so"
+  ],
+  "shared_numpy_dependencies": [
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy.libs/libgfortran-daac5196-038a5e3c.so.5.0.0",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy.libs/libscipy_openblas64_-128b20d9.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/_core/_multiarray_umath.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/fft/_pocketfft_umath.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/linalg/_umath_linalg.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_bounded_integers.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_common.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_generator.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_mt19937.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_pcg64.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_philox.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/_sfc64.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/bit_generator.cpython-312-aarch64-linux-gnu.so",
+    "/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps/numpy/random/mtrand.cpython-312-aarch64-linux-gnu.so"
+  ],
+  "guard_fix": "Classify task libraries by exact operator path or library basename, not the broad t5_qkv_ project path."
+}

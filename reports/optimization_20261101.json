@@ -53,6 +53,40 @@
       ]
     },
     {
+      "source": "reports/performance_8f00c2c_reallocation_20261101.json",
+      "commit_prefix": "8f00c2c",
+      "passed": 7,
+      "total": 10,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            99.93845,
+            99.9639,
+            99.84214999999999,
+            99.8933,
+            99.875
+          ],
+          "wall_us_median": 99.8933,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            108.4132,
+            108.17345,
+            108.161,
+            108.1145,
+            108.271
+          ],
+          "wall_us_median": 108.17345,
+          "max_wall_us": 77
+        }
+      ]
+    },
+    {
       "source": "reports/performance_c9decf2_reallocation_20261101.json",
       "commit_prefix": "c9decf2",
       "passed": 7,
@@ -88,9 +122,19 @@
     }
   ],
   "next_experiment": {
-    "name": "Preserved 24-AIV all-bypass binary on the new device allocation",
-    "state": "not_uploaded_or_started_connection_recovery_pending",
-    "commit": "8f00c2ca1f6fe8b75a94e34aee34caef8ac213e5"
+    "name": "PERSISTENT only on the existing bounded K prefix",
+    "state": "local_static_checks_passed_not_deployed",
+    "unchanged": "176 MiB budget, K range, 48 AIV scheduling, input policy, executor reuse"
+  },
+  "diagnostics": {
+    "l2_report": "reports/profile_l2_reallocation_20261101.json",
+    "archive_sha256": "b0ead6ab954287b587381c4e073e3abac2f88eddf82e6ab59c822ccecc920da8",
+    "conclusions": [
+      "Profiled ranking reverses prior fixed-run ranking; misses do not explain core-split regression.",
+      "All 1051 calls per large case use one output-address triple; no output-buffer churn observed.",
+      "The unprofiled address probe also reaches about 131 us; profiling alone is not established as cause."
+    ],
+    "physical_device_erratum": "Earlier new-allocation binary manifests hardcode physical 1. Actual device is physical 7, card 3 chip 1, verified by smoke PID; original files preserved."
   },
   "controls_evidence": {
     "archive": "/tmp/t5_reallocation_controls_20261101.tar.gz",
