@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,6 +61,24 @@ class PhaseGuards(unittest.TestCase):
         (self.root / 'artifacts/validation/test.lock').mkdir(parents=True)
         self.assertNotEqual(self.run_phase().returncode, 0)
         self.assertFalse((self.root / 'artifacts/validation/test.log').exists())
+
+    def test_term_records_signal_failure_instead_of_previous_success(self):
+        self.phase.write_text('set -euo pipefail\nsource "$(dirname "$0")/phase_common.sh"\n'
+                              'phase_begin test\nwhile :; do sleep 0.1; done\n', encoding='utf-8')
+        process = subprocess.Popen(['bash', str(self.phase)], stdout=subprocess.DEVNULL)
+        try:
+            deadline = time.monotonic() + 5
+            while not (self.root / 'artifacts/validation/test.log').exists():
+                self.assertIsNone(process.poll())
+                self.assertLess(time.monotonic(), deadline)
+                time.sleep(0.02)
+            process.terminate()
+            self.assertEqual(process.wait(timeout=5), 143)
+            self.assertEqual((self.root / 'artifacts/validation/test.exit').read_text().strip(), '143')
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait(timeout=5)
 
 
 if __name__ == '__main__':

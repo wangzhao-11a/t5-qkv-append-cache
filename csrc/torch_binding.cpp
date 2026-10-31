@@ -181,7 +181,11 @@ std::tuple<at::Tensor, at::Tensor, at::Tensor> Execute(
   const auto [b, h, l, d] = shape;
   c10::DeviceGuard deviceGuard(xs[0].device());
   const auto options = xs[0].options().requires_grad(false);
-  Tensors out{at::empty({b,h,1,d}, options), at::empty({b,h,l+1,d}, options), at::empty({b,h,l+1,d}, options)};
+  Tensors out;
+  out[0] = at::empty({b,h,1,d}, options);
+  // Allocate V before K while preserving three independent fresh storages.
+  out[2] = at::empty({b,h,l+1,d}, options);
+  out[1] = at::empty({b,h,l+1,d}, options);
   auto stream = c10_npu::getCurrentNPUStream(xs[0].device().index());
   // Official stream() drains pending host submissions, not device work. This
   // preserves ordering with preceding PyTorch operations without another host

@@ -10,6 +10,7 @@ case "$(realpath -m -- "$T5_OPP_ROOT")" in
 esac
 for command in python3 msopgen cmake c++; do command -v "$command" >/dev/null; done
 python3 "$TASK_ROOT/tools/preflight.py" --static
+python3 "$TASK_ROOT/tools/check_cache_policy.py" --cann-root "$ASCEND_HOME_PATH"
 # Never overwrite an earlier generated/built baseline.
 if [[ -e "$TASK_ROOT/build/aclnn" ]]; then
   echo 'build/aclnn already exists. Preserve its fingerprint; choose a fresh checkout for a rebuild.' >&2

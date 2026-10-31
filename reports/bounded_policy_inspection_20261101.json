@@ -1,0 +1,42 @@
+{
+  "status": "no_distinct_persistent_policy_in_target_branch",
+  "header": "/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/impl/basic_api/utils/kernel_utils_macros.h",
+  "header_sha256": "1d2be1040c9a6427a425c9feb6718e8c278f15f8c9fa73729742bdca5e8cb781",
+  "resolved_target_branch": "#else\ntemplate<class T, CacheRwMode rwMode = CacheRwMode::RW>\n__aicore__ inline __gm__ T* L2CacheAlter(__gm__ T* addr, CacheMode mode)\n{\n#if defined(L2_CACHE_HINT) && defined(__NPU_ARCH__) && (__NPU_ARCH__ == 2002 || __NPU_ARCH__ == 2201)\n#ifdef __NPU_DEVICE__\n    uint64_t l2CacheOffset = g_opL2CacheHintCfg.l2Cacheoffset;\n#else // ifndef __NPU_DEVICE__\n    uint64_t l2CacheOffset = g_opSystemRunCfg.l2Cacheoffset;\n#endif // __NPU_DEVICE__\n    if (mode == CacheMode::CACHE_MODE_DISABLE) {\n        return reinterpret_cast<__gm__ T*>((uint64_t)addr + l2CacheOffset);\n    }\n#endif // L2_CACHE_HINT\n    return addr;",
+  "kernel_comparison": [
+    {
+      "kernel": "T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+      "identical_text": false,
+      "baseline_text_sha256": "14d51262d315ce3f1b5bf1078573d15177ee08c1f36735f863ea88f187f61435",
+      "candidate_text_sha256": "a0531544718c678861b01a8c5659e430f86c7c8a950486b1e8733da98dddc777",
+      "baseline_text_bytes": 5620,
+      "candidate_text_bytes": 5636,
+      "changed_sections": [
+        ".rela.text",
+        ".symtab",
+        ".text"
+      ]
+    },
+    {
+      "kernel": "T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o",
+      "identical_text": false,
+      "baseline_text_sha256": "14d51262d315ce3f1b5bf1078573d15177ee08c1f36735f863ea88f187f61435",
+      "candidate_text_sha256": "a0531544718c678861b01a8c5659e430f86c7c8a950486b1e8733da98dddc777",
+      "baseline_text_bytes": 5620,
+      "candidate_text_bytes": 5636,
+      "changed_sections": [
+        ".rela.text",
+        ".symtab",
+        ".text"
+      ]
+    }
+  ],
+  "completed_checks": {
+    "engineering.json": "passed",
+    "extended_accuracy.json": "passed",
+    "memory.json": "passed",
+    "public_accuracy.json": "passed",
+    "smoke_stability.json": "passed"
+  },
+  "performance_started": false
+}

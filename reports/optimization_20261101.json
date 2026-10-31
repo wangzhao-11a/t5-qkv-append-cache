@@ -1,7 +1,7 @@
 {
   "status": "in_progress_performance_not_accepted",
   "latest_completed_commit": "1ecd80ea0a31c82623fd4547cdf1ba42ecbb78df",
-  "runtime_restored_to": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+  "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
   "environment": {
@@ -122,9 +122,16 @@
     }
   ],
   "next_experiment": {
-    "name": "PERSISTENT only on the existing bounded K prefix",
+    "name": "Allocate Q,V,K while returning independent Q,K,V outputs",
     "state": "local_static_checks_passed_not_deployed",
-    "unchanged": "176 MiB budget, K range, 48 AIV scheduling, input policy, executor reuse"
+    "unchanged": "All kernel and tiling sources match 1bba; only host allocation order changes"
+  },
+  "discarded_before_performance": {
+    "commit": "900fba8a7a83982af86eafb5d3f9db1345c9d763",
+    "report": "reports/bounded_policy_inspection_20261101.json",
+    "correctness_engineering_memory": "passed",
+    "reason": "Target 2201 L2CacheAlter has no distinct PERSISTENT policy; performance never started.",
+    "pipeline_exit_file_erratum": "Old TERM/EXIT trap wrote 0; stage coverage is incomplete. New signal traps and regression check added."
   },
   "diagnostics": {
     "l2_report": "reports/profile_l2_reallocation_20261101.json",

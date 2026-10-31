@@ -32,6 +32,9 @@ phase_begin() {
   # mkdir arbitrates competing launches before either can truncate a log.
   mkdir "artifacts/validation/$phase.lock" || exit 2
   T5_PHASE="$phase"
+  # EXIT alone can observe the last successful command when TERM interrupts wait.
+  trap 'exit 143' TERM
+  trap 'exit 130' INT
   trap 'rc=$?; (set -o noclobber; printf "%s\n" "$rc" > "artifacts/validation/$T5_PHASE.exit"); exit "$rc"' EXIT
   set -o noclobber
   exec > "artifacts/validation/$phase.log" 2>&1
