@@ -1,0 +1,40 @@
+{
+  "container": "05d447771751",
+  "visible": "1",
+  "init_rc": 0,
+  "soc": "Ascend910_9382",
+  "count_rc": 0,
+  "device_count": 1,
+  "devices": [
+    {
+      "logical": 0,
+      "physical_chip": 3,
+      "rc": 0
+    }
+  ],
+  "versions": {
+    "torch": "2.10.0+cpu",
+    "torch_npu": "2.10.0.post4",
+    "numpy": "1.26.4",
+    "ml_dtypes": "0.6.0"
+  },
+  "listening_ports": [
+    22,
+    6988,
+    9500,
+    9501,
+    9508,
+    45699
+  ],
+  "live_extensions": [
+    {
+      "commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+      "sha256": "8dd682c55b0c75e3f9ef884253b6a91b481c86b430db92103e39dc7476a3482c"
+    },
+    {
+      "commit": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+      "sha256": "a6484a906c96b8eaefa73e231c09f73b70085d7b4aded7bede3aa4dee135b25e"
+    }
+  ],
+  "finalize_rc": 0
+}

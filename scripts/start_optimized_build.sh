@@ -9,4 +9,5 @@ set -u
 export PATH=/workspace/vasc031_a3/bin:$PATH
 export ASCEND_RT_VISIBLE_DEVICES=1
 export MAX_JOBS=4 T5_BUILD_JOBS=4
+python tools/preflight.py --require-soc Ascend910_9382 --output artifacts/validation/environment_build_full.json
 bash scripts/build.sh

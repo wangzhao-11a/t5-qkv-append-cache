@@ -71,7 +71,12 @@ def main():
             while chunk:=handle.read(1024*1024):digest.update(chunk)
         return digest.hexdigest()
     def upload_verified(local,remote):
-        expected=hashlib.sha256(Path(local).read_bytes()).hexdigest()
+        payload=Path(local).read_bytes()
+        if Path(local).suffix in ('.sh','.cmd') or Path(remote).suffix in ('.sh','.cmd'):
+            if b'\r' in payload or payload.startswith(b'\xef\xbb\xbf'):
+                raise ValueError('Reject non-LF or BOM Linux script before upload')
+            payload.decode('utf-8')
+        expected=hashlib.sha256(payload).hexdigest()
         try:
             existing=remote_digest(remote)
         except FileNotFoundError:

@@ -1,6 +1,7 @@
 """Static gate or read-only target inventory. Does not start a service/kernel."""
 import argparse
 import ast
+import ctypes
 import hashlib
 import json
 from pathlib import Path
@@ -38,7 +39,7 @@ def command(argv):
 def inventory():
     data = {"platform": platform.platform(), "machine": platform.machine(),
             "python": platform.python_version(), "executable": sys.executable,
-            "environment": {k: os.environ.get(k) for k in ("ASCEND_HOME_PATH", "ASCEND_RT_VISIBLE_DEVICES", "ASCEND_CUSTOM_OPP_PATH", "T5_OPP_ROOT", "T5_ACLNN_EXECUTOR_REUSE", "TASK_QUEUE_ENABLE")},
+            "environment": {k: os.environ.get(k) for k in ("ASCEND_HOME_PATH", "ASCEND_RT_VISIBLE_DEVICES", "ASCEND_CUSTOM_OPP_PATH", "T5_OPP_ROOT", "T5_ACLNN_EXECUTOR_REUSE", "TASK_QUEUE_ENABLE", "T5_FUNCTIONAL_DEVICE_SCOPE")},
             "commands": [command(x) for x in (["npu-smi", "info"], ["ss", "-lntp"], ["ps", "-eo", "pid,ppid,comm,args"])],
             "versions": {}}
     for name in ("torch", "torch_npu", "numpy", "ml_dtypes"):
@@ -65,12 +66,37 @@ def inventory():
         if path.is_file(): data[str(path)] = path.read_text(encoding="utf-8", errors="replace")
     return data
 
+
+def target_inventory():
+    # Official read-only runtime queries; no set-device, allocation or kernel.
+    acl = ctypes.CDLL("libascendcl.so")
+    acl.aclInit.argtypes = [ctypes.c_char_p]
+    acl.aclrtGetSocName.restype = ctypes.c_char_p
+    acl.aclrtGetDeviceCount.argtypes = [ctypes.POINTER(ctypes.c_uint32)]
+    rc = acl.aclInit(None)
+    if rc != 0: raise RuntimeError(f"aclInit failed: {rc}")
+    try:
+        count = ctypes.c_uint32()
+        rc = acl.aclrtGetDeviceCount(ctypes.byref(count))
+        if rc != 0: raise RuntimeError(f"aclrtGetDeviceCount failed: {rc}")
+        name = acl.aclrtGetSocName()
+        return {"soc": name.decode() if name else None, "visible_device_count": count.value}
+    finally:
+        rc = acl.aclFinalize()
+        if rc != 0: raise RuntimeError(f"aclFinalize failed: {rc}")
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(); p.add_argument("--static", action="store_true")
+    p.add_argument("--require-soc")
     p.add_argument("--output", type=Path); args = p.parse_args()
     result = static_checks()
     if not args.static: result["inventory"] = inventory()
+    if args.require_soc:
+        result["target"] = target_inventory()
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=True, indent=2))
+    if args.require_soc:
+        assert result["target"]["soc"] == args.require_soc, "Wrong SoC for fixed acceptance"
+        assert result["target"]["visible_device_count"] == 1, "Select exactly one runtime device"

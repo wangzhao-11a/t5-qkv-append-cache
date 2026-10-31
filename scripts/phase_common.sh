@@ -39,8 +39,8 @@ phase_begin() {
 }
 
 phase_device_inventory() {
-  local scope="${1:-selected}"
-  python tools/preflight.py --output "artifacts/validation/environment_${T5_PHASE}.json"
+  local scope="${1:-${T5_FUNCTIONAL_DEVICE_SCOPE:-selected}}"
+  python tools/preflight.py --require-soc Ascend910_9382 --output "artifacts/validation/environment_${T5_PHASE}.json"
   npu-smi info > "artifacts/validation/device_${T5_PHASE}.txt"
   if [[ "$scope" == board ]]; then
     # Timed comparisons retain the original isolated-board requirement.

@@ -1,4 +1,10 @@
-# 2026-10-30 后续优化进展（优先于下方旧快照）
+# 2026-11-01 当前接续（优先于下方旧快照）
+
+已连回 Ascend910_9382，地址 199.103.53.243，容器 05d447771751，SSH 长会话 97653。设备分配改为卡 3/物理 6、7，原 c9decf2 和 1bba0d0 二进制哈希已核验。先运行新分配控制组，脚本 `/tmp/t5_run_reallocation_controls_20261101.sh`，dispatch PID 39955，日志 `/tmp/t5_reallocation_controls_20261101_dispatch.log`；先读取状态，禁止重复启动。c9 smoke 已通过，两个控制组的最终结果尚待读取。
+
+当前内核/主机候选与 e1a4d2b 相同，尚未远端验证。操作脚本新增目标 SoC 门禁和 T5_FUNCTIONAL_DEVICE_SCOPE=board，以适配本次分配；性能仍按固定原协议验证。详情见 [OPTIMIZATION_20261101.md](OPTIMIZATION_20261101.md)。950PR 地址只读检查后退出，未纳入验收。目标仍未达到 10/10。
+
+# 2026-10-30 后续优化进展
 
 用户目标仍是固定性能 10/10，尚未完成。c9decf2 基线、原 reports/STATUS.json、performance.json 和交付 ZIP 均保留。
 
