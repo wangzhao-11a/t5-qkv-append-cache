@@ -1,0 +1,41 @@
+{
+  "status": "diagnostic_only_not_acceptance",
+  "commit": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+  "csv_sha256": "588e0007a9d652b9fa78f91744cc2c306dd5cc77e814375d6c3f5f368658ba51",
+  "large_cases": [
+    {
+      "dtype": "FLOAT16;FLOAT16;FLOAT16",
+      "samples": 1000,
+      "medians": {
+        "Task Duration(us)": 115.102,
+        "aiv_time(us)": 107.445,
+        "aiv_scalar_time(us)": 9.8185,
+        "aiv_mte2_time(us)": 85.438,
+        "aiv_mte3_time(us)": 74.321,
+        "aiv_scalar_ratio": 0.091,
+        "aiv_mte2_ratio": 0.795,
+        "aiv_mte3_ratio": 0.692
+      }
+    },
+    {
+      "dtype": "DT_BF16;DT_BF16;DT_BF16",
+      "samples": 1000,
+      "medians": {
+        "Task Duration(us)": 114.582,
+        "aiv_time(us)": 107.93950000000001,
+        "aiv_scalar_time(us)": 9.784,
+        "aiv_mte2_time(us)": 85.9525,
+        "aiv_mte3_time(us)": 74.747,
+        "aiv_scalar_ratio": 0.091,
+        "aiv_mte2_ratio": 0.796,
+        "aiv_mte3_ratio": 0.692
+      }
+    }
+  ],
+  "api_csv_sha256": "905dd7eb9f54ba1fae03ce8761eccd60ba846d96732f7eb08e6c419191f9bb16",
+  "api_counts": {
+    "aclnnT5SplitQkvAppendCache": 10510,
+    "aclnnT5SplitQkvAppendCacheGetWorkspaceSize": 10,
+    "aclnnT5SplitQkvAppendCacheTiling": 10
+  }
+}

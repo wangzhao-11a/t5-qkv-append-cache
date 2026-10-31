@@ -138,22 +138,14 @@ void SubmitAclnn(const std::vector<at::Tensor>& xs, const Tensors& out,
   // device workspace, and is replaced on metadata/device/stream changes.
   auto& plan = CachedPlan();
   static thread_local bool reuseSupported = true;
-  // Explicit controls: 0 disables, 1 forces reuse; default auto reserves reuse
-  // for smaller transfers, where the saved host setup is material.
-  static const int reuseMode = [] {
+  // Explicit same-build control for experiments; default behavior is enabled.
+  static const bool reuseEnabled = [] {
     const char* setting = std::getenv("T5_ACLNN_EXECUTOR_REUSE");
-    if (setting == nullptr || std::string(setting) == "auto") return 2;
-    if (std::string(setting) == "0") return 0;
-    TORCH_CHECK(std::string(setting) == "1", "T5_ACLNN_EXECUTOR_REUSE must be 0, 1 or auto");
-    return 1;
+    return setting == nullptr || std::string(setting) != "0";
   }();
-  const bool largeTransfer = shape[0] * shape[1] * (shape[2] + 1) * shape[3] >= 16 * 1024 * 1024;
-  const bool reuseEnabled = reuseMode == 1 || (reuseMode == 2 && !largeTransfer);
   bool aligned = true;
   for (const auto& x : xs) aligned &= (reinterpret_cast<uintptr_t>(x.data_ptr()) & 31) == 0;
   if (!aligned || !reuseSupported || !reuseEnabled) {
-    // Release the previous plan when leaving its execution path.
-    plan.reset();
     auto desc = DescribeAll(xs, out);
     LaunchAclnn(BuildExecutor(desc, shape), stream);
     return;
