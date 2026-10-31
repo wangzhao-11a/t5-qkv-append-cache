@@ -100,6 +100,26 @@ def execute(report, args):
                 record(name, entry, storage_offset=1, outputs=check(case, arrays, inputs, outputs))
                 del outputs
             del arrays, inputs
+        # An odd large Q size makes the V-input cache-policy boundary unaligned.
+        # Keep this outside the frozen public/performance case definitions.
+        for template_id in ('T5SplitQkvAppendCache_007_float16_random',
+                            'T5SplitQkvAppendCache_017_bfloat16_random'):
+            case = copy.deepcopy(case_map[template_id])
+            b,h,l,d = 15,17,2048,63
+            name = 'cache_policy_odd_boundary_' + case['input_desc'][0]['data_type']
+            case.update(case_name=name, kind='random', performance=False)
+            case['input_desc'][0]['shape'] = [b,1,3*h*d]
+            for desc in case['input_desc'][1:]: desc['shape'] = [b,h,l,d]
+            case['output_desc'][0]['shape'] = [b,h,1,d]
+            for desc in case['output_desc'][1:]: desc['shape'] = [b,h,l+1,d]
+            for attr in case['attr_desc']:
+                attr['value'] = {'headNum':h,'headDim':d}[attr['name']]
+            arrays, inputs = make(case, offset=True)
+            for entry, fn in entries.items():
+                outputs = fn(inputs, attrs(case))
+                record(name, entry, storage_offset=1, outputs=check(case, arrays, inputs, outputs))
+                del outputs
+            del arrays, inputs
         base = perf[0]
         arrays, valid = make(base)
         # All three entrances validate the exact prescribed 28 scenarios.

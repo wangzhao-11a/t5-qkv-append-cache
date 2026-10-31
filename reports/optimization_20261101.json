@@ -1,6 +1,6 @@
 {
   "status": "in_progress_performance_not_accepted",
-  "latest_completed_commit": "1ecd80ea0a31c82623fd4547cdf1ba42ecbb78df",
+  "latest_completed_commit": "ea12acde93cbeb9821138482419dc101de95ae6a",
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
@@ -122,14 +122,15 @@
     }
   ],
   "next_experiment": {
-    "name": "Allocate Q,V,K while returning independent Q,K,V outputs",
+    "name": "Move logical cache coverage from V input to complete K output",
     "state": "local_static_checks_passed_not_deployed",
-    "unchanged": "All kernel and tiling sources match 1bba; only host allocation order changes"
+    "unchanged": "Original host allocation, executor reuse, scheduling, tile/UB sizes and logical NORMAL byte budget"
   },
   "discarded_before_performance": {
     "commit": "900fba8a7a83982af86eafb5d3f9db1345c9d763",
     "report": "reports/bounded_policy_inspection_20261101.json",
     "correctness_engineering_memory": "passed",
+    "evidence_sha256": "fe41e0edf2d0781f37fe8842675d406646d65faea6162d1455da8786e47200e5",
     "reason": "Target 2201 L2CacheAlter has no distinct PERSISTENT policy; performance never started.",
     "pipeline_exit_file_erratum": "Old TERM/EXIT trap wrote 0; stage coverage is incomplete. New signal traps and regression check added."
   },
@@ -452,6 +453,213 @@
       },
       "passed": 8,
       "evidence_sha256": "200c01f3a9097ff39d2928e0e278f19fab5be1606af49841134b1ac687ab57f8"
+    },
+    {
+      "commit": "ea12acde93cbeb9821138482419dc101de95ae6a",
+      "experiment": "reverse independent K/V output allocation order",
+      "adopted": false,
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
+      },
+      "performance": {
+        "scope": "performance_only",
+        "status": "failed",
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              29.5482,
+              23.3312,
+              22.98025,
+              23.02575,
+              23.13225
+            ],
+            "wall_us_median": 23.13225,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.489099999999997,
+              23.44845,
+              24.136950000000002,
+              23.59985,
+              23.6026
+            ],
+            "wall_us_median": 23.59985,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.2833,
+              24.32255,
+              24.4892,
+              24.39545,
+              24.48925
+            ],
+            "wall_us_median": 24.39545,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              117.4046,
+              117.21515,
+              117.19069999999999,
+              117.29605000000001,
+              117.14945
+            ],
+            "wall_us_median": 117.21515,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.4663,
+              23.0885,
+              23.06955,
+              23.9803,
+              23.3334
+            ],
+            "wall_us_median": 23.3334,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.8504,
+              22.765349999999998,
+              22.754150000000003,
+              22.8996,
+              22.744049999999998
+            ],
+            "wall_us_median": 22.765349999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.688950000000002,
+              23.62675,
+              23.7731,
+              23.4716,
+              23.4956
+            ],
+            "wall_us_median": 23.62675,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.40505,
+              23.49475,
+              23.3555,
+              23.4071,
+              23.6843
+            ],
+            "wall_us_median": 23.4071,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              117.40585,
+              117.34245,
+              117.4231,
+              117.3468,
+              117.33919999999999
+            ],
+            "wall_us_median": 117.3468,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.26805,
+              23.10675,
+              23.065099999999997,
+              23.25105,
+              23.2095
+            ],
+            "wall_us_median": 23.2095,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      "passed": 8,
+      "evidence_sha256": "b5c6dc45a7846681a8807f196324302a651e9a5e18af5ab8390cbdc54b036cda"
     }
-  ]
+  ],
+  "allocation_abba": {
+    "source": "reports/allocation_same_process_ea12acd_20261101.json",
+    "evidence_sha256": "bd4d756ced0fdb2e44b8a44a927d18ec64d27af2362f7d70a27783320c2ccc7d",
+    "identical_kernel_text": [
+      "T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+      "T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o"
+    ],
+    "conclusion": "Actual K/V address swap provides no material benefit in this same-input ABBA comparison.",
+    "large_cases": [
+      {
+        "case_name": "T5SplitQkvAppendCache_007_float16_random",
+        "swap_verified": true,
+        "medians": [
+          [
+            "baseline",
+            107.19855
+          ],
+          [
+            "reverse",
+            108.36535
+          ],
+          [
+            "reverse",
+            107.7762
+          ],
+          [
+            "baseline",
+            108.94364999999999
+          ]
+        ]
+      },
+      {
+        "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+        "swap_verified": true,
+        "medians": [
+          [
+            "baseline",
+            109.20535000000001
+          ],
+          [
+            "reverse",
+            110.23689999999999
+          ],
+          [
+            "reverse",
+            109.77485
+          ],
+          [
+            "baseline",
+            111.036
+          ]
+        ]
+      }
+    ]
+  }
 }
