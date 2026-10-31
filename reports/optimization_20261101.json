@@ -1,7 +1,7 @@
 {
   "status": "in_progress_performance_not_accepted",
-  "candidate_commit": "70a03ad7c101fa566b25a22783fcc24af2614d2b",
-  "runtime_equivalent_to": "e1a4d2b912bb03492bb744a6c2b5dabbe8cd32d8",
+  "latest_completed_commit": "1ecd80ea0a31c82623fd4547cdf1ba42ecbb78df",
+  "runtime_restored_to": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
   "environment": {
@@ -87,161 +87,320 @@
       ]
     }
   ],
-  "candidate_status": "completed_correctness_passed_performance_8_of_10",
   "next_experiment": {
-    "name": "24 cached-store AIV plus 24 bypass-store AIV",
-    "state": "prepared_not_run",
-    "runtime_base": "1bba0d0"
+    "name": "Preserved 24-AIV all-bypass binary on the new device allocation",
+    "state": "not_uploaded_or_started_connection_recovery_pending",
+    "commit": "8f00c2ca1f6fe8b75a94e34aee34caef8ac213e5"
   },
   "controls_evidence": {
     "archive": "/tmp/t5_reallocation_controls_20261101.tar.gz",
     "sha256": "b3e207497d0c225b1a2d8ea5363ade0af691fa2f7974b895f69db52244ed3254",
     "control_files": 32
   },
-  "candidate_checks": {
-    "public_accuracy": "passed",
-    "extended_accuracy": "passed",
-    "engineering": "passed",
-    "memory": "passed"
-  },
-  "candidate_performance": {
-    "scope": "performance_only",
-    "status": "failed",
-    "unit": "us",
-    "metric": "api_to_completion_wall_time",
-    "statistic": "median_of_round_means",
-    "checks": [
-      {
-        "case_name": "T5SplitQkvAppendCache_001_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          29.4153,
-          23.11985,
-          23.0383,
-          23.047099999999997,
-          23.16105
-        ],
-        "wall_us_median": 23.11985,
-        "max_wall_us": 28
+  "experiments": [
+    {
+      "commit": "70a03ad7c101fa566b25a22783fcc24af2614d2b",
+      "experiment": "coalesced cached K stores",
+      "adopted": false,
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_005_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          24.08615,
-          24.5542,
-          24.13685,
-          23.88575,
-          24.070349999999998
-        ],
-        "wall_us_median": 24.08615,
-        "max_wall_us": 28
-      },
-      {
-        "case_name": "T5SplitQkvAppendCache_006_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          24.504900000000003,
-          24.527099999999997,
-          24.53275,
-          24.409,
-          24.409650000000003
-        ],
-        "wall_us_median": 24.504900000000003,
-        "max_wall_us": 29
-      },
-      {
-        "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "performance": {
+        "scope": "performance_only",
         "status": "failed",
-        "wall_us_rounds": [
-          95.07085000000001,
-          91.33439999999999,
-          89.57445,
-          90.05245,
-          89.9692
-        ],
-        "wall_us_median": 90.05245,
-        "max_wall_us": 75
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              29.4153,
+              23.11985,
+              23.0383,
+              23.047099999999997,
+              23.16105
+            ],
+            "wall_us_median": 23.11985,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.08615,
+              24.5542,
+              24.13685,
+              23.88575,
+              24.070349999999998
+            ],
+            "wall_us_median": 24.08615,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.504900000000003,
+              24.527099999999997,
+              24.53275,
+              24.409,
+              24.409650000000003
+            ],
+            "wall_us_median": 24.504900000000003,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              95.07085000000001,
+              91.33439999999999,
+              89.57445,
+              90.05245,
+              89.9692
+            ],
+            "wall_us_median": 90.05245,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.1926,
+              22.847849999999998,
+              22.8048,
+              22.9273,
+              22.62105
+            ],
+            "wall_us_median": 22.847849999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.10705,
+              22.2735,
+              22.10955,
+              22.06175,
+              22.171650000000003
+            ],
+            "wall_us_median": 22.10955,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.27395,
+              23.425549999999998,
+              23.1628,
+              22.98365,
+              22.8543
+            ],
+            "wall_us_median": 23.1628,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.2516,
+              23.196450000000002,
+              23.15075,
+              23.1259,
+              23.416900000000002
+            ],
+            "wall_us_median": 23.196450000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              92.91069999999999,
+              90.40305000000001,
+              89.9681,
+              89.4835,
+              89.38035
+            ],
+            "wall_us_median": 89.9681,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              26.00105,
+              24.51975,
+              24.37155,
+              24.8537,
+              24.09815
+            ],
+            "wall_us_median": 24.51975,
+            "max_wall_us": 29
+          }
+        ]
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_008_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          23.1926,
-          22.847849999999998,
-          22.8048,
-          22.9273,
-          22.62105
-        ],
-        "wall_us_median": 22.847849999999998,
-        "max_wall_us": 29
+      "passed": 8,
+      "evidence_sha256": "cf5d28631f8b5efb702907c4fb547250b34af0d05dcfc58de0d6defb34d264e5"
+    },
+    {
+      "commit": "1ecd80ea0a31c82623fd4547cdf1ba42ecbb78df",
+      "experiment": "24 cached and 24 bypass AIV groups",
+      "adopted": false,
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          22.10705,
-          22.2735,
-          22.10955,
-          22.06175,
-          22.171650000000003
-        ],
-        "wall_us_median": 22.10955,
-        "max_wall_us": 28
-      },
-      {
-        "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          23.27395,
-          23.425549999999998,
-          23.1628,
-          22.98365,
-          22.8543
-        ],
-        "wall_us_median": 23.1628,
-        "max_wall_us": 28
-      },
-      {
-        "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          23.2516,
-          23.196450000000002,
-          23.15075,
-          23.1259,
-          23.416900000000002
-        ],
-        "wall_us_median": 23.196450000000002,
-        "max_wall_us": 29
-      },
-      {
-        "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "performance": {
+        "scope": "performance_only",
         "status": "failed",
-        "wall_us_rounds": [
-          92.91069999999999,
-          90.40305000000001,
-          89.9681,
-          89.4835,
-          89.38035
-        ],
-        "wall_us_median": 89.9681,
-        "max_wall_us": 77
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              27.444200000000002,
+              22.37625,
+              22.2751,
+              22.229400000000002,
+              22.3387
+            ],
+            "wall_us_median": 22.3387,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.4269,
+              22.825,
+              22.626549999999998,
+              22.6315,
+              22.860349999999997
+            ],
+            "wall_us_median": 22.825,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.46745,
+              23.311049999999998,
+              23.451700000000002,
+              23.2596,
+              23.71775
+            ],
+            "wall_us_median": 23.451700000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              129.202,
+              129.26695,
+              129.24005,
+              129.08665,
+              129.34345
+            ],
+            "wall_us_median": 129.24005,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.39565,
+              24.263650000000002,
+              24.1033,
+              24.1501,
+              24.0003
+            ],
+            "wall_us_median": 24.1501,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.696450000000002,
+              22.7325,
+              22.638650000000002,
+              22.6375,
+              22.63765
+            ],
+            "wall_us_median": 22.638650000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.992,
+              24.21415,
+              24.0177,
+              24.077099999999998,
+              24.2596
+            ],
+            "wall_us_median": 24.077099999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.493650000000002,
+              23.35075,
+              23.38,
+              23.492849999999997,
+              23.5442
+            ],
+            "wall_us_median": 23.492849999999997,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              129.03745,
+              128.8259,
+              129.1449,
+              129.06119999999999,
+              129.00445
+            ],
+            "wall_us_median": 129.03745,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.06115,
+              23.873150000000003,
+              23.9575,
+              23.77255,
+              23.657
+            ],
+            "wall_us_median": 23.873150000000003,
+            "max_wall_us": 29
+          }
+        ]
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          26.00105,
-          24.51975,
-          24.37155,
-          24.8537,
-          24.09815
-        ],
-        "wall_us_median": 24.51975,
-        "max_wall_us": 29
-      }
-    ]
-  },
-  "candidate_evidence_sha256": "cf5d28631f8b5efb702907c4fb547250b34af0d05dcfc58de0d6defb34d264e5"
+      "passed": 8,
+      "evidence_sha256": "200c01f3a9097ff39d2928e0e278f19fab5be1606af49841134b1ac687ab57f8"
+    }
+  ]
 }

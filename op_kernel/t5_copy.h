@@ -43,23 +43,7 @@ class T5Copy {
   }
 
   __aicore__ inline void Process() {
-    const uint32_t core = AscendC::GetBlockIdx(), cores = AscendC::GetBlockNum();
-    if (cachedKeyTiles_ != 0 && cores == 48) {
-      // Give cached and bypass stores separate 24-core groups so their traffic
-      // can progress concurrently. Tile geometry and the cached prefix stay fixed.
-      for (uint32_t tile = core; tile < queryTiles_; tile += cores) Query(tile);
-      if (core < 24) {
-        for (uint32_t tile = core; tile < cachedKeyTiles_; tile += 24) Cache(tile, false);
-      } else {
-        const uint32_t bypassKeyTiles = cacheTiles_ - cachedKeyTiles_;
-        for (uint32_t work = core - 24; work < bypassKeyTiles + cacheTiles_; work += 24) {
-          if (work < bypassKeyTiles) Cache(work + cachedKeyTiles_, false);
-          else Cache(work - bypassKeyTiles, true);
-        }
-      }
-      return;
-    }
-    for (uint32_t work = core; work < total_; work += cores) {
+    for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
       if (work < queryTiles_) Query(work);
       else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
       else Cache(work - queryTiles_ - cacheTiles_, true);
