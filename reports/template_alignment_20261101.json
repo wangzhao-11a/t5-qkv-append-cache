@@ -1,0 +1,36 @@
+{
+  "status": "template_aligned",
+  "template_url": "https://cann-op.obs.cn-north-4.myhuaweicloud.com/task_submission.zip",
+  "template_sha256": "609b502f03a090009ec8649bf85ff4988ff8ae88d4c1772b5eee20bad518420b",
+  "template_file_names": [
+    "4.1 内存自验证报告.xlsx",
+    "2.1 精度自验证报告.xlsx",
+    "3.1 性能自验证报告.xlsx",
+    "3.2 性能自验证日志.log",
+    "2.2 精度自验证日志.log",
+    "4.2 内存自验证日志.log",
+    "1 自验证步骤说明.md"
+  ],
+  "tested_runtime_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "npu_rerun": false,
+  "fixed_performance_passed": 10,
+  "changes": [
+    "Imported original XLSX templates and retained primary names, summary merges, original headers and units",
+    "Removed unrelated sample data and screenshots",
+    "Preserved all raw results and added auditable detail columns",
+    "Separated fixed performance timing from the independent paired comparison",
+    "Converted active-memory increment to decimal GB while preserving byte-level acceptance",
+    "Reorganized instructions into the four required steps and isolated reproduction logs"
+  ],
+  "unavailable_fields": [
+    "On-device screenshots not captured; original logs provided",
+    "Fixed-run paired reference timing not measured; separate paired measurements retained",
+    "Reference active-memory measurement not available"
+  ],
+  "prior_delivery_preserved": {
+    "path": "artifacts/t5_qkv_delivery_3783c71.zip",
+    "sha256": "e09224dca4bf9886a8c52203f84af1e74a0fe6240e6ba1623b51a36d7b4cf864"
+  },
+  "output_directory": "outputs/01a18867-1217-7502-95aa-e2b665f9a437/template_aligned/task_submission",
+  "verification": "reports/workbook_template_verification_20261101.json"
+}

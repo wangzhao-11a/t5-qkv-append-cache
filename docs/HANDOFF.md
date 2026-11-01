@@ -1,5 +1,7 @@
 # 2026-11-01 最终状态：固定性能 10/10 通过
 
+交付材料已按用户再次提供的官方 task_submission.zip 直接套用原始三份 Excel 模板，四步复现说明和七件文件名已对齐；目录为 outputs/01a18867-1217-7502-95aa-e2b665f9a437/template_aligned/task_submission。模板来源与哈希见 reports/template_alignment_20261101.json，数值复核见 reports/workbook_template_verification_20261101.json。此次仅调整交付材料，运行源码与 10/10 原始证据不变，未重跑设备测试。无现场截图的字段明确留空，独立对照结果不与固定成绩混算。
+
 运行源码 f52671207769bf5f334972c997743eb6aa6f91b3 已完整通过。大缓存 70.22155 / 70.20120 μs，精度、工程、内存通过。完整证据 65 项已下载校验；当前运行代码保留，无后续候选待跑。详见 [最终验收](ACCEPTANCE_20261101.md) 和 [结构化状态](../reports/STATUS_latest.json)。SSH 40068 保留；PID 365687 已结束，总退出码 0，设备与端口清场已核对。下方全部为历史快照，不再代表当前待办。
 
 ---

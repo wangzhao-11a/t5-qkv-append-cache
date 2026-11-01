@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "bash_blocks": 5,
+  "embedded_python_ast": "passed",
+  "encoding": "UTF-8 no BOM, LF",
+  "script_bytes": 3640,
+  "script_sha256": "cde025ffb08af7b6f493a20fd72c33b524c0724a7578d43ca2a4e32d36171827",
+  "remote_bash_n": "passed",
+  "device_execution": false,
+  "earlier_extraction": "Inline PowerShell backticks produced zero blocks. Empty script was uploaded but never executed or accepted. Superseded by this file-based extraction with count/content guards.",
+  "remote_exit_code": 0,
+  "remote_script": "/tmp/t5_template_reproduction_v2_20261101.sh",
+  "remote_sha256_matched_local": true
+}

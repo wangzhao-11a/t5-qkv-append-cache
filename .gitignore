@@ -15,6 +15,7 @@ research/templates/
 research/*_tree.json
 research/xllm_tree.json
 research/official_task_submission.zip
+research/official_task_submission_*.zip
 task_submission.zip
 *.inspect.ndjson
 *.tar

@@ -1,5 +1,7 @@
 # 2026-11-01 固定性能验收完成
 
+交付格式后续按用户指定的[官方模板](https://cann-op.obs.cn-north-4.myhuaweicloud.com/task_submission.zip)更新：原始工作表、表头和总结区保留，新增细节列保存全部证据。最新七件材料为 `outputs/01a18867-1217-7502-95aa-e2b665f9a437/template_aligned/task_submission/`；上一版及 c9decf2 材料仍保留。数据、源码和固定验收结果不变。
+
 运行源码 `f52671207769bf5f334972c997743eb6aa6f91b3` 在 Ascend910_9382 上完成一次完整原始固定 benchmark，**10/10 通过**。FP16/BF16 大缓存为 **70.22155 / 70.20120 μs**，门槛 **75 / 77 μs**。没有拼接不同运行的通过项，也没有重跑同一候选碰门槛。
 
 ## 结果与协议
@@ -47,4 +49,4 @@ Python 3.12.13、torch 2.10.0+cpu、torch_npu 2.10.0.post4（5dd8ef3）、NumPy 
 
 最新结构化状态为 `reports/STATUS_latest.json`，全部验收 JSON 为 `reports/accepted_f526712/`。完整原始压缩证据 65 项，SHA256 `fcb4f5398b008bd3affe784bfe39a0d842c669cfaad5824c51f9488e5edadff6`；二进制清单和 ldd/readelf 记录随包保存。源码从精确提交 git archive 导出，源包及逐文件 SHA256 清单独立保存，未混入构建产物。
 
-本地 `reports/STATUS.json`、`reports/performance.json`、`task_submission/`、`task_submission.zip` 和 `artifacts/t5_qkv_delivery_3da8059.zip` 保留 c9decf2 旧结果。基线保留清单见 `reports/baseline_preservation_20261101.json`。新七件材料在 `outputs/01a18867-1217-7502-95aa-e2b665f9a437/task_submission/`；新完整交付包的 `task_submission/` 放本次通过版本，旧七件放 `evidence/baseline_c9decf2/`。
+本地 `reports/STATUS.json`、`reports/performance.json`、`task_submission/`、`task_submission.zip` 和 `artifacts/t5_qkv_delivery_3da8059.zip` 保留 c9decf2 旧结果。基线保留清单见 `reports/baseline_preservation_20261101.json`。按官方模板整理的最新七件材料在 `outputs/01a18867-1217-7502-95aa-e2b665f9a437/template_aligned/task_submission/`；新完整交付包的 `task_submission/` 放本次通过版本，旧七件放 `evidence/baseline_c9decf2/`。上一版 3783c71 交付包仍保留。

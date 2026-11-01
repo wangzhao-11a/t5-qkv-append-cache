@@ -15,6 +15,7 @@ p.add_argument('--output', type=Path, required=True)
 p.add_argument('--submission', type=Path, required=True)
 p.add_argument('--evidence-archive', type=Path, required=True)
 p.add_argument('--evidence-receipt', type=Path, required=True)
+p.add_argument('--submission-template', type=Path)
 a = p.parse_args()
 if a.output.exists():
     raise SystemExit('Preserve existing delivery; choose a new output')
@@ -72,9 +73,19 @@ if hashlib.sha256(archive_data).hexdigest()!=receipt['sha256']:
     raise SystemExit('Evidence archive SHA256 mismatch')
 files['evidence/accepted/'+a.evidence_archive.name]=archive_data
 files['evidence/accepted/collector_receipt.json']=a.evidence_receipt.read_bytes()
+template_info=None
+if a.submission_template:
+    template_data=a.submission_template.read_bytes()
+    with zipfile.ZipFile(io.BytesIO(template_data)) as z:
+        if z.testzip() is not None or len(z.namelist())!=7 or set(z.namelist())!=set(names):
+            raise SystemExit('Official template file layout differs from the submission')
+    files['evidence/template/task_submission.zip']=template_data
+    template_info={'url':'https://cann-op.obs.cn-north-4.myhuaweicloud.com/task_submission.zip',
+                   'sha256':hashlib.sha256(template_data).hexdigest()}
 manifest = {'delivery_commit': commit, 'tested_runtime_source_commit': tested,
             'driver_actual': '26.1.1', 'driver_task_required': '25.5.t6.b001',
             'driver_difference_accepted_by_user': True,
+            'submission_template':template_info,
             'source_layout': 'Git archive; binary/runtime artifacts added separately',
             'files': [{'path': n, 'bytes': len(d), 'sha256': hashlib.sha256(d).hexdigest()}
                       for n, d in sorted(files.items())]}
