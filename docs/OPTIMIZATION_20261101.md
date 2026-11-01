@@ -81,3 +81,11 @@ ea12acde93cbeb9821138482419dc101de95ae6a 全正确性/工程/内存通过，固�
 恢复 1bba 主机代码、输出分配顺序、48 AIV 调度和 64 KiB×2 UB。保留原策略算出的缓存字节预算；预算足够时将完整 K 输出保持 NORMAL，并将 V 输入只有一个有界前缀保持 NORMAL，其余 V 输入和全部 V 输出 BYPASS。K 输入和 packed 输入仍 NORMAL。新增 K 输出缓存的字节数与减少的 V 输入缓存字节数相等；预算不适用时保持原 K 前缀策略。
 
 这是读写缓存压力的对照，不是此前“两个输出全部 NORMAL、K 输入 BYPASS”的方案；本次 K 输入继续缓存且 V 输出继续旁路。数据复制映射、工作区和所有权不变。CPU 检查覆盖 318 个有效形状，其中 96 个走新分支，并验证大用例及 [15,17,2048,63] 的切分不跨输出 tile。NPU 扩展精度增加该奇数大形状的两种 dtype、两入口，全部输入 storage_offset=1，覆盖缓存策略边界的未对齐切分。固定 benchmark/阈值保持冻结。
+
+8303bbbffd81778dfe959c0447c60e8c41671bf3 全部正确性、工程、内存检查通过，包括上述新增 4 项精度检查；固定性能 8/10，FP16/BF16 大缓存分别为 118.32280/118.36085 us，门槛仍为 75/77 us。完整证据已下载、按 receipt 校验解包，SHA256 dd9072afc784634ec33710835677781011e75262a675b86bb44579eb6c6c3392。本地内核已恢复 1bba，新增边界精度覆盖保留。结果不支持采用该缓存读写覆盖转移策略。
+
+## 后续加载路径核对（尚未执行）
+
+环境记录中的 ASCEND_CUSTOM_OPP_PATH 在 torch_npu 导入后含 fla_npu vendor 和当前候选的独立 t5qkv vendor；这本身不是冲突证据。原 1bba 宿主扩展、opapi/tiling 库及安装二进制 hash 已核对。为补齐实际设备内核文件选择证据，准备使用 [CANN 日志配置](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0107.html) 启用 DEBUG 打屏，核对 8303bbb 两份 kernel 元数据的 sha256 与实际 .o，并且各 dtype 仅做一次大例正确性。该诊断不计时，不作为性能验收。
+
+本地终端会话失效后，重连跳板返回 platform authorization denied；已请求刷新原实例授权。加载路径诊断脚本尚未启动，不能声称已发现错载内核。现有有效结果仍为 8/10，c9 原基线与原交付包保留。

@@ -1,6 +1,6 @@
 {
   "status": "in_progress_performance_not_accepted",
-  "latest_completed_commit": "ea12acde93cbeb9821138482419dc101de95ae6a",
+  "latest_completed_commit": "8303bbbffd81778dfe959c0447c60e8c41671bf3",
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
@@ -122,9 +122,10 @@
     }
   ],
   "next_experiment": {
-    "name": "Move logical cache coverage from V input to complete K output",
-    "state": "local_static_checks_passed_not_deployed",
-    "unchanged": "Original host allocation, executor reuse, scheduling, tile/UB sizes and logical NORMAL byte budget"
+    "name": "Verify device kernel file selection using CANN debug logs",
+    "state": "prepared_not_started_waiting_refreshed_ssh_authorization",
+    "scope": "One correctness launch per large-case dtype; no performance rerun",
+    "hypothesis": "Kernel selection mismatch remains unverified; mapped host libraries already verified"
   },
   "discarded_before_performance": {
     "commit": "900fba8a7a83982af86eafb5d3f9db1345c9d763",
@@ -605,6 +606,158 @@
       },
       "passed": 8,
       "evidence_sha256": "b5c6dc45a7846681a8807f196324302a651e9a5e18af5ab8390cbdc54b036cda"
+    },
+    {
+      "commit": "8303bbbffd81778dfe959c0447c60e8c41671bf3",
+      "experiment": "move bounded V input cache coverage to complete K output",
+      "adopted": false,
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
+      },
+      "performance": {
+        "scope": "performance_only",
+        "status": "failed",
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              26.03405,
+              20.843049999999998,
+              21.11595,
+              20.523349999999997,
+              20.68375
+            ],
+            "wall_us_median": 20.843049999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.0903,
+              20.9625,
+              20.93135,
+              20.96295,
+              21.3243
+            ],
+            "wall_us_median": 20.96295,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.15175,
+              22.6311,
+              23.0137,
+              22.068150000000003,
+              21.896150000000002
+            ],
+            "wall_us_median": 22.6311,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              118.60294999999999,
+              118.3228,
+              118.22075,
+              118.29605000000001,
+              118.3977
+            ],
+            "wall_us_median": 118.3228,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.5352,
+              21.431849999999997,
+              21.3644,
+              21.429299999999998,
+              21.42805
+            ],
+            "wall_us_median": 21.429299999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.864349999999998,
+              20.900650000000002,
+              20.42345,
+              20.7035,
+              20.88185
+            ],
+            "wall_us_median": 20.864349999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.837799999999998,
+              21.94415,
+              21.96175,
+              22.107200000000002,
+              22.08945
+            ],
+            "wall_us_median": 21.96175,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.3295,
+              21.9731,
+              21.921599999999998,
+              21.79485,
+              21.85445
+            ],
+            "wall_us_median": 21.921599999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              118.42675,
+              118.30575,
+              118.36085,
+              118.19995,
+              118.50555
+            ],
+            "wall_us_median": 118.36085,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.9464,
+              21.424799999999998,
+              21.49355,
+              21.501849999999997,
+              21.621299999999998
+            ],
+            "wall_us_median": 21.501849999999997,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      "passed": 8,
+      "evidence_sha256": "dd9072afc784634ec33710835677781011e75262a675b86bb44579eb6c6c3392"
     }
   ],
   "allocation_abba": {
