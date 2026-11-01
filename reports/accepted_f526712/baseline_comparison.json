@@ -1,0 +1,452 @@
+{
+  "status": "passed",
+  "npu_executed": true,
+  "protocol": {
+    "warmup": 50,
+    "iterations": 200,
+    "rounds": 5
+  },
+  "ratio_acceptance": "undefined in inconsistent task prose; report measurements only",
+  "cases": [
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            86.28994999999999,
+            82.75564999999999,
+            89.9009,
+            88.8421,
+            81.31710000000001
+          ],
+          "device_event_us_rounds": [
+            81.78569793701172,
+            82.34660148620605,
+            89.36079978942871,
+            86.91869735717773,
+            80.92789649963379
+          ],
+          "wall_us_median": 86.28994999999999,
+          "device_event_us_median": 82.34660148620605
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.20395,
+            21.80895,
+            21.7487,
+            21.52095,
+            23.499200000000002
+          ],
+          "device_event_us_rounds": [
+            21.500000953674316,
+            21.42970085144043,
+            21.372699737548828,
+            21.178200244903564,
+            23.123900890350342
+          ],
+          "wall_us_median": 21.80895,
+          "device_event_us_median": 21.42970085144043
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.25274032491616927
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_005_float16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            105.2139,
+            102.27810000000001,
+            90.2417,
+            99.27114999999999,
+            93.24765
+          ],
+          "device_event_us_rounds": [
+            104.62349891662598,
+            101.89820289611816,
+            89.85340118408203,
+            98.8617992401123,
+            92.68600463867188
+          ],
+          "wall_us_median": 99.27114999999999,
+          "device_event_us_median": 98.8617992401123
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.8173,
+            25.52165,
+            24.79465,
+            22.98425,
+            23.1403
+          ],
+          "device_event_us_rounds": [
+            22.238099575042725,
+            24.964098930358887,
+            24.22760009765625,
+            22.560698986053467,
+            22.731199264526367
+          ],
+          "wall_us_median": 23.1403,
+          "device_event_us_median": 22.731199264526367
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.2331019636621516
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_006_float16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            86.28835000000001,
+            81.58375,
+            81.6154,
+            81.76065,
+            81.6283
+          ],
+          "device_event_us_rounds": [
+            85.73229789733887,
+            81.1868953704834,
+            81.24650001525879,
+            81.36139869689941,
+            81.26580238342285
+          ],
+          "wall_us_median": 81.6283,
+          "device_event_us_median": 81.26580238342285
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.6064,
+            23.865,
+            22.32515,
+            22.36085,
+            22.3272
+          ],
+          "device_event_us_rounds": [
+            22.102999687194824,
+            22.124600410461426,
+            21.969499588012695,
+            21.99549913406372,
+            21.94000005722046
+          ],
+          "wall_us_median": 22.36085,
+          "device_event_us_median": 21.99549913406372
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.273935020084946
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            202.05055,
+            201.87470000000002,
+            203.12865,
+            201.74665,
+            202.229
+          ],
+          "device_event_us_rounds": [
+            201.39419555664062,
+            201.4369010925293,
+            202.6494026184082,
+            201.28089904785156,
+            201.41159057617188
+          ],
+          "wall_us_median": 202.05055,
+          "device_event_us_median": 201.41159057617188
+        },
+        "custom": {
+          "wall_us_rounds": [
+            112.43910000000001,
+            112.19875,
+            112.11205,
+            112.121,
+            112.12995
+          ],
+          "device_event_us_rounds": [
+            111.76019668579102,
+            111.79269790649414,
+            111.72369956970215,
+            111.7035961151123,
+            111.73230171203613
+          ],
+          "wall_us_median": 112.12995,
+          "device_event_us_median": 111.73230171203613
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.5549598850386698
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_008_float16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            90.98864999999999,
+            90.6977,
+            90.2578,
+            93.15725,
+            90.61030000000001
+          ],
+          "device_event_us_rounds": [
+            90.50200462341309,
+            90.33470153808594,
+            89.84000205993652,
+            92.68779754638672,
+            90.23209571838379
+          ],
+          "wall_us_median": 90.6977,
+          "device_event_us_median": 90.33470153808594
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.2009,
+            22.1545,
+            22.123849999999997,
+            22.085150000000002,
+            22.2431
+          ],
+          "device_event_us_rounds": [
+            21.77229881286621,
+            21.799700260162354,
+            21.758899688720703,
+            21.680500507354736,
+            21.872799396514893
+          ],
+          "wall_us_median": 22.1545,
+          "device_event_us_median": 21.77229881286621
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.2442674952066039
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            80.64569999999999,
+            80.2295,
+            81.0362,
+            80.242,
+            80.44
+          ],
+          "device_event_us_rounds": [
+            80.20319938659668,
+            79.84099864959717,
+            80.63579559326172,
+            79.80480194091797,
+            80.05720138549805
+          ],
+          "wall_us_median": 80.44,
+          "device_event_us_median": 80.05720138549805
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.415,
+            21.802,
+            21.574450000000002,
+            21.658849999999997,
+            21.707849999999997
+          ],
+          "device_event_us_rounds": [
+            21.261401176452637,
+            21.36080026626587,
+            21.21609926223755,
+            21.28849983215332,
+            21.320700645446777
+          ],
+          "wall_us_median": 21.707849999999997,
+          "device_event_us_median": 21.28849983215332
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.26986387369467923
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            90.8841,
+            90.4748,
+            90.37180000000001,
+            90.29885,
+            91.08475
+          ],
+          "device_event_us_rounds": [
+            90.43990135192871,
+            90.05069732666016,
+            89.96700286865234,
+            89.88380432128906,
+            89.78560447692871
+          ],
+          "wall_us_median": 90.4748,
+          "device_event_us_median": 89.96700286865234
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.32925,
+            22.2305,
+            22.1851,
+            22.135900000000003,
+            22.18725
+          ],
+          "device_event_us_rounds": [
+            21.957900524139404,
+            21.89929962158203,
+            21.845901012420654,
+            21.76949977874756,
+            21.792900562286377
+          ],
+          "wall_us_median": 22.18725,
+          "device_event_us_median": 21.845901012420654
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.24523126881739443
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            81.54805,
+            81.5439,
+            81.4676,
+            81.5446,
+            81.54145
+          ],
+          "device_event_us_rounds": [
+            81.00979804992676,
+            81.16339683532715,
+            81.02780342102051,
+            81.13570213317871,
+            81.1929988861084
+          ],
+          "wall_us_median": 81.5439,
+          "device_event_us_median": 81.13570213317871
+        },
+        "custom": {
+          "wall_us_rounds": [
+            22.30785,
+            22.0715,
+            23.367549999999998,
+            22.6341,
+            22.24075
+          ],
+          "device_event_us_rounds": [
+            21.898300647735596,
+            21.733999252319336,
+            21.90850019454956,
+            22.102301120758057,
+            21.880099773406982
+          ],
+          "wall_us_median": 22.30785,
+          "device_event_us_median": 21.898300647735596
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.273568593113648
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            202.00285,
+            201.75414999999998,
+            201.882,
+            201.70520000000002,
+            201.87664999999998
+          ],
+          "device_event_us_rounds": [
+            201.39480590820312,
+            201.3018035888672,
+            201.4266014099121,
+            201.26890182495117,
+            200.9071922302246
+          ],
+          "wall_us_median": 201.87664999999998,
+          "device_event_us_median": 201.3018035888672
+        },
+        "custom": {
+          "wall_us_rounds": [
+            111.75365,
+            111.61215,
+            111.71835,
+            111.5481,
+            111.57855
+          ],
+          "device_event_us_rounds": [
+            111.11470222473145,
+            111.13619804382324,
+            111.18100166320801,
+            111.16290092468262,
+            111.14319801330566
+          ],
+          "wall_us_median": 111.61215,
+          "device_event_us_median": 111.14319801330566
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.552873004381636
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "results": {
+        "views_concat_q_copy": {
+          "wall_us_rounds": [
+            90.49610000000001,
+            90.39,
+            90.28875,
+            90.58335000000001,
+            94.42185
+          ],
+          "device_event_us_rounds": [
+            90.05660057067871,
+            90.00969886779785,
+            89.89899635314941,
+            90.16889572143555,
+            93.91759872436523
+          ],
+          "wall_us_median": 90.49610000000001,
+          "device_event_us_median": 90.05660057067871
+        },
+        "custom": {
+          "wall_us_rounds": [
+            21.931900000000002,
+            22.83275,
+            21.75365,
+            21.76755,
+            21.8959
+          ],
+          "device_event_us_rounds": [
+            21.52209997177124,
+            21.399900913238525,
+            21.424601078033447,
+            21.440200805664062,
+            21.550400257110596
+          ],
+          "wall_us_median": 21.8959,
+          "device_event_us_median": 21.440200805664062
+        }
+      },
+      "selected_baseline": "views_concat_q_copy",
+      "excluded_candidates": [],
+      "custom_over_baseline": 0.2419540731589538
+    }
+  ]
+}

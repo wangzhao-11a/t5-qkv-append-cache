@@ -1,6 +1,6 @@
 {
-  "status": "in_progress_performance_not_accepted",
-  "latest_completed_commit": "a98053363dfb9f39cc7bef93b0a66b48fda31429",
+  "status": "completed_fixed_performance_10_of_10",
+  "latest_completed_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
@@ -128,17 +128,7 @@
     "session_state": "40068 active; duplicate 88471 closed after pending transfers completed",
     "prior_disconnect_cause": "unverified; a fixed five-minute limit is not supported"
   },
-  "next_experiment": {
-    "name": "22: hoist provably invariant alignment checks for large aligned fragments",
-    "state": "pipeline_in_progress",
-    "base_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
-    "eligible_shapes": 374,
-    "fragment_checks": 2864106,
-    "binary_change_gate_required": true,
-    "current_control_required": true,
-    "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
-    "pid": 365687
-  },
+  "next_experiment": null,
   "kernel_load_trace": {
     "report": "reports/kernel_load_trace_20261101.json",
     "correctness": "both large dtypes passed",
@@ -1426,6 +1416,20 @@
         }
       ],
       "decision": "Restore b661926; CPU-equivalent predicate did not demonstrate a timing benefit."
+    },
+    {
+      "name": "22: hoist invariant alignment checks for large aligned fragments",
+      "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+      "status": "accepted",
+      "fixed_performance_passed": 10,
+      "total": 10,
+      "fp16_large_us": 70.22155000000001,
+      "bf16_large_us": 70.2012,
+      "evidence_archive_sha256": "fcb4f5398b008bd3affe784bfe39a0d842c669cfaad5824c51f9488e5edadff6",
+      "functional_checks": "passed",
+      "binary_text_bytes_before": 5656,
+      "binary_text_bytes_after": 6564,
+      "retained": true
     }
   ],
   "allocation_abba": {
@@ -1484,11 +1488,11 @@
     ]
   },
   "best_validated_candidate": {
-    "commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
-    "fixed_performance_passed": 9,
+    "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "fixed_performance_passed": 10,
     "total": 10,
-    "acceptance_complete": false,
-    "source": "reports/performance_b661926_container_e60_20261101.json"
+    "acceptance_complete": true,
+    "source": "reports/STATUS_latest.json"
   },
   "current_window_control": {
     "source": "reports/performance_b661926_current_window_20261101.json",

@@ -1,0 +1,59 @@
+{
+  "build_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "native_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "aclnn_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "private_installation": "/root/.local/t5_qkv_f52671207769",
+  "physical_device": 7,
+  "logical_device": 0,
+  "visible_device_selector": "1",
+  "model_path": null,
+  "service_ports": [],
+  "commands": [
+    "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/start_optimized_build.sh",
+    "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_smoke.sh",
+    "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_correctness.sh",
+    "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_performance.sh"
+  ],
+  "files": [
+    {
+      "path": "artifacts/binaries/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+      "bytes": 10536784,
+      "sha256": "360873394364c46a3f908d5673b548ee855a94db459075ab0578ca0d752ed1bd"
+    },
+    {
+      "path": "artifacts/binaries/ldd_binding.txt",
+      "bytes": 9007,
+      "sha256": "2581d76e51a443957af7f561f3b0a6da6846d3d222f7cfed544b59e5cabf475e"
+    },
+    {
+      "path": "artifacts/binaries/ldd_direct.txt",
+      "bytes": 1856,
+      "sha256": "b1df1bd2d27874c208a6a3060d403a7f9598cb30407a1153ba970c7d99d75992"
+    },
+    {
+      "path": "artifacts/binaries/ldd_example.txt",
+      "bytes": 3067,
+      "sha256": "24b20703213e8318f5ec324b870d2b8e7405f9fcbded8e9ec2b9f9488f5b06aa"
+    },
+    {
+      "path": "artifacts/binaries/libt5_direct.so",
+      "bytes": 403560,
+      "sha256": "93d574c596fa9054595e20317564a85929e2817f2c2a88c6a8b5bb6cfd0ca7a2"
+    },
+    {
+      "path": "artifacts/binaries/readelf_binding.txt",
+      "bytes": 2592,
+      "sha256": "8a2500b196b56d25439981f25d72a9bb01831cc0b7dfae2eba49ce86230c7d00"
+    },
+    {
+      "path": "artifacts/binaries/t5_example",
+      "bytes": 101608,
+      "sha256": "7b74190750cf0d64298c58f32530f378381e97e10eff834a6ae697fe10696d91"
+    },
+    {
+      "path": "artifacts/custom_opp_openEuler_aarch64.run",
+      "bytes": 224384,
+      "sha256": "e8f92209df65f80e66874f601709c525a1a6df421c5f875c2983b30c504013c1"
+    }
+  ]
+}

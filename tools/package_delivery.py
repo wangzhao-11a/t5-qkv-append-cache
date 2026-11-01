@@ -12,7 +12,12 @@ ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser()
 p.add_argument('--evidence', type=Path, required=True)
 p.add_argument('--output', type=Path, required=True)
+p.add_argument('--submission', type=Path, required=True)
+p.add_argument('--evidence-archive', type=Path, required=True)
+p.add_argument('--evidence-receipt', type=Path, required=True)
 a = p.parse_args()
+if a.output.exists():
+    raise SystemExit('Preserve existing delivery; choose a new output')
 commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 if subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=ROOT, text=True).strip():
     raise SystemExit('Commit the final tracked sources/reports before packaging')
@@ -48,7 +53,25 @@ for f in (ROOT/'artifacts/wheels').glob('*.whl'):
 for suffix in ('.tar', '.manifest.json'):
     name = f'source_{tested[:12]}{suffix}'
     files[f'artifacts/{name}'] = (ROOT/'artifacts'/name).read_bytes()
-files['task_submission.zip'] = (ROOT/'task_submission.zip').read_bytes()
+with zipfile.ZipFile(a.submission) as z:
+    names=['1 自验证步骤说明.md','2.1 精度自验证报告.xlsx','2.2 精度自验证日志.log',
+           '3.1 性能自验证报告.xlsx','3.2 性能自验证日志.log','4.1 内存自验证报告.xlsx','4.2 内存自验证日志.log']
+    if z.testzip() is not None or len(z.namelist())!=7 or set(z.namelist())!=set(names):
+        raise SystemExit('Submission must contain exactly the seven validated materials')
+    if tested not in z.read(names[0]).decode('utf-8'):
+        raise SystemExit('Submission instructions do not identify the tested runtime source')
+    # Keep baseline materials explicitly, then publish the accepted seven at the normal path.
+    for name in names:
+        old=files.pop('task_submission/'+name,None)
+        if old is not None:files['evidence/baseline_c9decf2/task_submission/'+name]=old
+        files['task_submission/'+name]=z.read(name)
+files['task_submission.zip'] = a.submission.read_bytes()
+receipt=json.loads(a.evidence_receipt.read_text(encoding='utf-8'))
+archive_data=a.evidence_archive.read_bytes()
+if hashlib.sha256(archive_data).hexdigest()!=receipt['sha256']:
+    raise SystemExit('Evidence archive SHA256 mismatch')
+files['evidence/accepted/'+a.evidence_archive.name]=archive_data
+files['evidence/accepted/collector_receipt.json']=a.evidence_receipt.read_bytes()
 manifest = {'delivery_commit': commit, 'tested_runtime_source_commit': tested,
             'driver_actual': '26.1.1', 'driver_task_required': '25.5.t6.b001',
             'driver_difference_accepted_by_user': True,

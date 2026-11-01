@@ -1,0 +1,61 @@
+{
+  "baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+  "files": [
+    {
+      "path": "reports/STATUS.json",
+      "sha256": "f12c871f3381a38da083ef69ea465c4d0cb189484762cf8b8bda72835a77a7ce"
+    },
+    {
+      "path": "reports/performance.json",
+      "sha256": "90ecb25ed476dc76a0b99647060eae9bfb757c939cb783ca12765fdaf5980622"
+    },
+    {
+      "path": "task_submission.zip",
+      "sha256": "cdf69fe1dca649d02910777b4e347c777e2e03cb139628f42ccc9c48b896b33c"
+    },
+    {
+      "path": "artifacts/t5_qkv_delivery_3da8059.zip",
+      "sha256": "8da7f61797cd12eaddeaf570300d2ea79ff88832d20ae1974ebe77a8160949f4"
+    },
+    {
+      "path": "task_submission/1 自验证步骤说明.md",
+      "sha256": "17619b185dc20345597334d246577a8e9fbe34903a3d911f15df46acf60099a9"
+    },
+    {
+      "path": "task_submission/2.1 精度自验证报告.xlsx",
+      "sha256": "13b5cf6e094221c82a8ba04326e75cc952d5a235cc719dd20887bd5933d40d82"
+    },
+    {
+      "path": "task_submission/2.1 精度自验证报告.xlsx.inspect.ndjson",
+      "sha256": "7d99dffc0cc7ba940f6e961d397a29b17311ccc0492407e6fcd3afd1b2c9085e"
+    },
+    {
+      "path": "task_submission/2.2 精度自验证日志.log",
+      "sha256": "5d7d70652a29a48c5bf9213eae90b6e324f5d3dd8e4e161de02ee5eecf6715f6"
+    },
+    {
+      "path": "task_submission/3.1 性能自验证报告.xlsx",
+      "sha256": "6bae53d92f835956ae8fa91fc4d96683b9bcb8bd75c115b1b8d40d298fc202c8"
+    },
+    {
+      "path": "task_submission/3.1 性能自验证报告.xlsx.inspect.ndjson",
+      "sha256": "c26c540c2964a0efa603057327232b678fddbc3c283186949c4970008b609dca"
+    },
+    {
+      "path": "task_submission/3.2 性能自验证日志.log",
+      "sha256": "2ed6317b212b2f59566dbfa0fc775324af4620ac0c32e5043b7e9cecabb2cf20"
+    },
+    {
+      "path": "task_submission/4.1 内存自验证报告.xlsx",
+      "sha256": "0a73810672ceef4b9410e19871c96c9ff290fe36a96a6976b7c38b6fde064e6d"
+    },
+    {
+      "path": "task_submission/4.1 内存自验证报告.xlsx.inspect.ndjson",
+      "sha256": "b22697cd95458b8e78f84bf4f3b6942330ed2e6fdb5de79c8eddcf208693d75d"
+    },
+    {
+      "path": "task_submission/4.2 内存自验证日志.log",
+      "sha256": "5a1271239680d60ce295883bcbda259032bae556ecef3937ce6953587274b19f"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "control_solution": "/workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c/solution.py",
+  "control_finished_at_utc": "2026-11-01T11:21:35.996303+00:00",
+  "age_seconds": 1144.127311,
+  "max_age_seconds": 1800,
+  "scope": "Temporal comparison guard; does not prove identical physical memory placement.",
+  "control_report": "/workspace/t5_qkv_tasks/t5_qkv_a98053363dfb/artifacts/validation/suffix_current_window_control_20261101.json",
+  "control_source_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf"
+}

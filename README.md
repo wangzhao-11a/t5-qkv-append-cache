@@ -2,6 +2,8 @@
 
 本工程对应用户提供的 2026-10-23 固定耗时目标任务包。
 
+2026-11-01：运行源码 `f52671207769` 已完成固定性能 **10/10**，两个大缓存 **70.222 / 70.201 μs**。精度、工程、内存全部通过。最新证据见 [最终验收](docs/ACCEPTANCE_20261101.md) 与 [STATUS_latest.json](reports/STATUS_latest.json)。原根目录 reports/STATUS.json、performance.json 仍保留 c9decf2 历史结果。
+
 ## 实现
 
 - `op_host/`：OpDef、shape/dtype 推导、输入输出元数据检查及 tiling。
@@ -11,7 +13,7 @@
 - `examples/`：独立 ACLNN C++ 样例及 5 类非法元数据拒绝检查。
 - `reference/`：从原始 ZIP 导入的 12 个文件，保持内容字节不变。
 - `tests/`：CPU 地址模型及 NPU 扩展检查、同机基线对照。
-- `task_submission/`：官方模板字段对应的七件自验证材料。
+- `task_submission/`：本地保留 c9decf2 原七件；新完整交付 ZIP 中此目录为本次通过版本，旧七件另存于 `evidence/baseline_c9decf2/`。
 
 ## 构建与测试
 
@@ -33,7 +35,7 @@ export T5_ACCEPTED_DRIVER=26.1.1
 bash scripts/validate.sh > validation.log 2>&1
 ```
 
-脚本先生成官方 msopgen 工程，再覆盖本题实现并编译私有 `.run`；不会修改系统 CANN。构建前保留既有 build 目录，拒绝静默覆盖。设备测试从独立 C++ 最小调用开始，经公开精度、扩展精度、稳定性和内存检查后才测性能。具体步骤见 `task_submission/1 自验证步骤说明.md`。
+脚本先生成官方 msopgen 工程，再覆盖本题实现并编译私有 `.run`；不会修改系统 CANN。构建前保留既有 build 目录，拒绝静默覆盖。设备测试从独立 C++ 最小调用开始，经公开精度、扩展精度、稳定性和内存检查后才测性能。具体步骤见 [本次自验证说明](docs/SELF_VALIDATION_20261101.md)。
 
 上述 Python 环境路径是本次远端实测路径，其他主机应换成具有 Python 3.12.13、torch 2.10.0+cpu、torch_npu 2.10.0.post4（源码 5dd8ef3）和 ml_dtypes 0.6.0 的环境。NumPy 2.2.6 可用随附 aarch64/cp312 wheel 安装到工程私有目录：
 

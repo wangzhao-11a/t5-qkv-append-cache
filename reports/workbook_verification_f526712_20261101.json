@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "exported_workbooks": 3,
+  "worksheets": 4,
+  "accuracy_rows": 98,
+  "engineering_rows": 102,
+  "performance_rows": 10,
+  "memory_rows": 20,
+  "formula_error_scan": "passed",
+  "exported_cached_values_reconciled": true,
+  "visual_review": "all four worksheets and detail ranges reviewed",
+  "engine": "Artifact Tool recalculation and saved XLSX XML; desktop Excel not executed"
+}

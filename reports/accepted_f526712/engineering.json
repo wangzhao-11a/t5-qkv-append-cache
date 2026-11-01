@@ -1,0 +1,171 @@
+{
+  "status": "passed",
+  "npu_executed": true,
+  "group": "engineering",
+  "records": [
+    {
+      "case_name": "executor_address_refresh_T5SplitQkvAppendCache_005_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "calls": 8,
+      "changed_inputs": true,
+      "retained_output_groups": 8
+    },
+    {
+      "case_name": "executor_address_refresh_T5SplitQkvAppendCache_015_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "calls": 8,
+      "changed_inputs": true,
+      "retained_output_groups": 8
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "entry": "prepared_stream",
+      "status": "passed",
+      "calls": 10,
+      "stream_id": 1037424520
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "entry": "prepared_stream",
+      "status": "passed",
+      "calls": 10,
+      "stream_id": 1037203272
+    },
+    {
+      "case_name": "prepared_metadata_0",
+      "entry": "prepare",
+      "status": "passed",
+      "rejection": "FP16 or BF16 required"
+    },
+    {
+      "case_name": "prepared_metadata_1",
+      "entry": "prepare",
+      "status": "passed",
+      "rejection": "invalid input rank"
+    },
+    {
+      "case_name": "prepared_metadata_2",
+      "entry": "prepare",
+      "status": "passed",
+      "rejection": "contiguous ND input required"
+    },
+    {
+      "case_name": "prepared_metadata_3",
+      "entry": "prepare",
+      "status": "passed",
+      "rejection": "cache shape mismatch"
+    },
+    {
+      "case_name": "prepared_metadata_4",
+      "entry": "prepare",
+      "status": "passed",
+      "rejection": "contiguous ND input required"
+    },
+    {
+      "case_name": "sequential_cache_append",
+      "entry": "run",
+      "status": "passed",
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 1680,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 55440,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 55440,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "sequential_cache_append",
+      "entry": "run_direct",
+      "status": "passed",
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 1680,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 55440,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 55440,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "output_lifetime",
+      "entry": "run",
+      "status": "passed",
+      "held_groups": 8,
+      "early_release_calls": 32
+    },
+    {
+      "case_name": "input_release_cross_stream",
+      "entry": "run",
+      "status": "passed",
+      "pressure_allocations": 32,
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "output_lifetime",
+      "entry": "run_direct",
+      "status": "passed",
+      "held_groups": 8,
+      "early_release_calls": 32
+    },
+    {
+      "case_name": "input_release_cross_stream",
+      "entry": "run_direct",
+      "status": "passed",
+      "pressure_allocations": 32,
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    }
+  ]
+}
