@@ -130,12 +130,14 @@
   },
   "next_experiment": {
     "name": "22: hoist provably invariant alignment checks for large aligned fragments",
-    "state": "local_CPU_checks_passed",
+    "state": "pipeline_in_progress",
     "base_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
     "eligible_shapes": 374,
     "fragment_checks": 2864106,
     "binary_change_gate_required": true,
-    "current_control_required": true
+    "current_control_required": true,
+    "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "pid": 365687
   },
   "kernel_load_trace": {
     "report": "reports/kernel_load_trace_20261101.json",
@@ -1632,6 +1634,7 @@
       ]
     },
     "conclusion": "Same retained build now measures 85.73/85.98 us versus earlier 75.14/75.86 us; drift exists but cause remains unproven.",
-    "guard": "Require a complete same-source control no older than 30 minutes after board idle check; this does not prove physical-address equivalence."
+    "guard": "Require a complete same-source control no older than 30 minutes after board idle check; this does not prove physical-address equivalence.",
+    "evidence_sha256": "ef03bcc1c45c2cb0ca947cfdd61e987ab22927214b4c7957d77470eaf6c434ff"
   }
 }
