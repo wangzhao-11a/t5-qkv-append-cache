@@ -1,0 +1,66 @@
+{
+  "status": "correctness_passed_full_log_retrieval_incomplete",
+  "diagnostic_report": {
+    "status": "passed",
+    "source": "8303bbbffd81778dfe959c0447c60e8c41671bf3",
+    "container": "e60fcee5f79f",
+    "metadata_sha_matches_binary": [
+      {
+        "path": "/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+        "sha256": "44edb5be701fa3806d9125e51636b93bf7fb8a89786ee0ff576c180ed9722140",
+        "kernel_name": "T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a"
+      },
+      {
+        "path": "/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o",
+        "sha256": "f4e02ac548c0f192704c1133278f1df0b8a9bc8059d499b42b7bc43652fa4b8f",
+        "kernel_name": "T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898"
+      }
+    ],
+    "mapped_task_libraries": [
+      "/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+      "/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+      "/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so",
+      "/workspace/t5_qkv_tasks/t5_qkv_8303bbbffd81/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+      "/workspace/t5_qkv_tasks/t5_qkv_8303bbbffd81/build/direct/lib/libt5_direct.so"
+    ],
+    "opp_path_after_import": "/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer:/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer/op_api/lib:/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv",
+    "correctness_cases": [
+      "T5SplitQkvAppendCache_007_float16_random",
+      "T5SplitQkvAppendCache_017_bfloat16_random"
+    ],
+    "purpose": "One logged launch per dtype; no performance measurement"
+  },
+  "performance_executed": false,
+  "evidence": [
+    {
+      "path": "artifacts/optimization_20261030/container_e60fcee5f79f/trace_kernel_8303bbb_20261101.json",
+      "bytes": 1869,
+      "sha256": "2af0ccd9025c69b3b55e9da589a612b9b459dda9c1800fb066206bf0b3100272",
+      "complete": true
+    },
+    {
+      "path": "artifacts/optimization_20261030/container_e60fcee5f79f/trace_kernel_8303bbb_20261101.log.part",
+      "bytes": 35291136,
+      "sha256": "09ae62fcf46aaa137c1eaa58524b365cd206cc2aa681a1c91b54295ca254c8b0",
+      "complete": false
+    }
+  ],
+  "observed_metadata_candidate_paths": [
+    {
+      "line": 95337,
+      "text": "[INFO] OP(74147,python):2026-11-01-04:42:34.096.374 [indv_collecter.cpp:1204][NNOP][NnopbaseUpdateCommonJsonInfo][74147] Get op[T5SplitQkvAppendCache] coreType is [2], binPath is [/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o]"
+    },
+    {
+      "line": 95365,
+      "text": "[INFO] OP(74147,python):2026-11-01-04:42:34.096.465 [indv_collecter.cpp:1204][NNOP][NnopbaseUpdateCommonJsonInfo][74147] Get op[T5SplitQkvAppendCache] coreType is [2], binPath is [/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o]"
+    }
+  ],
+  "full_device_loading_records_reviewed": false,
+  "connection": {
+    "connected_seconds_at_drop": 300.8,
+    "heartbeats_received": 14,
+    "same_token_reconnect": "platform authorization denied",
+    "drop_cause": "unverified"
+  },
+  "next_action": "Recover compressed existing trace plus environment/exit evidence; do not rerun kernel trace"
+}

@@ -121,11 +121,24 @@
       ]
     }
   ],
+  "latest_connection_context": {
+    "container": "e60fcee5f79f",
+    "same_card_chip_and_vdie": true,
+    "session_state": "disconnected_after_300.8_seconds_and_14_heartbeats",
+    "reconnect": "platform authorization denied",
+    "disconnection_cause": "unverified"
+  },
   "next_experiment": {
-    "name": "Verify device kernel file selection using CANN debug logs",
-    "state": "prepared_not_started_waiting_refreshed_ssh_authorization",
-    "scope": "One correctness launch per large-case dtype; no performance rerun",
-    "hypothesis": "Kernel selection mismatch remains unverified; mapped host libraries already verified"
+    "name": "Recover completed trace; establish retained baseline for changed container",
+    "state": "waiting_refreshed_ssh_authorization",
+    "scope": "Archive existing logs first; same retained binary smoke and original fixed benchmark only after environment checks",
+    "hypothesis": "Container changed; historical measurements cannot substitute for a current controlled baseline"
+  },
+  "kernel_load_trace": {
+    "report": "reports/kernel_load_trace_20261101.json",
+    "correctness": "both large dtypes passed",
+    "binary_and_metadata_hashes": "matched",
+    "full_log_retrieval": "incomplete; preserve partial; do not rerun diagnostic"
   },
   "discarded_before_performance": {
     "commit": "900fba8a7a83982af86eafb5d3f9db1345c9d763",

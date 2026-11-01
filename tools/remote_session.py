@@ -15,6 +15,15 @@ import threading
 import paramiko
 import argparse
 
+def download_preflight(remote, destination, size):
+    """Fail before transfer when raw logs are large or prior partials exist."""
+    if Path(remote).suffix.lower() in {'.log', '.txt', '.json', '.csv'} and size > 8 * 1024 * 1024:
+        raise ValueError('Compress raw evidence larger than 8 MiB before download')
+    partial = destination.with_name(destination.name + '.part')
+    if partial.exists():
+        raise FileExistsError('Preserve previous partial evidence: ' + str(partial))
+    return partial
+
 def secret(prompt):
     # Windows getpass reads the console directly even when stdin is a pipe.
     # Non-interactive controller sessions supply the same two lines via stdin.
@@ -131,9 +140,12 @@ def main():
                 upload_verified(item['put'],item['remote'])
             elif 'get' in item:
                 destination=Path(item['local'])
+                expected_size=sftp.stat(item['get']).st_size
+                partial=download_preflight(item['get'],destination,expected_size)
                 destination.parent.mkdir(parents=True,exist_ok=True)
-                partial=destination.with_name(destination.name+'.part')
-                sftp.get(item['get'],str(partial))
+                sftp.get(item['get'],str(partial),max_concurrent_prefetch_requests=64)
+                if partial.stat().st_size!=expected_size:
+                    raise ValueError('Downloaded size mismatch; preserve partial evidence')
                 if destination.exists():
                     if destination.read_bytes()!=partial.read_bytes():
                         raise FileExistsError(f'Preserve existing evidence and new partial: {destination}')

@@ -89,3 +89,11 @@ ea12acde93cbeb9821138482419dc101de95ae6a 全正确性/工程/内存通过，固�
 环境记录中的 ASCEND_CUSTOM_OPP_PATH 在 torch_npu 导入后含 fla_npu vendor 和当前候选的独立 t5qkv vendor；这本身不是冲突证据。原 1bba 宿主扩展、opapi/tiling 库及安装二进制 hash 已核对。为补齐实际设备内核文件选择证据，准备使用 [CANN 日志配置](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0107.html) 启用 DEBUG 打屏，核对 8303bbb 两份 kernel 元数据的 sha256 与实际 .o，并且各 dtype 仅做一次大例正确性。该诊断不计时，不作为性能验收。
 
 本地终端会话失效后，重连跳板返回 platform authorization denied；已请求刷新原实例授权。加载路径诊断脚本尚未启动，不能声称已发现错载内核。现有有效结果仍为 8/10，c9 原基线与原交付包保留。
+
+## 加载诊断执行与容器变化
+
+后续授权成功连接同地址，但容器变为 e60fcee5f79f。卡 3/chip 1 的 VDie、PCIe、固件和设备分配与之前一致；原构建及私有 OPP 保留。trace_kernel_8303bbb_20261101 已完成，exit=0，两种大缓存均正确，原二进制清单/live 扩展以及两份 .o 和 kernel metadata 的 SHA256 匹配。
+
+诊断 JSON 已收回。完整日志下载时连接在 300.8 秒后断开，此前持续收到 14 次心跳；同令牌重连被平台拒绝。保留的 .part 为 35,291,136 字节，其中两条 T5 候选 binPath 指向预期私有目录。完整加载记录仍须回收审查，断线原因未确定，没有新的性能数据。见 reports/kernel_load_trace_20261101.json。
+
+为防止大日志传输和部分证据覆盖，remote_session 加入 8 MiB 原始文本大小门禁、已有 .part 拒绝覆盖、64 个预取请求上限及最终字节数检查；3 项离线回归通过。已准备压缩回收现有 trace 的脚本，不重跑诊断。因容器变化，后续应先复用原 1bba 构建建立当前容器控制结果；该控制脚本已准备但尚未启动。先前 05d447771751 的性能记录保持原样，不能当作新容器结果。
