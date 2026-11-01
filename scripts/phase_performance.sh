@@ -12,6 +12,12 @@ export ASCEND_RT_VISIBLE_DEVICES=1
 export ASCEND_CUSTOM_OPP_PATH="$T5_OPP_ROOT/vendors/t5qkv${ASCEND_CUSTOM_OPP_PATH:+:$ASCEND_CUSTOM_OPP_PATH}"
 export PYTHONPATH="/workspace/t5_qkv_tasks/t5_qkv_f0ea7ebdbb46/python_deps:$TASK_ROOT:$TASK_ROOT/reference${PYTHONPATH:+:$PYTHONPATH}"
 phase_device_inventory board
+if [[ -n "${T5_CONTROL_REPORT:-}" ]]; then
+  python tools/check_control_freshness.py --report "$T5_CONTROL_REPORT" \
+    --solution "${T5_CONTROL_SOLUTION:?Specify the validated control source}" \
+    --source-commit "${T5_CONTROL_COMMIT:?Specify the validated control commit}" \
+    --output artifacts/validation/control_freshness.json
+fi
 npu-smi info > artifacts/validation/device_before_performance.txt
 grep -q 'No running processes found' artifacts/validation/device_before_performance.txt || exit 2
 python reference/benchmark.py --solution-file "$TASK_ROOT/solution.py" --report artifacts/validation/performance.json > artifacts/validation/performance.log 2>&1 || true

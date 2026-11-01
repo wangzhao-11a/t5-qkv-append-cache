@@ -42,6 +42,17 @@ class T5Copy {
         cachedKeyBegin_ = cacheSize_ / tile_ - cachedKeyTiles_;
       }
     }
+    // For D and tile divisible by 16, every fragment boundary below is a
+    // multiple of 16 uint16 elements. Check the actual NORMAL/BYPASS views
+    // once, preserving the original per-fragment fallback for other inputs.
+    alignedFragments_ = false;
+    if (cacheSize_ >= 16 * 1024 * 1024 && (dim_ & 15) == 0 && (tile_ & 15) == 0) {
+      const uint64_t viewAddresses = reinterpret_cast<uint64_t>(packed_.GetPhyAddr()) |
+          reinterpret_cast<uint64_t>(pk_.GetPhyAddr()) | reinterpret_cast<uint64_t>(pv_.GetPhyAddr()) |
+          reinterpret_cast<uint64_t>(q_.GetPhyAddr()) | reinterpret_cast<uint64_t>(k_.GetPhyAddr()) |
+          reinterpret_cast<uint64_t>(v_.GetPhyAddr()) | reinterpret_cast<uint64_t>(cachedKey_.GetPhyAddr());
+      alignedFragments_ = (viewAddresses & 31) == 0;
+    }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
   }
 
@@ -62,9 +73,9 @@ class T5Copy {
     auto local = queue_.AllocTensor<uint16_t>();
     // The plain DMA path requires a complete 32-byte block count. Inspect the
     // actual GM addresses too: contiguous storage-offset views may be unaligned.
-    const bool aligned = ((n & 15) == 0) &&
+    const bool aligned = alignedFragments_ || (((n & 15) == 0) &&
         ((reinterpret_cast<uint64_t>(src.GetPhyAddr() + srcOffset) & 31) == 0) &&
-        ((reinterpret_cast<uint64_t>(dst.GetPhyAddr() + dstOffset) & 31) == 0);
+        ((reinterpret_cast<uint64_t>(dst.GetPhyAddr() + dstOffset) & 31) == 0));
     AscendC::DataCopyExtParams params{1, n * uint32_t(sizeof(uint16_t)), 0, 0, 0};
     AscendC::DataCopyPadExtParams<uint16_t> padding{false, 0, 0, 0};
     if (aligned) AscendC::DataCopy(local, src[srcOffset], n);
@@ -89,9 +100,7 @@ class T5Copy {
 
   __aicore__ inline void Cache(uint32_t tileId, bool isValue) {
     auto& past = isValue ? pv_ : pk_;
-    // Host bounds keep every tile index/count below 8192. Unsigned subtraction
-    // wraps a tile below the suffix start far above this bounded count.
-    const bool cached = uint32_t(tileId - cachedKeyBegin_) < cachedKeyTiles_;
+    const bool cached = tileId >= cachedKeyBegin_ && tileId - cachedKeyBegin_ < cachedKeyTiles_;
     auto& out = isValue ? v_ : (cached ? cachedKey_ : k_);
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
@@ -126,6 +135,7 @@ class T5Copy {
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
   uint32_t qSize_, cacheSize_, cachedKeyTiles_, cachedKeyBegin_;
+  bool alignedFragments_;
   AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedKey_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };
