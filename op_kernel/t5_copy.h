@@ -46,11 +46,14 @@ class T5Copy {
   }
 
   __aicore__ inline void Process() {
-    for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
-      if (work < queryTiles_) Query(work);
-      else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
-      else Cache(work - queryTiles_ - cacheTiles_, true);
-    }
+    const uint32_t step = AscendC::GetBlockNum();
+    const uint32_t keyEnd = queryTiles_ + cacheTiles_;
+    uint32_t work = AscendC::GetBlockIdx();
+    // Keep the exact original per-core arithmetic progression and Q/K/V order.
+    // Carry its cursor across the boundaries instead of reclassifying each tile.
+    for (; work < queryTiles_; work += step) Query(work);
+    for (; work < keyEnd; work += step) Cache(work - queryTiles_, false);
+    for (; work < total_; work += step) Cache(work - keyEnd, true);
   }
 
  private:

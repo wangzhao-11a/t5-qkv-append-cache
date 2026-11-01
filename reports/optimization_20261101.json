@@ -1,6 +1,6 @@
 {
   "status": "in_progress_performance_not_accepted",
-  "latest_completed_commit": "8303bbbffd81778dfe959c0447c60e8c41671bf3",
+  "latest_completed_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
@@ -125,15 +125,13 @@
   "latest_connection_context": {
     "container": "e60fcee5f79f",
     "same_card_chip_and_vdie": true,
-    "session_state": "88471 active; observed beyond 13 minutes",
+    "session_state": "40068 active; duplicate 88471 closed after pending transfers completed",
     "prior_disconnect_cause": "unverified; a fixed five-minute limit is not supported"
   },
   "next_experiment": {
-    "name": "Move the unchanged K cache tile budget from prefix to complete-tile suffix",
-    "commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
-    "state": "deployed_pipeline_in_progress",
-    "scope": "Same 176 MiB budget, 766 cached large-case tiles, scheduling, buffers and host path",
-    "hypothesis": "Cache subset location and access phase may affect observed misses; no physical address-map assumption"
+    "state": "source_analysis",
+    "name": "Preserve per-core tile order and remove repeated Q/K/V classification from the main loop",
+    "basis": "Suffix candidate is 9/10, FP16 0.13725 us above its unchanged limit; no repeat-for-pass run"
   },
   "kernel_load_trace": {
     "report": "reports/kernel_load_trace_20261101.json",
@@ -925,6 +923,159 @@
       },
       "passed": 8,
       "evidence_sha256": "dd9072afc784634ec33710835677781011e75262a675b86bb44579eb6c6c3392"
+    },
+    {
+      "commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
+      "experiment": "19: unchanged K cache budget moved to suffix",
+      "container": "e60fcee5f79f",
+      "adopted": "retained as best candidate; not accepted",
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
+      },
+      "performance": {
+        "scope": "performance_only",
+        "status": "failed",
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              26.88685,
+              21.1623,
+              20.7982,
+              20.7145,
+              20.76425
+            ],
+            "wall_us_median": 20.7982,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.711599999999997,
+              21.3077,
+              21.1553,
+              21.24055,
+              21.405450000000002
+            ],
+            "wall_us_median": 21.3077,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.5562,
+              22.2314,
+              22.2767,
+              22.586299999999998,
+              22.3406
+            ],
+            "wall_us_median": 22.3406,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.37155,
+              74.94069999999999,
+              75.13725,
+              74.87525,
+              75.21225
+            ],
+            "wall_us_median": 75.13725,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              24.20775,
+              23.8875,
+              24.06945,
+              25.8259,
+              28.77015
+            ],
+            "wall_us_median": 24.20775,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.93515,
+              22.48525,
+              22.60505,
+              22.9851,
+              23.542849999999998
+            ],
+            "wall_us_median": 22.93515,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.99275,
+              23.96905,
+              24.0607,
+              24.0242,
+              27.23845
+            ],
+            "wall_us_median": 24.0242,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              26.69845,
+              29.37815,
+              26.7088,
+              26.105900000000002,
+              24.199849999999998
+            ],
+            "wall_us_median": 26.69845,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              76.08739999999999,
+              75.89805,
+              75.8225,
+              75.71610000000001,
+              75.85725
+            ],
+            "wall_us_median": 75.85725,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.898799999999998,
+              24.0408,
+              23.788349999999998,
+              24.096,
+              24.00845
+            ],
+            "wall_us_median": 24.00845,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      "passed": 9,
+      "evidence_sha256": "b2476bb037cf35f9e01ca0a97fb54aeab7eef2de855d95f9d948e01522dd7031"
     }
   ],
   "allocation_abba": {
@@ -981,5 +1132,12 @@
         ]
       }
     ]
+  },
+  "best_validated_candidate": {
+    "commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
+    "fixed_performance_passed": 9,
+    "total": 10,
+    "acceptance_complete": false,
+    "source": "reports/performance_b661926_container_e60_20261101.json"
   }
 }
