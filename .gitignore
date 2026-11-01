@@ -7,6 +7,7 @@ python_deps/
 *.o
 *.egg-info/
 artifacts/
+.codex-tmp/
 reports/previews/
 research/*.part
 research/templates/

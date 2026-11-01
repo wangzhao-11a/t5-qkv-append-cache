@@ -2,7 +2,7 @@
 
 新授权会话 40068 已连回同一 e60fcee5f79f 容器/卡 3/chip 1，整板当前空闲。b661926 流水线已结束（PID 113858 不在）：完整正确性、工程、内存通过，固定性能 **9/10**。FP16 大例 75.13725 us，仍比 75 us 高 0.13725 us；BF16 75.85725 us，低于 77 us。证据 SHA256 b2476bb037cf35f9e01ca0a97fb54aeab7eef2de855d95f9d948e01522dd7031，已下载校验至 .codex-tmp/t5-b661926-extracted-20261101；独立性能报告 reports/performance_b661926_container_e60_20261101.json。保留此候选及 c9/1bba 基线，不重跑碰门槛。旧 88471 后来返回所有待上传文件及心跳，原因仍未证明；已在 40068 正常后优雅关闭重复连接。设备映射 7 项和 Linux 阶段门禁 6 项均通过，实际解析 card=3/chip=1/physical=7。
 
-本地下一对照 20：仅将每核心 Q/K/V 分类循环拆成三段，沿用同一 work 游标和步长，保持每核心的原 tile 序列。K 缓存后缀、字节预算、队列、主机分配和复用均不改。尚未部署或 NPU 验证；不得把 b661 的 9/10 当作新改动结果。
+对照 20 已启动：36bb83a94f330811391a61b2f9d9090ce7a8743b，后台 PID 338848，根目录 /workspace/t5_qkv_tasks/t5_qkv_36bb83a94f33。仅将每核心 Q/K/V 分类循环拆成三段，沿用同一 work 游标和步长，保持每核心的原 tile 序列。K 缓存后缀、字节预算、队列、主机分配和复用均不改。源包 SHA256 8d04177f710df99bbd1b74ef09c3ca34f8fc23c114f0529aa80b64bd244d0d7e。启动脚本 /tmp/t5_launch_loop_split_20261101.sh 在 build 后比较两 dtype 的 .text，与 b661 相同就停止，禁止无区别重复跑分。功能 selected 门禁使用已验证物理 7 映射，性能仍需整板空闲。尚无新 NPU 结果；接续先读阶段状态，勿重复启动，不得把 b661 的 9/10 当作新改动结果。
 
 最新连接状态：88471 在第二个小文件 SFTP 上传时持续无响应，旧进程/TCP 尚在，不能断言远端任务已停止。保留旧会话，用同令牌新建只读连接 64770，被跳板明确拒绝 platform authorization denied / Administratively prohibited，64770 已退出。已请求刷新原 199.103.53.243 授权。用户已回复“我安排整板空闲窗口”，但尚未提供新令牌或确认窗口开始。恢复后先核对容器和 PID 113858、correctness_phase/performance_phase/collect_evidence 的日志及 .exit，禁止重跑已有阶段。最后可读状态为 correctness_phase 的整板等待第 43 次、chip 0 另一任务占用；构建和 smoke 已通过。当前固定验收仍为 8/10，新候选没有已取回的性能结果。
 
