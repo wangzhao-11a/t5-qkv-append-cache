@@ -1,5 +1,9 @@
 # 2026-11-01 当前接续（优先于下方旧快照）
 
+正在执行：候选 b661926b6e5c833abeb1fa09d453f8ca89191abf 已部署至 /workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c，源包 SHA256 702c1259fa55ccb33d8866e585c3dacc6333d6c66c01872e698ac8bfb8d14813，182 文件校验和 6 项流程回归通过，构建成功。流水线 PID 113858 的 smoke_phase 正等待整板连续空闲，尚无候选功能/性能结果。chip 0 存在其他任务（最近 PID 116042）；已异步请求用户安排整板空闲窗口，未终止其他进程。当前 SSH 88471 仍可复用，保持连接，接续先读取此 PID/各 .exit，禁止重复启动。
+
+trace 完整证据已导入 .codex-tmp/t5-trace-e60-extracted-20261101，当前容器控制完整证据也已导入 .codex-tmp/t5-retained-e60-extracted-20261101，后者 SHA256 7ede7130a841ac06820365fdeff8f68f791a3faf25f2b24a8c18831c44a79ca0。collector v1 因手抄 shell-script hash 多一位被门禁拦下、未创建 archive；v2 改为从本地原文件自动生成 JSON 校验清单后成功。incident 已按要求入 memories。
+
 最新：SSH 会话 88471 已连接原 199.103.53.243 / e60fcee5f79f，双层 keepalive 与心跳持续；已观察存活超过 13 分钟，反证“必定 5 分钟断开”的猜测。完整 trace 压缩证据已回收并校验（SHA256 027382878a360a5038e9d759eb920812767b4bcd30cd7f35638c76dfc5fdc01c），实际注册/启动的两内核均来自 8303bbb，48 AIV、workspace=0。无需重复 trace 或继续错载假设。
 
 当前容器原 1bba 控制已结束：smoke 8×20 通过，初次 post-check 被其他 chip 0 PID 90835 阻断（exit=1 保留）；独立 smoke_clearance 成功后完成第一次固定性能，8/10，大例 103.48145/103.71650 us。性能 JSON 已下载；控制证据 collector 已准备，接续检查归档/导入状态。旧 wrapper PID 88492 与恢复 wrapper PID 100805 均已结束。下一候选为对照 19：保持原缓存字节预算，仅将 K 前缀换为末尾完整 tile；CPU 1130 形状预算边界和原地址模型通过，尚待 NPU 验证。详见优化记录。

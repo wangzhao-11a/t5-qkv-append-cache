@@ -4,6 +4,7 @@
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
+  "environment_scope": "Historical 05d447771751 controls; current_container_control records the later e60fcee5f79f control separately",
   "environment": {
     "host": "199.103.53.243",
     "container": "05d447771751",
@@ -124,21 +125,22 @@
   "latest_connection_context": {
     "container": "e60fcee5f79f",
     "same_card_chip_and_vdie": true,
-    "session_state": "disconnected_after_300.8_seconds_and_14_heartbeats",
-    "reconnect": "platform authorization denied",
-    "disconnection_cause": "unverified"
+    "session_state": "88471 active; observed beyond 13 minutes",
+    "prior_disconnect_cause": "unverified; a fixed five-minute limit is not supported"
   },
   "next_experiment": {
-    "name": "Recover completed trace; establish retained baseline for changed container",
-    "state": "waiting_refreshed_ssh_authorization",
-    "scope": "Archive existing logs first; same retained binary smoke and original fixed benchmark only after environment checks",
-    "hypothesis": "Container changed; historical measurements cannot substitute for a current controlled baseline"
+    "name": "Move the unchanged K cache tile budget from prefix to complete-tile suffix",
+    "commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
+    "state": "deployed_pipeline_in_progress",
+    "scope": "Same 176 MiB budget, 766 cached large-case tiles, scheduling, buffers and host path",
+    "hypothesis": "Cache subset location and access phase may affect observed misses; no physical address-map assumption"
   },
   "kernel_load_trace": {
     "report": "reports/kernel_load_trace_20261101.json",
     "correctness": "both large dtypes passed",
     "binary_and_metadata_hashes": "matched",
-    "full_log_retrieval": "incomplete; preserve partial; do not rerun diagnostic"
+    "full_log_retrieval": "completed; archive verified and loaded kernel records inspected",
+    "archive_sha256": "027382878a360a5038e9d759eb920812767b4bcd30cd7f35638c76dfc5fdc01c"
   },
   "discarded_before_performance": {
     "commit": "900fba8a7a83982af86eafb5d3f9db1345c9d763",
@@ -157,6 +159,158 @@
       "The unprofiled address probe also reaches about 131 us; profiling alone is not established as cause."
     ],
     "physical_device_erratum": "Earlier new-allocation binary manifests hardcode physical 1. Actual device is physical 7, card 3 chip 1, verified by smoke PID; original files preserved."
+  },
+  "current_container_control": {
+    "container": "e60fcee5f79f",
+    "baseline_commit": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
+    "performance": {
+      "scope": "performance_only",
+      "status": "failed",
+      "unit": "us",
+      "metric": "api_to_completion_wall_time",
+      "statistic": "median_of_round_means",
+      "checks": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            30.471400000000003,
+            21.492099999999997,
+            21.0705,
+            20.96225,
+            20.962049999999998
+          ],
+          "wall_us_median": 21.0705,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            222.60925,
+            21.709400000000002,
+            21.44295,
+            21.4277,
+            21.84735
+          ],
+          "wall_us_median": 21.709400000000002,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.9991,
+            21.99925,
+            24.0552,
+            22.30425,
+            22.177799999999998
+          ],
+          "wall_us_median": 22.30425,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            103.3107,
+            103.48145,
+            134.64114999999998,
+            104.4188,
+            103.1912
+          ],
+          "wall_us_median": 103.48145,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.88475,
+            22.9166,
+            23.144849999999998,
+            23.030150000000003,
+            22.9312
+          ],
+          "wall_us_median": 22.9312,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            21.71545,
+            21.8035,
+            21.5751,
+            21.999950000000002,
+            21.49185
+          ],
+          "wall_us_median": 21.71545,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.476200000000002,
+            22.5171,
+            22.591,
+            122.94535,
+            22.759
+          ],
+          "wall_us_median": 22.591,
+          "max_wall_us": 28
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            22.67955,
+            22.53655,
+            22.721700000000002,
+            22.6483,
+            22.6643
+          ],
+          "wall_us_median": 22.6643,
+          "max_wall_us": 29
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            103.7165,
+            150.02270000000001,
+            105.0845,
+            103.24685000000001,
+            103.17715
+          ],
+          "wall_us_median": 103.7165,
+          "max_wall_us": 77
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            24.5259,
+            24.478,
+            24.269299999999998,
+            24.4629,
+            24.221
+          ],
+          "wall_us_median": 24.4629,
+          "max_wall_us": 29
+        }
+      ]
+    },
+    "passed": 8,
+    "evidence_receipt": {
+      "archive": "/tmp/t5_retained_e60_20261101.tar.gz",
+      "sha256": "7ede7130a841ac06820365fdeff8f68f791a3faf25f2b24a8c18831c44a79ca0",
+      "files": 21,
+      "container": "e60fcee5f79f",
+      "smoke_exit_erratum": "All eight checks passed; initial post-check saw other-chip PID 90835. Separate idle clearance passed without repeating smoke."
+    },
+    "smoke_postcheck": "Original exit=1 preserved due other-chip PID 90835; all 8x20 functional checks passed. Separate idle clearance passed before first performance run."
   },
   "controls_evidence": {
     "archive": "/tmp/t5_reallocation_controls_20261101.tar.gz",
