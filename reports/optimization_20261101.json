@@ -1,6 +1,6 @@
 {
   "status": "in_progress_performance_not_accepted",
-  "latest_completed_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
+  "latest_completed_commit": "36bb83a94f330811391a61b2f9d9090ce7a8743b",
   "retained_runtime_baseline": "1bba0d08e07277d17bfb8a236259557eb8ceb6ae",
   "original_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
   "original_evidence_preserved": true,
@@ -129,9 +129,13 @@
     "prior_disconnect_cause": "unverified; a fixed five-minute limit is not supported"
   },
   "next_experiment": {
-    "state": "source_analysis",
-    "name": "Preserve per-core tile order and remove repeated Q/K/V classification from the main loop",
-    "basis": "Suffix candidate is 9/10, FP16 0.13725 us above its unchanged limit; no repeat-for-pass run"
+    "state": "local_CPU_checks_passed",
+    "name": "21: unsigned suffix membership without redundant lower-bound comparison",
+    "base_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf",
+    "proof": "All valid tile indices/counts <8192; wrapped difference for an index below begin exceeds every valid count.",
+    "cpu_shapes": 1130,
+    "cpu_tile_checks": 1722325,
+    "binary_change_gate_required": true
   },
   "kernel_load_trace": {
     "report": "reports/kernel_load_trace_20261101.json",
@@ -1076,6 +1080,178 @@
       },
       "passed": 9,
       "evidence_sha256": "b2476bb037cf35f9e01ca0a97fb54aeab7eef2de855d95f9d948e01522dd7031"
+    },
+    {
+      "commit": "36bb83a94f330811391a61b2f9d9090ce7a8743b",
+      "experiment": "20: separate loops with identical tile order",
+      "container": "e60fcee5f79f",
+      "adopted": false,
+      "checks": {
+        "public_accuracy": "passed",
+        "extended_accuracy": "passed",
+        "engineering": "passed",
+        "memory": "passed"
+      },
+      "performance": {
+        "scope": "performance_only",
+        "status": "failed",
+        "unit": "us",
+        "metric": "api_to_completion_wall_time",
+        "statistic": "median_of_round_means",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              27.83525,
+              21.745549999999998,
+              21.25505,
+              21.2559,
+              21.21665
+            ],
+            "wall_us_median": 21.2559,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.9037,
+              21.907400000000003,
+              21.912200000000002,
+              21.6817,
+              22.074900000000003
+            ],
+            "wall_us_median": 21.907400000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.727700000000002,
+              22.44695,
+              22.41005,
+              22.5587,
+              22.87
+            ],
+            "wall_us_median": 22.5587,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.41235,
+              84.4224,
+              84.4898,
+              84.86735,
+              84.76055000000001
+            ],
+            "wall_us_median": 84.76055000000001,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.75315,
+              21.44555,
+              21.5213,
+              21.6815,
+              21.60675
+            ],
+            "wall_us_median": 21.60675,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.0275,
+              20.8691,
+              20.8059,
+              20.993599999999997,
+              21.0721
+            ],
+            "wall_us_median": 20.993599999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.655,
+              22.644,
+              22.6159,
+              22.7058,
+              22.759700000000002
+            ],
+            "wall_us_median": 22.655,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.1262,
+              22.8176,
+              23.01875,
+              22.604650000000003,
+              22.70075
+            ],
+            "wall_us_median": 22.8176,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              88.9201,
+              87.68835,
+              86.75465,
+              85.99145,
+              85.80460000000001
+            ],
+            "wall_us_median": 86.75465,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              25.4864,
+              25.733,
+              26.74865,
+              26.0274,
+              24.55715
+            ],
+            "wall_us_median": 25.733,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      "passed": 8,
+      "evidence_sha256": "6a9ccd27d88154a24f1376bd4eed18e6c9ceb45776cb8c6229874558b90cd5e1",
+      "text_comparison": [
+        {
+          "kernel": "T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+          "identical_text": false,
+          "baseline_text_bytes": 5656,
+          "candidate_text_bytes": 5860,
+          "baseline_text_sha256": "76c251f106cbd35488c8f2298e565f432ff50aecdc169c0bf900060e220cd1f9",
+          "candidate_text_sha256": "ea4e730e18bff74ef85c1e9d3d0585a86c1bb25becb288d05f9f227f82920c87"
+        },
+        {
+          "kernel": "T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o",
+          "identical_text": false,
+          "baseline_text_bytes": 5656,
+          "candidate_text_bytes": 5860,
+          "baseline_text_sha256": "76c251f106cbd35488c8f2298e565f432ff50aecdc169c0bf900060e220cd1f9",
+          "candidate_text_sha256": "ea4e730e18bff74ef85c1e9d3d0585a86c1bb25becb288d05f9f227f82920c87"
+        }
+      ],
+      "decision": "Revert loop split; retain b661926 as best validated 9/10 candidate."
     }
   ],
   "allocation_abba": {

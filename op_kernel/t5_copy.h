@@ -46,14 +46,11 @@ class T5Copy {
   }
 
   __aicore__ inline void Process() {
-    const uint32_t step = AscendC::GetBlockNum();
-    const uint32_t keyEnd = queryTiles_ + cacheTiles_;
-    uint32_t work = AscendC::GetBlockIdx();
-    // Keep the exact original per-core arithmetic progression and Q/K/V order.
-    // Carry its cursor across the boundaries instead of reclassifying each tile.
-    for (; work < queryTiles_; work += step) Query(work);
-    for (; work < keyEnd; work += step) Cache(work - queryTiles_, false);
-    for (; work < total_; work += step) Cache(work - keyEnd, true);
+    for (uint32_t work = AscendC::GetBlockIdx(); work < total_; work += AscendC::GetBlockNum()) {
+      if (work < queryTiles_) Query(work);
+      else if (work < queryTiles_ + cacheTiles_) Cache(work - queryTiles_, false);
+      else Cache(work - queryTiles_ - cacheTiles_, true);
+    }
   }
 
  private:
@@ -92,7 +89,9 @@ class T5Copy {
 
   __aicore__ inline void Cache(uint32_t tileId, bool isValue) {
     auto& past = isValue ? pv_ : pk_;
-    const bool cached = tileId >= cachedKeyBegin_ && tileId - cachedKeyBegin_ < cachedKeyTiles_;
+    // Host bounds keep every tile index/count below 8192. Unsigned subtraction
+    // wraps a tile below the suffix start far above this bounded count.
+    const bool cached = uint32_t(tileId - cachedKeyBegin_) < cachedKeyTiles_;
     auto& out = isValue ? v_ : (cached ? cachedKey_ : k_);
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
