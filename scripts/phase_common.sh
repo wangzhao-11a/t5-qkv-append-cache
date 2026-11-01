@@ -60,13 +60,20 @@ phase_device_inventory() {
       sleep 10
     done
     [[ "$idle_checks" == 3 ]] || { echo 'Performance requires an idle board'; exit 2; }
-  elif [[ "$scope" == selected && "${ASCEND_RT_VISIBLE_DEVICES:-}" == 1 ]]; then
-    # Verified mapping on this 910_9382 container: physical 1 = card 0/chip 1.
-    # Query the official per-chip process list, not a guessed text-table column.
-    npu-smi info -t proc-mem -i 0 -c 1 > "artifacts/validation/selected_device_${T5_PHASE}.txt"
+  elif [[ "$scope" == selected ]]; then
+    # Resolve the current container mapping and require the independently
+    # verified physical ID. Never reuse the old card 0/chip 1 assumption.
+    local mapping card chip
+    npu-smi info -m > "artifacts/validation/device_mapping_${T5_PHASE}.txt"
+    mapping=$(python3 tools/resolve_device_mapping.py \
+      --input "artifacts/validation/device_mapping_${T5_PHASE}.txt" \
+      --selector "${ASCEND_RT_VISIBLE_DEVICES:-}" --physical "${T5_PHYSICAL_DEVICE:-}" \
+      --output "artifacts/validation/device_mapping_${T5_PHASE}.json") || exit 2
+    read -r card chip <<< "$mapping"
+    npu-smi info -t proc-mem -i "$card" -c "$chip" > "artifacts/validation/selected_device_${T5_PHASE}.txt"
     grep -Eq '^[[:space:]]*No process in device\.[[:space:]]*$' \
       "artifacts/validation/selected_device_${T5_PHASE}.txt" || {
-      echo 'Selected physical device 1 occupancy needs review'; exit 2;
+      echo "Selected physical device $T5_PHYSICAL_DEVICE occupancy needs review"; exit 2;
     }
   else
     echo 'Unknown occupancy scope or device mapping'; exit 2

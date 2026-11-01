@@ -115,3 +115,9 @@ b661926b6e5c 已构建成功，6 项 Linux 流程回归通过。smoke 阶段 exi
 ## 队列源码审查
 
 核对当前 CANN 9.1 的 kernel_tpipe.h、kernel_tquebind_impl.h 和 kernel_utils_ceil_oom_que.h：默认 TQueBind mask=0，转换后的 bufferNumber=0；AllocBuffer 在该配置下递增 bufCursor，并在已初始化的两个缓冲间回绕。即时 FreeTensor 并不使下次分配始终返回缓冲 0。因此不再根据“第二个缓冲未使用”假设改写流水线。本次仅为源码核查，没有测量当前内核的重叠率或性能收益；文件 SHA256 与结论保存在 reports/queue_rotation_audit_20261101.json。
+
+## 功能设备门禁与传输恢复
+
+旧 selected 门禁硬编码原容器 card 0/chip 1，迁移到 card 3 后只能暂用整板门禁，导致功能验证也等待其他 chip 的任务。官方 npu-smi info -m 当前明确列出逻辑编号 1 对应 card 3/chip 1/physical 7。新增解析器要求与显式 T5_PHYSICAL_DEVICE 唯一匹配，并拒绝未知格式、歧义映射、错误芯片族和多设备选择；7 项离线回归通过。性能阶段仍显式使用整板门禁。此次只修改本地流程，已部署 b661926 的源码和日志不变；Linux 功能门禁尚未实测。
+
+上传该门禁到临时目录时，首次缺少远端父目录导致 FileNotFoundError；补建目录后首文件 SHA 校验成功。随后第二个小文件上传持续无响应，本地进程和 TCP 尚存，具体原因未证明。旧会话保留，独立重连被跳板明确拒绝，已请求刷新授权。新增上传父目录准备、传输请求 60 秒超时与跳板 TCP 连接 25 秒超时；超时保留部分文件，只关闭 SFTP 通道，后续状态命令可继续使用 SSH。6 项离线传输门禁通过，旧进程不包含此修复。当前不得根据最后一次状态推断远端候选的最终结果。

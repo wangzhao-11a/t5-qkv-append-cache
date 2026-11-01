@@ -6,14 +6,32 @@ or {"command": "simple read-only command"}, or {"put": "local", "remote": "path"
 import getpass
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import shlex
+import socket
+import stat
 import sys
 import time
 import uuid
 import threading
 import paramiko
 import argparse
+
+def ensure_upload_parent(sftp, remote):
+    """Create missing destination directories before any partial upload."""
+    target = PurePosixPath(remote)
+    if not target.is_absolute() or '..' in target.parts:
+        raise ValueError('Upload destination must be an absolute Linux path without traversal')
+    for parent in reversed(target.parents):
+        name = str(parent)
+        try:
+            mode = sftp.stat(name).st_mode
+        except FileNotFoundError:
+            sftp.mkdir(name)
+            mode = sftp.stat(name).st_mode
+        if not stat.S_ISDIR(mode):
+            raise NotADirectoryError('Upload parent is not a directory: ' + name)
+
 
 def download_preflight(remote, destination, size):
     """Fail before transfer when raw logs are large or prior partials exist."""
@@ -40,7 +58,7 @@ def main():
     target_password=secret('Target password (hidden): ')
     if not jump_user or not target_password:
         raise SystemExit('Missing credentials on stdin; refusing any network connection')
-    transport=paramiko.Transport(('113.47.8.48',2234))
+    transport=paramiko.Transport(socket.create_connection(('113.47.8.48',2234),timeout=25))
     transport.start_client(timeout=25)
     try:
         transport.auth_none(jump_user)
@@ -57,6 +75,8 @@ def main():
     key=client.get_transport().get_remote_server_key()
     print(json.dumps({'connected':True,'target':args.host,'target_hostkey_sha256':hashlib.sha256(key.asbytes()).hexdigest()}),flush=True)
     sftp=client.open_sftp()
+    # Bound each stalled transfer request without closing either SSH transport.
+    sftp.get_channel().settimeout(60)
     connected_at=time.monotonic()
     heartbeat=client.get_transport().open_session()
     heartbeat.exec_command("while sleep 20; do printf 't5-ssh-alive\\n' || exit; done")
@@ -86,6 +106,7 @@ def main():
                 raise ValueError('Reject non-LF or BOM Linux script before upload')
             payload.decode('utf-8')
         expected=hashlib.sha256(payload).hexdigest()
+        ensure_upload_parent(sftp,remote)
         try:
             existing=remote_digest(remote)
         except FileNotFoundError:
@@ -121,6 +142,9 @@ def main():
             if item.get('exit'):break
             if not transport.is_active() or not client.get_transport().is_active():
                 raise ConnectionError('Inactive SSH transport; refusing new transfer or remote command')
+            if any(key in item for key in ('script','put','get')) and sftp is None:
+                sftp=client.open_sftp()
+                sftp.get_channel().settimeout(60)
             if item.get('status'):
                 print(json.dumps(connection_state()),flush=True)
             elif 'script' in item:
@@ -156,10 +180,17 @@ def main():
             elif 'command' in item:run(item['command'],item.get('timeout_seconds',180))
             else:raise ValueError('unknown request')
         except Exception as exc:
+            if isinstance(exc,TimeoutError) and any(key in item for key in ('script','put','get')):
+                # A timed-out SFTP stream may contain a late response. Discard
+                # only that channel; preserve partial files and authenticated SSH.
+                if sftp is not None:sftp.close()
+                sftp=None
             print(json.dumps({'error':f'{type(exc).__name__}: {exc}',**connection_state()}),flush=True)
             if not transport.is_active() or not client.get_transport().is_active():
                 print(json.dumps({'session_closed':True,'next_action':'reconnect and inspect remote state before retry'}),flush=True)
                 break
-    heartbeat.close();sftp.close();client.close();transport.close()
+    heartbeat.close()
+    if sftp is not None:sftp.close()
+    client.close();transport.close()
 
 if __name__=='__main__':main()

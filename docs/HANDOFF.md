@@ -1,5 +1,9 @@
 # 2026-11-01 当前接续（优先于下方旧快照）
 
+最新连接状态：88471 在第二个小文件 SFTP 上传时持续无响应，旧进程/TCP 尚在，不能断言远端任务已停止。保留旧会话，用同令牌新建只读连接 64770，被跳板明确拒绝 platform authorization denied / Administratively prohibited，64770 已退出。已请求刷新原 199.103.53.243 授权。用户已回复“我安排整板空闲窗口”，但尚未提供新令牌或确认窗口开始。恢复后先核对容器和 PID 113858、correctness_phase/performance_phase/collect_evidence 的日志及 .exit，禁止重跑已有阶段。最后可读状态为 correctness_phase 的整板等待第 43 次、chip 0 另一任务占用；构建和 smoke 已通过。当前固定验收仍为 8/10，新候选没有已取回的性能结果。
+
+本地新增流程修复：selected 门禁从官方 npu-smi info -m 解析 runtime selector 与已确认物理 ID 的唯一对应，代替旧卡 0/chip 1 硬编码；当前只读映射确认 selector=1 对应 card=3/chip=1/physical=7。7 项离线检查通过，Linux 实测尚未完成。文件已尝试上传 /tmp/t5_device_mapping_guard_20261101；仅 resolve_device_mapping.py 上传成功，后续 test_device_mapping.py 上传无返回，其余上传请求还在旧会话队列中。当前已部署候选未修改。remote_session 新增上传父目录准备、60 秒 SFTP 请求超时（仅重建 SFTP 通道）与 25 秒跳板 TCP 连接超时，6 项离线传输门禁通过；旧 88471 仍运行旧代码，不具备这些新门禁。
+
 正在执行：候选 b661926b6e5c833abeb1fa09d453f8ca89191abf 已部署至 /workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c，源包 SHA256 702c1259fa55ccb33d8866e585c3dacc6333d6c66c01872e698ac8bfb8d14813，182 文件校验和 6 项流程回归通过，构建成功。smoke_phase 已通过（exit=0）；流水线 PID 113858 进入 correctness_phase，等待整板连续空闲，尚无候选固定性能结果。chip 0 最近存在其他任务 PID 136939；已异步请求用户安排整板空闲窗口，未终止其他进程。当前 SSH 88471 仍可复用，保持连接，接续先读取此 PID/各 .exit，禁止重复启动。当前 SDK 队列源码已证明两个缓冲会轮转，不再依据“第二缓冲未使用”假设改写流水线；见 queue_rotation_audit_20261101.json。
 
 trace 完整证据已导入 .codex-tmp/t5-trace-e60-extracted-20261101，当前容器控制完整证据也已导入 .codex-tmp/t5-retained-e60-extracted-20261101，后者 SHA256 7ede7130a841ac06820365fdeff8f68f791a3faf25f2b24a8c18831c44a79ca0。collector v1 因手抄 shell-script hash 多一位被门禁拦下、未创建 archive；v2 改为从本地原文件自动生成 JSON 校验清单后成功。incident 已按要求入 memories。
