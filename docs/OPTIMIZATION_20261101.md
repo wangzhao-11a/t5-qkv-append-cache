@@ -108,4 +108,10 @@ ea12acde93cbeb9821138482419dc101de95ae6a 全正确性/工程/内存通过，固�
 
 基于已核对的实际加载和既有 L2 miss 证据，检验缓存子区间的位置/访问阶段是否影响表现。仅将原 K 前缀的完整 tile 数平移到 K 末尾的完整 tile；最后不完整 tile 仍 BYPASS。176 MiB 逻辑预算、缓存 tile 总数、输入/V 输出策略、48 核调度、64 KiB×2 UB、主机分配和执行器复用均保持。大例从 K tile 0..765 改为 258..1023，仍缓存 766 个完整 tile。没有假定具体 L2 地址映射方式，也不宣称已证明冲突根因。
 
-[官方 CacheMode 指南](https://asc.gitcode.com/guide/operator_practice/simd_operator_optimization/memory_access/l2_cache_mode_config.html) 说明替换脏数据可能增加 GM 写回；这是检查覆盖位置的依据之一，不是本候选有效的证据。此项与此前 K/V 平分、每 8 tile 分散覆盖和改变总预算不同。CPU 范围检查覆盖 1130 个有效形状，其中 159 个发生区间平移，并验证缓存字节数完全相等、不会覆盖部分尾 tile；原 35 个公开形状及 120 个随机形状的地址检查通过。候选尚待 NPU 构建、完整正确性/工程/内存和固定性能验证。
+[官方 CacheMode 指南](https://asc.gitcode.com/guide/operator_practice/simd_operator_optimization/memory_access/l2_cache_mode_config.html) 说明替换脏数据可能增加 GM 写回；这是检查覆盖位置的依据之一，不是本候选有效的证据。此项与此前 K/V 平分、每 8 tile 分散覆盖和改变总预算不同。CPU 范围检查覆盖 1130 个有效形状，其中 159 个发生区间平移，并验证缓存字节数完全相等、不会覆盖部分尾 tile；原 35 个公开形状及 120 个随机形状的地址检查通过。
+
+b661926b6e5c 已构建成功，6 项 Linux 流程回归通过。smoke 阶段 exit=0；完整正确性阶段等待整板空闲，尚无固定性能结果。保持既有流水线，不重复启动。
+
+## 队列源码审查
+
+核对当前 CANN 9.1 的 kernel_tpipe.h、kernel_tquebind_impl.h 和 kernel_utils_ceil_oom_que.h：默认 TQueBind mask=0，转换后的 bufferNumber=0；AllocBuffer 在该配置下递增 bufCursor，并在已初始化的两个缓冲间回绕。即时 FreeTensor 并不使下次分配始终返回缓冲 0。因此不再根据“第二个缓冲未使用”假设改写流水线。本次仅为源码核查，没有测量当前内核的重叠率或性能收益；文件 SHA256 与结论保存在 reports/queue_rotation_audit_20261101.json。

@@ -1,0 +1,21 @@
+{
+  "status": "source_audit_complete",
+  "rejected_hypothesis": "Immediate FreeTensor causes every next AllocTensor to reuse buffer zero",
+  "verified_behavior": "Default mask maps bufferNumber to zero; AllocBuffer increments and wraps bufCursor over the two initialized buffers.",
+  "performance_claim": "No current-kernel overlap percentage or speedup was measured by this source audit.",
+  "decision": "Do not rewrite the pipeline based on an assertion that the second buffer is unused.",
+  "files": [
+    {
+      "path": "artifacts/optimization_20261030/cann91_kernel_tpipe.h",
+      "sha256": "9109623fdd6ef3034526f678a81b8dfc9e1d58b2f17df5ce9b4d217586bce4e2"
+    },
+    {
+      "path": "artifacts/optimization_20261030/cann91_kernel_tquebind_impl.h",
+      "sha256": "44449eac8da01f3dd249e48a55f2e62f1d90a3fadd1880664a82308569e75267"
+    },
+    {
+      "path": "artifacts/optimization_20261030/cann91_kernel_utils_ceil_oom_que.h",
+      "sha256": "43e562d70d7748dc3b92e22aeefa40e5bd9df36fc9a94c7a8c1ddfe0652a259c"
+    }
+  ]
+}

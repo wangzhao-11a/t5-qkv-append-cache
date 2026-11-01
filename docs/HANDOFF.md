@@ -1,6 +1,6 @@
 # 2026-11-01 当前接续（优先于下方旧快照）
 
-正在执行：候选 b661926b6e5c833abeb1fa09d453f8ca89191abf 已部署至 /workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c，源包 SHA256 702c1259fa55ccb33d8866e585c3dacc6333d6c66c01872e698ac8bfb8d14813，182 文件校验和 6 项流程回归通过，构建成功。流水线 PID 113858 的 smoke_phase 正等待整板连续空闲，尚无候选功能/性能结果。chip 0 存在其他任务（最近 PID 116042）；已异步请求用户安排整板空闲窗口，未终止其他进程。当前 SSH 88471 仍可复用，保持连接，接续先读取此 PID/各 .exit，禁止重复启动。
+正在执行：候选 b661926b6e5c833abeb1fa09d453f8ca89191abf 已部署至 /workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c，源包 SHA256 702c1259fa55ccb33d8866e585c3dacc6333d6c66c01872e698ac8bfb8d14813，182 文件校验和 6 项流程回归通过，构建成功。smoke_phase 已通过（exit=0）；流水线 PID 113858 进入 correctness_phase，等待整板连续空闲，尚无候选固定性能结果。chip 0 最近存在其他任务 PID 136939；已异步请求用户安排整板空闲窗口，未终止其他进程。当前 SSH 88471 仍可复用，保持连接，接续先读取此 PID/各 .exit，禁止重复启动。当前 SDK 队列源码已证明两个缓冲会轮转，不再依据“第二缓冲未使用”假设改写流水线；见 queue_rotation_audit_20261101.json。
 
 trace 完整证据已导入 .codex-tmp/t5-trace-e60-extracted-20261101，当前容器控制完整证据也已导入 .codex-tmp/t5-retained-e60-extracted-20261101，后者 SHA256 7ede7130a841ac06820365fdeff8f68f791a3faf25f2b24a8c18831c44a79ca0。collector v1 因手抄 shell-script hash 多一位被门禁拦下、未创建 archive；v2 改为从本地原文件自动生成 JSON 校验清单后成功。incident 已按要求入 memories。
 
