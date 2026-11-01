@@ -25,8 +25,8 @@ class T5Copy {
     // Both views start from the raw pointer: the bypass view already carries
     // an L2 alias and must never be used to initialize the cached view.
     cachedKey_.SetGlobalBuffer((__gm__ uint16_t*)key, cacheSize_);
-    cachedKeyTiles_ = 0;
-    // Ascend910_9382 has 192 MiB L2. Retain a bounded key prefix alongside
+    cachedKeyTiles_ = 0; cachedKeyBegin_ = 0;
+    // Ascend910_9382 has 192 MiB L2. Retain a bounded key suffix alongside
     // the inputs, leaving 16 MiB for unrelated traffic. Other outputs bypass
     // L2. Whole tiles use one policy, including unaligned-storage fallbacks.
     if (cacheSize_ >= 16 * 1024 * 1024) {
@@ -37,6 +37,9 @@ class T5Copy {
       if (inputBytes < kWorkingSetBytes) {
         const uint32_t cachedElements = Min(cacheSize_, (kWorkingSetBytes - inputBytes) / 2);
         cachedKeyTiles_ = cachedElements / tile_;
+        // Preserve the original number of complete cached tiles. Any final
+        // partial tile still bypasses L2, so the NORMAL byte budget is unchanged.
+        cachedKeyBegin_ = cacheSize_ / tile_ - cachedKeyTiles_;
       }
     }
     pipe->InitBuffer(queue_, kQueueDepth, tile_ * sizeof(uint16_t));
@@ -86,7 +89,8 @@ class T5Copy {
 
   __aicore__ inline void Cache(uint32_t tileId, bool isValue) {
     auto& past = isValue ? pv_ : pk_;
-    auto& out = isValue ? v_ : (tileId < cachedKeyTiles_ ? cachedKey_ : k_);
+    const bool cached = tileId >= cachedKeyBegin_ && tileId - cachedKeyBegin_ < cachedKeyTiles_;
+    auto& out = isValue ? v_ : (cached ? cachedKey_ : k_);
     const uint32_t hd = uint32_t(heads_) * dim_;
     const uint32_t oldRow = uint32_t(length_) * dim_, row = oldRow + dim_;
     uint32_t pos = uint32_t(tileId) * tile_, end = Min(pos + tile_, cacheSize_);
@@ -119,7 +123,7 @@ class T5Copy {
   }
 
   uint32_t batch_, heads_, length_, dim_, tile_, queryTiles_, cacheTiles_, total_;
-  uint32_t qSize_, cacheSize_, cachedKeyTiles_;
+  uint32_t qSize_, cacheSize_, cachedKeyTiles_, cachedKeyBegin_;
   AscendC::GlobalTensor<uint16_t> packed_, pk_, pv_, q_, k_, v_, cachedKey_;
   AscendC::TQueBind<AscendC::QuePosition::VECIN, AscendC::QuePosition::VECOUT, kQueueDepth> queue_;
 };

@@ -1,5 +1,5 @@
 {
-  "status": "correctness_passed_full_log_retrieval_incomplete",
+  "status": "passed",
   "diagnostic_report": {
     "status": "passed",
     "source": "8303bbbffd81778dfe959c0447c60e8c41671bf3",
@@ -31,36 +31,152 @@
     "purpose": "One logged launch per dtype; no performance measurement"
   },
   "performance_executed": false,
-  "evidence": [
+  "archive": {
+    "archive": "/tmp/t5_trace_e60_20261101.tar.gz",
+    "sha256": "027382878a360a5038e9d759eb920812767b4bcd30cd7f35638c76dfc5fdc01c",
+    "trace_container": "e60fcee5f79f",
+    "collection_container": "e60fcee5f79f",
+    "files": [
+      {
+        "path": "artifacts/validation/device_trace_kernel_8303bbb_20261101.txt",
+        "bytes": 1989,
+        "sha256": "85baf40ebb431f76e59fd96180f31f9aa1c1a2f5074e7084b99f4a223798f8b3"
+      },
+      {
+        "path": "artifacts/validation/device_trace_kernel_8303bbb_20261101_idle_probe.txt",
+        "bytes": 1989,
+        "sha256": "2cea57a775861111f32fe22e6b2837290a1f1896db3c2e6411a9d2f4fcbafc3a"
+      },
+      {
+        "path": "artifacts/validation/environment_trace_kernel_8303bbb_20261101.json",
+        "bytes": 6685,
+        "sha256": "60a2ad8716890aab25ba846134a6c4b380169622006aa717bbd5f0fa6dec58af"
+      },
+      {
+        "path": "artifacts/validation/trace_kernel_8303bbb_20261101.exit",
+        "bytes": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "artifacts/validation/trace_kernel_8303bbb_20261101.json",
+        "bytes": 1869,
+        "sha256": "2af0ccd9025c69b3b55e9da589a612b9b459dda9c1800fb066206bf0b3100272"
+      },
+      {
+        "path": "artifacts/validation/trace_kernel_8303bbb_20261101.log",
+        "bytes": 46963840,
+        "sha256": "f1d0544bb279cb45e4debdd3711f8f4ec2e5e0bf5af5a58079d120f0a610b015"
+      },
+      {
+        "path": "artifacts/validation/trace_kernel_8303bbb_20261101_device_after.txt",
+        "bytes": 1989,
+        "sha256": "b98523dad15e2417b9c1603005a0aa4adab4777d8c6cecb00268c5d64a2db246"
+      }
+    ]
+  },
+  "device_loading_records": [
     {
-      "path": "artifacts/optimization_20261030/container_e60fcee5f79f/trace_kernel_8303bbb_20261101.json",
-      "bytes": 1869,
-      "sha256": "2af0ccd9025c69b3b55e9da589a612b9b459dda9c1800fb066206bf0b3100272",
-      "complete": true
+      "line": 250100,
+      "text": "[INFO] RUNTIME(74147,python):2026-11-01-04:42:34.644.719 [program.cc:1690] 74147 BuildNewKernel: new kernel success, size=1320, programId=1, original kernel_name=T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898_0, register kernel_name=T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898_0, tilingKey=0, functionEntry=0, funcType=3, kernelAttrType=2, mixType=0, taskRation=2, offset=0, dfxAddr=1437571304, dfxSize=164"
     },
     {
-      "path": "artifacts/optimization_20261030/container_e60fcee5f79f/trace_kernel_8303bbb_20261101.log.part",
-      "bytes": 35291136,
-      "sha256": "09ae62fcf46aaa137c1eaa58524b365cd206cc2aa681a1c91b54295ca254c8b0",
-      "complete": false
-    }
-  ],
-  "observed_metadata_candidate_paths": [
-    {
-      "line": 95337,
-      "text": "[INFO] OP(74147,python):2026-11-01-04:42:34.096.374 [indv_collecter.cpp:1204][NNOP][NnopbaseUpdateCommonJsonInfo][74147] Get op[T5SplitQkvAppendCache] coreType is [2], binPath is [/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o]"
+      "line": 250132,
+      "text": "[INFO] OP(74147,python):2026-11-01-04:42:34.645.058 [indv_executor.cpp:830][NNOP][NnopbaseExecutorGetWorkspaceSizes][74147] OpName:[T5SplitQkvAppendCache_0] Op[T5SplitQkvAppendCache] workspace num is 1, workspaceLen is 0 bytes, bin path is /root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o."
     },
     {
-      "line": 95365,
-      "text": "[INFO] OP(74147,python):2026-11-01-04:42:34.096.465 [indv_collecter.cpp:1204][NNOP][NnopbaseUpdateCommonJsonInfo][74147] Get op[T5SplitQkvAppendCache] coreType is [2], binPath is [/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o]"
+      "line": 250186,
+      "text": "[INFO] RUNTIME(74147,python):2026-11-01-04:42:34.645.428 [aix_stars.cc:603] 74147 StreamLaunchKernelV2: kernel info : device_id=1, stream_id=47, task_id=0, kernelAttrType=2, kernel_name=T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898_0, arg_size=144, coreDim=48, taskRation=2, funcType=3, addr1=0x12c091c00000, addr2=0x0, mixType=0, kernelFlag=0x0, qos=0, partId=0, schemMode=0, infoAddr=(nil), atomicIndex=0, prefetchCnt1=3, prefetchCnt2=0, isNoNeedH2DCopy=0."
+    },
+    {
+      "line": 250582,
+      "text": "[INFO] RUNTIME(74147,python):2026-11-01-04:42:35.298.088 [program.cc:1690] 74147 BuildNewKernel: new kernel success, size=1320, programId=2, original kernel_name=T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a_0, register kernel_name=T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a_0, tilingKey=0, functionEntry=0, funcType=3, kernelAttrType=2, mixType=0, taskRation=2, offset=0, dfxAddr=1464626392, dfxSize=164"
+    },
+    {
+      "line": 250599,
+      "text": "[INFO] OP(74147,python):2026-11-01-04:42:35.298.243 [indv_executor.cpp:830][NNOP][NnopbaseExecutorGetWorkspaceSizes][74147] OpName:[T5SplitQkvAppendCache_0] Op[T5SplitQkvAppendCache] workspace num is 1, workspaceLen is 0 bytes, bin path is /root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o."
+    },
+    {
+      "line": 250648,
+      "text": "[INFO] RUNTIME(74147,python):2026-11-01-04:42:35.298.488 [aix_stars.cc:603] 74147 StreamLaunchKernelV2: kernel info : device_id=1, stream_id=47, task_id=0, kernelAttrType=2, kernel_name=T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a_0, arg_size=144, coreDim=48, taskRation=2, funcType=3, addr1=0x12c091c03000, addr2=0x0, mixType=0, kernelFlag=0x0, qos=0, partId=0, schemMode=0, infoAddr=(nil), atomicIndex=0, prefetchCnt1=3, prefetchCnt2=0, isNoNeedH2DCopy=0."
     }
   ],
-  "full_device_loading_records_reviewed": false,
+  "full_device_loading_records_reviewed": true,
+  "original_partial_preserved": "artifacts/optimization_20261030/container_e60fcee5f79f/trace_kernel_8303bbb_20261101.log.part",
+  "environment": {
+    "reference_unchanged": true,
+    "script_encoding": "UTF-8 no BOM, LF",
+    "original_manifest_valid": false,
+    "inventory": {
+      "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+      "machine": "aarch64",
+      "python": "3.12.13",
+      "executable": "/workspace/vasc031_a3/bin/python",
+      "environment": {
+        "ASCEND_HOME_PATH": "/usr/local/Ascend/cann-9.1.0",
+        "ASCEND_RT_VISIBLE_DEVICES": "1",
+        "ASCEND_CUSTOM_OPP_PATH": "/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer:/workspace/vasc031_a3/lib/python3.12/site-packages/fla_npu/opp/vendors/fla_npu_transformer/op_api/lib:/root/.local/t5_qkv_8303bbbffd81/vendors/t5qkv",
+        "T5_OPP_ROOT": "/root/.local/t5_qkv_8303bbbffd81",
+        "T5_ACLNN_EXECUTOR_REUSE": null,
+        "TASK_QUEUE_ENABLE": null,
+        "T5_FUNCTIONAL_DEVICE_SCOPE": null,
+        "T5_PHYSICAL_DEVICE": "7"
+      },
+      "commands": [
+        {
+          "command": [
+            "npu-smi",
+            "info"
+          ],
+          "exit_code": 0,
+          "stdout": "+------------------------------------------------------------------------------------------------------------------+\n| npu-smi 26.1.1                              Version: 26.1.1                                                      |\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU   Name                | Health        | Power(W)             Temp(C)                 Hugepages-Usage(page)   |\n| Chip  Phy-ID              | Bus-Id        | AICore(%)            Memory-Usage(MB)        HBM-Usage(MB)           |\n+===========================+===============+======================================================================+\n| 3     Ascend910           | OK            | 195.8                51                      0    / 0                |\n| 0     6                   | 0000:91:00.0  | 0                    0    / 0                3173 / 65536            |\n+------------------------------------------------------------------------------------------------------------------+\n| 3     Ascend910           | OK            | -                    51                      0    / 0                |\n| 1     7                   | 0000:93:00.0  | 0                    0    / 0                2888 / 65536            |\n+===========================+===============+======================================================================+\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |\n+===========================+===============+======================================================================+\n| 3       0                 | 71733         | python             | 113                   | 71733                   |\n+===========================+===============+======================================================================+\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ss",
+            "-lntp"
+          ],
+          "error": "[Errno 2] No such file or directory: 'ss'"
+        },
+        {
+          "command": [
+            "ps",
+            "-eo",
+            "pid,ppid,comm,args"
+          ],
+          "exit_code": 0,
+          "stdout": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            /bin/bash -c while true; do sleep 3600; done\n     94       1 sleep           sleep 3600\n    161       1 sshd            sshd: /usr/sbin/sshd -e [listener] 0 of 10-60 startups\n    201       0 node            /root/codeserver/lib/node /root/codeserver --bind-addr 0.0.0.0:6988 --auth=none /workspace\n    246     201 node            /root/codeserver/lib/node /root/codeserver/out/node/entry\n    334       1 su              su - root -c /opt/clabagent/bin/start.sh -c /opt/clabagent/config/clabagent.yml\n    335     334 python3         python3 main/agent.py -c /opt/clabagent/config/clabagent.yml\n    638     335 vector          /opt/clabagent/plugins/vector/bin/vector -c /opt/clabagent/plugins/vector_blue_metric/runtime/vector_blue_metric.yml --watch-config\n    688     335 node_exporter   /opt/clabagent/plugins/node_exporter/bin/node_exporter --web.listen-address=127.0.0.1:9500\n   2266     161 sshd            sshd: root [priv]\n   2290    2266 sshd            sshd: root@notty\n  26694     161 sshd            sshd: root [priv]\n  26729   26694 sshd            sshd: root@notty\n  26730   26729 bash            bash --noprofile --norc -s\n  69810     161 sshd            sshd: root [priv]\n  69825   69810 sshd            sshd: root@notty\n  69826   69825 sftp-server     /usr/libexec/openssh/sftp-server\n  69995   69825 bash            bash -c while sleep 20; do printf 't5-ssh-alive\\n' || exit; done\n  71539   69995 sleep           sleep 20\n  71733   26730 python          python tests/run_device_acceptance.py --task-root /workspace/dual_affine_layernorm_taskdata --output-dir /workspace/daln_s1/artifacts/compat_all4 --device 0 --groups all\n  71949   71733 python          /usr/local/python3.12.13/bin/python /workspace/dual_affine_layernorm_taskdata/verify.py --solution-file /workspace/daln_s1/solution.py --device 0 --report /workspace/daln_s1/artifacts/compat_all4/raw/public_accuracy.json\n  72141       1 bash            bash /tmp/t5_trace_loaded_kernel_20261101.sh\n  72248   72141 python          python tools/preflight.py --require-soc Ascend910_9382 --output artifacts/validation/environment_trace_kernel_8303bbb_20261101.json\n  72262   72248 ps              ps -eo pid,ppid,comm,args\n",
+          "stderr": ""
+        }
+      ],
+      "versions": {
+        "torch": "2.10.0+cpu",
+        "torch_npu": "2.10.0.post4",
+        "numpy": "2.2.6",
+        "ml_dtypes": "0.6.0"
+      },
+      "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+      "listening_tcp_ports": [
+        22,
+        6988,
+        9500,
+        9508,
+        38429
+      ],
+      "/etc/os-release": "NAME=\"openEuler\"\nVERSION=\"24.03 (LTS-SP3)\"\nID=\"openEuler\"\nVERSION_ID=\"24.03\"\nPRETTY_NAME=\"openEuler 24.03 (LTS-SP3)\"\nANSI_COLOR=\"0;31\"\n\n",
+      "/usr/local/Ascend/driver/version.info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n"
+    },
+    "target": {
+      "soc": "Ascend910_9382",
+      "visible_device_count": 1
+    }
+  },
+  "conclusion": "Both dtype kernels selected and launched from the expected candidate; no stale-kernel loading observed in this diagnostic.",
   "connection": {
     "connected_seconds_at_drop": 300.8,
     "heartbeats_received": 14,
     "same_token_reconnect": "platform authorization denied",
     "drop_cause": "unverified"
   },
-  "next_action": "Recover compressed existing trace plus environment/exit evidence; do not rerun kernel trace"
+  "next_action": "Establish retained baseline for the changed container; do not rerun kernel trace"
 }

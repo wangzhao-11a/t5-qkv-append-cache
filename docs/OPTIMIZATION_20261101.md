@@ -97,3 +97,15 @@ ea12acde93cbeb9821138482419dc101de95ae6a 全正确性/工程/内存通过，固�
 诊断 JSON 已收回。完整日志下载时连接在 300.8 秒后断开，此前持续收到 14 次心跳；同令牌重连被平台拒绝。保留的 .part 为 35,291,136 字节，其中两条 T5 候选 binPath 指向预期私有目录。完整加载记录仍须回收审查，断线原因未确定，没有新的性能数据。见 reports/kernel_load_trace_20261101.json。
 
 为防止大日志传输和部分证据覆盖，remote_session 加入 8 MiB 原始文本大小门禁、已有 .part 拒绝覆盖、64 个预取请求上限及最终字节数检查；3 项离线回归通过。已准备压缩回收现有 trace 的脚本，不重跑诊断。因容器变化，后续应先复用原 1bba 构建建立当前容器控制结果；该控制脚本已准备但尚未启动。先前 05d447771751 的性能记录保持原样，不能当作新容器结果。
+
+## 完整加载证据与当前容器控制
+
+完整 trace 已压缩收回、校验解包，archive SHA256 为 027382878a360a5038e9d759eb920812767b4bcd30cd7f35638c76dfc5fdc01c。两种 dtype 的 GetWorkspaceSizes 选中 8303bbb 私有 .o，Runtime 完成相应内核注册和 StreamLaunchKernelV2，coreDim=48、workspaceLen=0。本次诊断未发现旧内核错载；不能以错载假设解释该策略失败。完整记录已更新 reports/kernel_load_trace_20261101.json，旧 partial 保留。
+
+当前 e60fcee5f79f 容器使用原 1bba 构建：smoke 8 项、每项 20 次均通过，但初次结束占用检查发现另一任务的 chip 0 PID 90835，原阶段 exit=1 保留。补独立空闲确认成功后才启动性能，未重跑 smoke。原固定性能结果仍为 8/10，FP16/BF16 大缓存 103.48145/103.71650 us；其余 8 例通过。新结果独立保存为 reports/performance_1bba0d0_container_e60_20261101.json。
+
+## 对照 19：相同字节预算的 K 缓存后缀
+
+基于已核对的实际加载和既有 L2 miss 证据，检验缓存子区间的位置/访问阶段是否影响表现。仅将原 K 前缀的完整 tile 数平移到 K 末尾的完整 tile；最后不完整 tile 仍 BYPASS。176 MiB 逻辑预算、缓存 tile 总数、输入/V 输出策略、48 核调度、64 KiB×2 UB、主机分配和执行器复用均保持。大例从 K tile 0..765 改为 258..1023，仍缓存 766 个完整 tile。没有假定具体 L2 地址映射方式，也不宣称已证明冲突根因。
+
+[官方 CacheMode 指南](https://asc.gitcode.com/guide/operator_practice/simd_operator_optimization/memory_access/l2_cache_mode_config.html) 说明替换脏数据可能增加 GM 写回；这是检查覆盖位置的依据之一，不是本候选有效的证据。此项与此前 K/V 平分、每 8 tile 分散覆盖和改变总预算不同。CPU 范围检查覆盖 1130 个有效形状，其中 159 个发生区间平移，并验证缓存字节数完全相等、不会覆盖部分尾 tile；原 35 个公开形状及 120 个随机形状的地址检查通过。候选尚待 NPU 构建、完整正确性/工程/内存和固定性能验证。
