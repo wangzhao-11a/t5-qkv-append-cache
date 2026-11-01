@@ -1,0 +1,22 @@
+{
+  "status": "wrong_soc_no_deployment_or_kernel_execution",
+  "host": "179.68.53.144",
+  "container": "7f778c5b6138",
+  "target_hostkey_sha256": "0e61402192aa093f678e199f12ef5b0f56a983bdb1bba68a092b4e9d710b250c",
+  "required_soc": "Ascend910_9382",
+  "observed_npu_smi_name": "Ascend950PR",
+  "npu_id": 0,
+  "driver_version": "25.7.rc1.10",
+  "npu_processes": "No running processes found in NPU 0",
+  "original_task_directories_present": false,
+  "cann_9_1_directory_present": true,
+  "actions": [
+    "Read container hostname",
+    "Read npu-smi inventory",
+    "Check known task and CANN directory existence"
+  ],
+  "source_uploaded": false,
+  "benchmark_executed": false,
+  "original_910_acceptance": "8/10; unchanged",
+  "next_action": "Await original 910 SSH authorization or explicit target migration instruction"
+}
