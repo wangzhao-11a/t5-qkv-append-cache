@@ -1,6 +1,6 @@
 # T5 QKV 拆分与缓存追加算子：社区说明草稿
 
-本文件是本地待发布说明，2026-11-03 更新；尚未发送到 GitHub。
+本文件是上游社区待发布说明，2026-11-03 更新；随个人实现仓公开，但尚未同步到上游设计 PR 或提交上游实现 PR。
 
 单 token 解码时，融合输入按全部 Q、全部 K、全部 V 排列。实现输出独立连续 Q，并向两份历史缓存追加当前 K/V。FP16/BF16 共用 uint16 原样搬运，支持 L=0、非对齐维度、原始 NaN 位模式和连续存储偏移视图。
 
@@ -12,4 +12,4 @@
 
 2026-11-03 只读核实：[设计 PR #2604](https://github.com/xLLM-AI/xllm/pull/2604) 仍开放、未合入，3 个文件仅包含旧版中英文设计与侧边栏；正式 reviews 列表为空。本地最新设计和 10/10 证据尚未同步到此 PR。该设计分支不包含本次实现，不能作为实现代码交付地址。
 
-任务书仍待完成的发布项：发布包含固定实现提交的个人代码仓/分支并填写算子目录，提交实现 PR，跟进设计评审。当前本地分支为 `codex/t5-qkv-append-cache`，固定运行 commit 为上文 f526712，算子位于工程根目录；本地 Git 尚未配置 remote。已知设计仓为 `https://github.com/wangzhao-11a/xllm`，设计分支为 `docs/t5-split-qkv-append-cache-design`，其提交不替代本地实现提交。
+个人实现仓现已公开发布：`https://github.com/wangzhao-11a/t5-qkv-append-cache`，分支 `codex/t5-qkv-append-cache`，算子目录为仓库根目录 `.`，固定交付提交 `874f2bbbb385bc032d004735ae524244401a29ce`，实测运行 commit 仍为 f526712。公开仓库、完整目录树及 c9/f526/874 固定提交已匿名核实。仍待提交上游实现 PR、同步最新设计并跟进社区评审。设计仓 `https://github.com/wangzhao-11a/xllm` 的 `docs/t5-split-qkv-append-cache-design` 分支仅承载设计文档。

@@ -2,13 +2,20 @@
   "checked_on": "2026-11-03",
   "timezone": "Asia/Shanghai",
   "implementation": {
-    "repository_url": null,
-    "remote_configured": false,
+    "repository_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache",
+    "remote_configured": true,
     "local_branch": "codex/t5-qkv-append-cache",
     "local_operator_directory": "t5_qkv_task/",
     "fixed_runtime_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
     "pull_request_url": null,
-    "published": false
+    "published": true,
+    "branch_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache/tree/codex/t5-qkv-append-cache",
+    "operator_directory": ".",
+    "operator_directory_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache/tree/874f2bbbb385bc032d004735ae524244401a29ce",
+    "fixed_delivery_commit": "874f2bbbb385bc032d004735ae524244401a29ce",
+    "fixed_delivery_commit_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache/commit/874f2bbbb385bc032d004735ae524244401a29ce",
+    "fixed_runtime_commit_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache/commit/f52671207769bf5f334972c997743eb6aa6f91b3",
+    "verification": "reports/publication_verification_20261103.json"
   },
   "design": {
     "pull_request_url": "https://github.com/xLLM-AI/xllm/pull/2604",
@@ -23,9 +30,8 @@
     "scope": "Old bilingual design documents and sidebar; not implementation source"
   },
   "pending": [
-    "Publish implementation repository URL, branch, operator directory and fixed commit",
     "Synchronize updated design and follow community review",
     "Submit implementation PR to xLLM xllm/core/kernels/npu/xllm_ops"
   ],
-  "note": "Local material audit does not imply external publication, approval or merge."
+  "note": "Personal implementation repository is published and anonymously verified. Community design review and upstream implementation PR remain pending."
 }

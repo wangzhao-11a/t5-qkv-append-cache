@@ -1,6 +1,6 @@
 # 2026-11-03 任务书交付复核
 
-结论：本次修订后的本地工程交付材料齐备，含完整源码和 `.run` 安装包；任务书的外部发布及社区评审事项尚未完成，不能称全部交付流程已结束。运行实现仍为 `f52671207769bf5f334972c997743eb6aa6f91b3`，没有改动内核、重编二进制或重跑 NPU。
+结论：本次修订后的本地工程交付材料齐备，含完整源码和 `.run` 安装包；个人实现仓已发布并经匿名访问验证；上游实现 PR 和社区评审尚未完成，不能称全部交付流程已结束。运行实现仍为 `f52671207769bf5f334972c997743eb6aa6f91b3`，没有改动内核、重编二进制或重跑 NPU。
 
 ## 对照依据
 
@@ -25,7 +25,7 @@
 | 4.4 私有安装脚本和 .run | `scripts/build.sh`、`artifacts/custom_opp_openEuler_aarch64.run`，包内含 install.sh；不覆盖系统 CANN | 已齐，安装包及内嵌 payload 哈希通过 |
 | 4.4 两阶段 API | .run 内 `packages/vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h` 及 `op_api/lib/libcust_opapi.so`；包含 GetWorkspaceSize 和执行函数 | 已齐，未运行安装器即可核实 |
 | 4.4 独立 C++ 样例、框架封装、直调 | `examples/`、`solution.py`、`csrc/torch_binding.cpp`、`setup.py`、`direct/`；实测二进制在 `artifacts/binaries/` | 已齐 |
-| 4.4 个人实现仓地址、分支、算子目录和固定 commit | 本地分支 `codex/t5-qkv-append-cache`；算子为工程根目录，固定运行提交 f526712；本地没有 remote，未发布实现仓 | **缺少可访问的实现仓交付地址** |
+| 4.4 个人实现仓地址、分支、算子目录和固定 commit | 个人仓 `https://github.com/wangzhao-11a/t5-qkv-append-cache`，分支 `codex/t5-qkv-append-cache`，算子目录为仓库根目录 `.`，固定交付提交 `874f2bbbb385bc032d004735ae524244401a29ce`，实测运行提交 f526712；详见 `SUBMISSION_LINKS.md` | 已公开发布并验证 |
 | 第 5 节实现 PR 申请合入 | 目标 `xLLM-AI/xllm/xllm/core/kernels/npu/xllm_ops`；现有 #2604 只有设计文件 | **实现 PR 尚未提交** |
 
 ## 本轮修订
@@ -44,4 +44,4 @@
 - 原包 SHA256SUMS 对任务书的文件名/哈希有一条原生不一致，导入后的 12 份 reference 字节未变；保留原问题记录。
 - 原 c9 基线、旧报告和旧交付包保留；本轮只修订交付说明、元数据和离线核查工具。
 
-本地校验通过不代表外部仓库已发布、社区已批准或实现 PR 已合入。发布状态的只读证据见 `reports/publication_status_20261103.json`。
+本地校验通过本身不代表社区批准或实现 PR 合入。个人仓的公开访问和固定提交已单独核实，证据见 `reports/publication_verification_20261103.json`；完整发布状态见 `reports/publication_status_20261103.json`。

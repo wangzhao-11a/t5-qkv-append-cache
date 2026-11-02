@@ -1,0 +1,18 @@
+{
+  "repository_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache",
+  "public": true,
+  "branch": "codex/t5-qkv-append-cache",
+  "branch_head": "874f2bbbb385bc032d004735ae524244401a29ce",
+  "default_branch": "codex/t5-qkv-append-cache",
+  "verified_commits": [
+    "874f2bbbb385bc032d004735ae524244401a29ce",
+    "874f2bbbb385bc032d004735ae524244401a29ce",
+    "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "c9decf212667337d518e3a1d48dc3e07cd5fef0e"
+  ],
+  "all_tracked_files_match": true,
+  "tracked_files": 216,
+  "verification": "Anonymous GitHub REST: repository, branch, commits and complete recursive tree",
+  "verified_on": "2026-11-03",
+  "scope": "Published fixed source/delivery snapshot; later publication-metadata commits do not change runtime."
+}
