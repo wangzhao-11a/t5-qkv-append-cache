@@ -19,6 +19,9 @@ p.add_argument('--submission-template', type=Path)
 a = p.parse_args()
 if a.output.exists():
     raise SystemExit('Preserve existing delivery; choose a new output')
+audit_output = a.output.with_suffix('.audit.json')
+if audit_output.exists():
+    raise SystemExit('Preserve existing audit receipt; choose a new output')
 commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 if subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=ROOT, text=True).strip():
     raise SystemExit('Commit the final tracked sources/reports before packaging')
@@ -100,6 +103,13 @@ with zipfile.ZipFile(a.output) as z:
     for record in manifest['files']:
         if hashlib.sha256(z.read('t5_qkv_task/'+record['path'])).hexdigest()!=record['sha256']:
             raise SystemExit('Packaged file checksum mismatch')
+from audit_delivery import audit
+audit_result = audit(a.output)
+audit_output.write_text(json.dumps(audit_result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+if audit_result['errors']:
+    raise SystemExit('Delivery content audit failed; preserve archive/receipt and inspect errors')
 print(json.dumps({'archive': str(a.output.resolve()), 'files': len(files),
                   'sha256': hashlib.sha256(a.output.read_bytes()).hexdigest(),
-                  'delivery_commit': commit, 'tested_runtime_source_commit': tested}))
+                  'delivery_commit': commit, 'tested_runtime_source_commit': tested,
+                  'content_audit': str(audit_output.resolve()),
+                  'content_audit_status': audit_result['status']}))

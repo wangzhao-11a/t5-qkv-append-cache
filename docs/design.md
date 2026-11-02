@@ -1,5 +1,7 @@
 # 算子设计
 
+本文对应已实测运行源码 `f52671207769bf5f334972c997743eb6aa6f91b3`。2026-11-03 按交付任务书复核并更新；运行源码和原始测试证据未修改。正式社区设计 PR #2604 中的旧版文档尚未同步本次更新。
+
 ## 数据与地址
 
 定义 `S=H×D`，元素以 uint16_t 解释。Q 输出线性地址 `q=((bH+h)D+d)`，源地址为 `3bS+hD+d`。K/V 输出地址 `o=((bH+h)(L+1)+t)D+d`；当 `t<L`，源历史地址为 `((bH+h)L+t)D+d`；否则源 QKV 地址为 `3bS+sS+hD+d`，其中 K 的 s=1、V 的 s=2。
@@ -12,7 +14,11 @@
 
 使用 `TQueBind<VECIN,VECOUT,2>` 管理两份 64 KiB UB 缓冲。实际源/目的地址与片段长度均满足 32 字节对齐时使用 DataCopy；否则使用 DataCopyPad 搬运合法片段。判断包含真实 GM 基地址，不能仅凭逻辑索引推断偏移视图的对齐。两条路径均不补读输入末尾，也不将 padding 写出。总片上队列缓冲 131072 字节，每核还使用少量标量状态。明确指定 `KERNEL_TYPE_AIV_ONLY`。
 
-大缓存由所有 AIV 共同搬运；小输入减少到实际 tile 数个核。单个输出缓存达到 32 MiB 时，为只写的 K/V 输出设置官方 `CACHE_MODE_DISABLE`，历史输入仍使用默认 L2 策略。官方 msprof 在 `c5f6658` 上显示大输入 MTE2/MTE3 占比较高；`b2b0cca` 的输出绕过 L2 修改将正式大输入时延从约 228–232 微秒降至约 94–95 微秒，但这仍未满足 75/77 微秒固定门槛。性能结论以对应版本实测为准，不能依据带宽模型宣布达标。对于 D=1 等小行，片段数可能较多，但这些边界仍必须先保证正确性。
+大缓存由所有 AIV 共同搬运；小输入减少到实际 tile 数个核。单个输出缓存达到 32 MiB 时，K/V 默认使用官方 `CACHE_MODE_DISABLE`，历史输入保留默认 L2 策略，并为 K 输出建立独立 NORMAL 视图 `cachedKey_`。两个视图都从原始输出指针初始化，避免重复叠加 BYPASS 地址别名。
+
+Ascend910_9382 本次查询的 L2 容量为 192 MiB，逻辑工作集预算取 176 MiB。令 `qSize=BHD`、`cacheSize=qSize(L+1)`，输入字节数 `inputBytes=2(3qSize+2qSizeL)`。只有 inputBytes 小于预算时，将剩余预算换算为 K 元素并向下取整到完整 tile：`cachedKeyTiles_=floor(min(cacheSize,(176MiB-inputBytes)/2)/32768)`，`cachedKeyBegin_=floor(cacheSize/32768)-cachedKeyTiles_`。该区间内的 K 完整 tile 使用 NORMAL，其他 K tile 和全部 V tile 使用 BYPASS，末尾不完整 tile 不计入缓存预算。大性能例的 K 缓存区间为 tile 258..1023，共 766 个；该策略不改变输出布局或分核序列。预算是逻辑字节约束，不保证所有物理缓存行都常驻 L2。
+
+最终版本在 Init 中计算 `alignedFragments_`：缓存达到上述阈值、D 和 tileElements 均为 16 的倍数，并且 packed/pastKey/pastValue/query/key/value/cachedKey 七个实际 GM 视图基址均为 32B 对齐时，所有分段边界和长度均为 16 个 uint16 元素的倍数，Copy 可直接用 DataCopy。其他情况仍逐片段核查实际地址和长度，必要时使用 DataCopyPad。连续但 storage_offset=1 的视图不会因逻辑连续而误入该路径。CPU 对齐不变量检查覆盖 510 个有效形状，其中 374 个适用、2,864,106 个片段；NPU 另覆盖大缓存奇数 D 和偏移视图。对于 D=1 等小行，片段数可能较多，但仍须满足同样的正确性与存储要求。
 
 ## 校验与资源
 
@@ -30,11 +36,21 @@ torch_npu 5dd8ef3 的 recordStream 不跳过分配 stream，早期版本对输�
 
 prepare 保存 shape/dtype/device/属性，不保存张量或 stream；每次调用重新验证并分配。旧元数据不匹配必须报错。
 
+## 接口与 ACLNN 执行器
+
+`op_host/` 提供 OpDef、shape/dtype 推导和 tiling；`common/t5_plan.h` 的 MakePlan 同时供 Host 与直调使用。CANN msopgen 根据 `op_project.json` 生成工程和两阶段 API：`aclnnT5SplitQkvAppendCacheGetWorkspaceSize` 返回 workspace 大小与 executor，`aclnnT5SplitQkvAppendCache` 接收 executor、workspace 和当前 stream 执行。实测 `.run` 内含 `vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h` 与 `op_api/lib/libcust_opapi.so`，安装到用户私有目录。独立调用样例位于 `examples/aclnn_example.cpp`。
+
+Python 正式入口 `solution.run(inputs, attributes)` 调用 ACLNN；`run_direct` 调用同一内核主体的 Kernel launch；`prepare` 是仅保存元数据的可重复调用接口。三个入口均执行规定的参数检查。
+
+正式 ACLNN 路径默认启用官方 repeatable executor，每个调用线程缓存一个元数据计划，匹配 shape、dtype、device、输入 strides 和当前 stream。每次仍重新分配三个输出，并对六个非空张量调用 `aclSetTensorAddr` 刷新当前地址；缓存不持有 ATen 输入/输出张量或设备 workspace。元数据或 stream 改变时重建计划，executor 先于描述符销毁。输入地址不对齐、显式设置 `T5_ACLNN_EXECUTOR_REUSE=0` 或运行时不支持 repeatable executor 时，回退普通两阶段提交。地址更新失败直接报错。两个独立 stream、输入提前释放、输出保留和连续换地址测试均包含在工程证据中。
+
 ## 验证设计
 
 先执行原始测试包字节与脚本编码检查，再编译、原生 C++ FP16/BF16 最小调用和非法元数据拒绝检查；随后公开 35 例、直调 35 例、12 个偏移种子 × 两入口、28 类非法场景 × 三入口、验证器反例、双 stream、连续两次缓存追加、提前释放和多次输出保留检查。最后执行 10 个 shape 的内存和固定性能协议。
 
 CPU 地址模型遍历全部 tile/片段的覆盖和界限，并以独立坐标推导核对片段首/中/末地址；较小 shape 逐位对照原包 golden。它既不模拟 CANN 的 DMA 行为，也不能证明内核编译、同步或设备性能正确。
+
+本版本精度 98 条有效输入/入口、84 条非法输入、3 条验证器反例、15 条工程、20 条内存及 8×20 次稳定性记录通过。原固定性能协议在一次完整运行中 10/10 通过，大缓存 FP16/BF16 为 70.22155/70.20120 μs。独立 views/concat 配对对照另存，不与固定成绩混算；跨进程时延存在变化，不作所有运行均为 70 μs 的承诺。环境为 CANN 9.1.0、实际驱动 26.1.1；题目指定驱动 25.5.t6.b001 未测试。完整结果和证据边界见 [验收记录](ACCEPTANCE_20261101.md)。
 
 ## 上游核对
 

@@ -1,0 +1,31 @@
+{
+  "checked_on": "2026-11-03",
+  "timezone": "Asia/Shanghai",
+  "implementation": {
+    "repository_url": null,
+    "remote_configured": false,
+    "local_branch": "codex/t5-qkv-append-cache",
+    "local_operator_directory": "t5_qkv_task/",
+    "fixed_runtime_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "pull_request_url": null,
+    "published": false
+  },
+  "design": {
+    "pull_request_url": "https://github.com/xLLM-AI/xllm/pull/2604",
+    "state": "open",
+    "merged": false,
+    "head_repository": "https://github.com/wangzhao-11a/xllm",
+    "head_branch": "docs/t5-split-qkv-append-cache-design",
+    "head_commit": "4b1d4fbc52cd28b5e7660585208f7d698537f279",
+    "changed_files": 3,
+    "formal_review_count": 0,
+    "latest_local_design_synced": false,
+    "scope": "Old bilingual design documents and sidebar; not implementation source"
+  },
+  "pending": [
+    "Publish implementation repository URL, branch, operator directory and fixed commit",
+    "Synchronize updated design and follow community review",
+    "Submit implementation PR to xLLM xllm/core/kernels/npu/xllm_ops"
+  ],
+  "note": "Local material audit does not imply external publication, approval or merge."
+}

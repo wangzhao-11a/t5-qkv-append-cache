@@ -1,0 +1,144 @@
+{
+  "archive": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_task\\artifacts\\t5_qkv_delivery_fcf36e2.zip",
+  "archive_sha256": "586e91f23735d71cad0fc8278e8f20afc71166b0c0922714d7566f756cb03d85",
+  "delivery_commit": "fcf36e241b46417cf2aaeb67e49ab6adfcf05ce5",
+  "tested_runtime_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "file_count": 293,
+  "manifest_file_count": 292,
+  "status": "needs_local_revision",
+  "checks": [
+    {
+      "check": "ZIP CRC",
+      "passed": true
+    },
+    {
+      "check": "No duplicate ZIP entries",
+      "passed": true
+    },
+    {
+      "check": "Safe single-root ZIP layout",
+      "passed": true
+    },
+    {
+      "check": "Unique manifest entries",
+      "passed": true
+    },
+    {
+      "check": "Manifest covers every packaged file",
+      "passed": true
+    },
+    {
+      "check": "Every file size and SHA256",
+      "passed": true
+    },
+    {
+      "check": "Required engineering/source/test/evidence files",
+      "passed": true
+    },
+    {
+      "check": "Frozen reference files",
+      "passed": true
+    },
+    {
+      "check": "Original 35-case file",
+      "passed": true
+    },
+    {
+      "check": "Nested task_submission.zip exactly matches seven official names",
+      "passed": true
+    },
+    {
+      "check": "Seven unpacked materials equal nested ZIP bytes",
+      "passed": true
+    },
+    {
+      "check": "Official template file names",
+      "passed": true
+    },
+    {
+      "check": "Official template fingerprint",
+      "passed": true
+    },
+    {
+      "check": "Instructions identify tested commit",
+      "passed": true
+    },
+    {
+      "check": "Exact tested source archive",
+      "passed": true
+    },
+    {
+      "check": "Every tested source file SHA256",
+      "passed": true
+    },
+    {
+      "check": "Delivery runtime equals tested runtime",
+      "passed": true
+    },
+    {
+      "check": "Tested binaries and source provenance",
+      "passed": true
+    },
+    {
+      "check": "Makeself payload SHA256 (installer not executed)",
+      "passed": true
+    },
+    {
+      "check": "Two-stage API header inside .run",
+      "passed": true
+    },
+    {
+      "check": "ACLNN API library inside .run",
+      "passed": true
+    },
+    {
+      "check": "Original device evidence archive SHA256",
+      "passed": true
+    },
+    {
+      "check": "Raw accuracy/engineering/memory/performance coverage recheck",
+      "passed": true
+    },
+    {
+      "check": "Environment summary matches actual test phases",
+      "passed": false
+    },
+    {
+      "check": "Design names tested revision and retained optimization mechanisms",
+      "passed": false
+    },
+    {
+      "check": "Community draft no longer describes old baseline as current",
+      "passed": false
+    },
+    {
+      "check": "Publication metadata and pending items explicitly recorded",
+      "passed": false
+    }
+  ],
+  "errors": [
+    "Environment summary matches actual test phases",
+    "Design names tested revision and retained optimization mechanisms",
+    "Community draft no longer describes old baseline as current",
+    "Publication metadata and pending items explicitly recorded"
+  ],
+  "coverage": {
+    "status": "passed",
+    "problems": [],
+    "scope": "Automated coverage only. Environment evidence, build artifacts and source fingerprints also require review."
+  },
+  "publication": {
+    "pending": [
+      "Publish personal implementation repository/branch/directory/fixed commit",
+      "Synchronize latest design and obtain community review",
+      "Submit implementation PR"
+    ]
+  },
+  "npu_rerun": false,
+  "limitations": [
+    "Driver 26.1.1 accepted by user; required 25.5.t6.b001 untested",
+    "Original task prose ratio threshold is inconsistent; frozen absolute checker used",
+    "No onsite screenshots; raw logs provided",
+    "No paired reference active-memory result; not fabricated"
+  ]
+}
