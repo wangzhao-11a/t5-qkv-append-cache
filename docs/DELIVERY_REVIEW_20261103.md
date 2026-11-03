@@ -1,6 +1,6 @@
 # 2026-11-03 任务书交付复核
 
-结论：本次修订后的本地工程交付材料齐备，含完整源码和 `.run` 安装包；个人实现仓已发布并经匿名访问验证；上游实现 PR 和社区评审尚未完成，不能称全部交付流程已结束。运行实现仍为 `f52671207769bf5f334972c997743eb6aa6f91b3`，没有改动内核、重编二进制或重跑 NPU。
+结论：本次修订后的本地工程交付材料齐备，含完整源码和 `.run` 安装包；个人实现仓已发布并经匿名访问验证；上游实现草稿 PR [#2656](https://github.com/xLLM-AI/xllm/pull/2656) 已提交，社区评审与合入尚未完成，不能称全部交付流程已结束。交付包的实测运行实现仍为 `f52671207769bf5f334972c997743eb6aa6f91b3`。上游移植提交 `4649db2` 在独立工作区准备，尚未重新进行 CANN 编译和 NPU 验证，不改变原交付包或其验收状态。
 
 ## 对照依据
 
@@ -26,7 +26,7 @@
 | 4.4 两阶段 API | .run 内 `packages/vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h` 及 `op_api/lib/libcust_opapi.so`；包含 GetWorkspaceSize 和执行函数 | 已齐，未运行安装器即可核实 |
 | 4.4 独立 C++ 样例、框架封装、直调 | `examples/`、`solution.py`、`csrc/torch_binding.cpp`、`setup.py`、`direct/`；实测二进制在 `artifacts/binaries/` | 已齐 |
 | 4.4 个人实现仓地址、分支、算子目录和固定 commit | 个人仓 `https://github.com/wangzhao-11a/t5-qkv-append-cache`，分支 `codex/t5-qkv-append-cache`，算子目录为仓库根目录 `.`，固定交付提交 `874f2bbbb385bc032d004735ae524244401a29ce`，实测运行提交 f526712；详见 `SUBMISSION_LINKS.md` | 已公开发布并验证 |
-| 第 5 节实现 PR 申请合入 | 目标 `xLLM-AI/xllm/xllm/core/kernels/npu/xllm_ops`；现有 #2604 只有设计文件 | **实现 PR 尚未提交** |
+| 第 5 节实现 PR 申请合入 | 已向 `xLLM-AI/xllm` 提交实现草稿 PR #2656，目录 `xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/`；#2604 仍是设计 PR | **已提交 Draft；移植版上板验证、评审及合入待完成** |
 
 ## 本轮修订
 

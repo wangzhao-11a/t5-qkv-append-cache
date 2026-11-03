@@ -7,7 +7,7 @@
     "local_branch": "codex/t5-qkv-append-cache",
     "local_operator_directory": "t5_qkv_task/",
     "fixed_runtime_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
-    "pull_request_url": null,
+    "pull_request_url": "https://github.com/xLLM-AI/xllm/pull/2656",
     "published": true,
     "branch_url": "https://github.com/wangzhao-11a/t5-qkv-append-cache/tree/codex/t5-qkv-append-cache",
     "operator_directory": ".",
@@ -31,7 +31,23 @@
   },
   "pending": [
     "Synchronize updated design and follow community review",
-    "Submit implementation PR to xLLM xllm/core/kernels/npu/xllm_ops"
+    "Rebuild and validate exact upstream PR commit on CANN/NPU before marking ready for review",
+    "Complete upstream implementation review and merge"
   ],
-  "note": "Personal implementation repository is published and anonymously verified. Community design review and upstream implementation PR remain pending."
+  "note": "Personal implementation repository is published. Upstream implementation draft PR #2656 is open; original runtime acceptance does not validate the adapted source port.",
+  "upstream_implementation": {
+    "number": 2656,
+    "html_url": "https://github.com/xLLM-AI/xllm/pull/2656",
+    "state": "open",
+    "draft": true,
+    "created_at": "2026-11-03T02:30:44Z",
+    "head_sha": "4649db26897d128389140138e1821d14aa5fb5e0",
+    "base_sha": "261274e5f45449e98d7740144c3a958a29f1fd3e",
+    "repository": "xLLM-AI/xllm",
+    "branch": "codex/t5-qkv-append-cache-implementation",
+    "operator_directory": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/",
+    "npu_validation": "not_run_for_port",
+    "local_validation": "static checks, CPU model, and commit hooks passed",
+    "merged": false
+  }
 }
