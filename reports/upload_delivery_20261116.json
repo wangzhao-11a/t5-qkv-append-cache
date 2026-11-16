@@ -1,0 +1,63 @@
+{
+  "status": "passed_nine_file_upload_audit",
+  "output": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\delivery_a201_20261116_final\\t5_qkv_submit_a201_stable_20261116_9files.zip",
+  "zip_bytes": 288785,
+  "zip_sha256": "ab93e819fe8dc62ad118d5a12875812aaecf78a5a2bc9bd20c9f90392117602f",
+  "root_files": 9,
+  "nested_zip": false,
+  "crc_valid": true,
+  "delivery_commit": "a09f31fef90fc076e57e2ab4a5e05dc800a45093",
+  "tested_runtime_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "runtime_diff_empty": true,
+  "files": [
+    {
+      "name": "00_submission_info.md",
+      "bytes": 3404,
+      "sha256": "f3a5b9e2dce2da713fb00a4db1fa01557d8fadbf73225b37a3ba22925a3f9d5e"
+    },
+    {
+      "name": "1 自验证步骤说明.md",
+      "bytes": 6399,
+      "sha256": "0b47111aa68914d443637fe23e0c1474fe98cf1bac2c1eed8983fa87f99fe846"
+    },
+    {
+      "name": "2.1 精度自验证报告.xlsx",
+      "bytes": 14289,
+      "sha256": "478cf067d20eba55d85f5f798502238d12a7459eb398b4ff61d3723ede5f1c79"
+    },
+    {
+      "name": "2.2 精度自验证日志.log",
+      "bytes": 114620,
+      "sha256": "d8b2d7ecbcbb85b332347a9605400a5d9c62789cba9e9766fd7d2b434f8ffa0f"
+    },
+    {
+      "name": "3.1 性能自验证报告.xlsx",
+      "bytes": 15654,
+      "sha256": "2b7ef8bc73c9d87c931d425c9cb760bdf7e2249746bc501293c0c5033a3d8f6a"
+    },
+    {
+      "name": "3.2 性能自验证日志.log",
+      "bytes": 173930,
+      "sha256": "2734894a312249d6090e50dec13cb7ee3d24fc1e7b823bd30877093003c47190"
+    },
+    {
+      "name": "4.1 内存自验证报告.xlsx",
+      "bytes": 9857,
+      "sha256": "d735580cc847ba187fc5e292c83a4263eb78688a456672b6408311525509142b"
+    },
+    {
+      "name": "4.2 内存自验证日志.log",
+      "bytes": 43697,
+      "sha256": "66dcf36c05cdcd51a4a2d7c0ae67254c682aff1151c6019433fa8977ee038b98"
+    },
+    {
+      "name": "custom_opp_openEuler_aarch64.run",
+      "bytes": 224116,
+      "sha256": "97b1f9e0e271df439ee8913e3fa67ffd970a737462f7b4c0c17b1d8fb980e42e"
+    }
+  ],
+  "desktop_path": "C:/Users/wzy85/Desktop/t5_qkv_submit_a201_stable_20261116_9files.zip",
+  "public_branch_verified_without_credentials": true,
+  "published_branch": "codex/t5-qkv-alignment-revalidation-20261116",
+  "public_verification": "git credential.helper empty, credential.interactive=false, http.extraHeader empty, GIT_TERMINAL_PROMPT=0; ls-remote matched fixed commit"
+}

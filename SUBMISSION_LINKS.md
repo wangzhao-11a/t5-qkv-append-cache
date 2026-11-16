@@ -6,6 +6,7 @@
 - 分支：`codex/t5-qkv-alignment-revalidation-20261116`
 - 算子目录：仓库根目录 `.`，包括 `op_kernel/`、`op_host/`、`common/`、`direct/`、`csrc/`、`examples/` 与 Python 封装。
 - 固定实测运行提交：[a2013d56db4ff8367160b157335d2ff670aad411](https://github.com/wangzhao-11a/t5-qkv-append-cache/commit/a2013d56db4ff8367160b157335d2ff670aad411)
+- 固定交付提交（源码和报告）：[a09f31fef90fc076e57e2ab4a5e05dc800a45093](https://github.com/wangzhao-11a/t5-qkv-append-cache/commit/a09f31fef90fc076e57e2ab4a5e05dc800a45093)，已推送并通过匿名Git访问核对。
 - 本轮完整记录：[验收说明](docs/ACCEPTANCE_20261116.md)、[五次独立固定测试](reports/stability_validation_20261116.json)、[原始证据](reports/accepted_a201_20261116/)。包含交付材料的固定提交链接见新九文件包的 `00_submission_info.md`。
 - `task_submission/` 与 `task_submission.zip` 为本轮七件；原目录七件已保留在 `evidence/baseline_c9decf2/task_submission/`。新九文件外层包一次上传，包含七件、提交信息和实测`.run`。
 - 本轮独立工程的五个新进程均固定10/10；不能据此声称上游PR移植版已通过上板验收。c9/f526与旧ZIP保持保留。
