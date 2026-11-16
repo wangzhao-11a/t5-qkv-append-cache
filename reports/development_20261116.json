@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-16",
+  "status": "offline_candidate_ready_for_target_validation",
+  "development_parent_commit": "655a487855bb791f75bf460f8396a4d22996c094",
+  "branch": "codex/t5-qkv-alignment-revalidation-20261116",
+  "runtime_baseline": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "preserved_c9_baseline": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+  "change_class": "original_local_performance_candidate",
+  "hypothesis": "Decouple per-direction ordinary/Pad DMA selection when only one GM side is 32-byte aligned. This does not explain slow fully aligned tiers.",
+  "root_cause_confirmed": false,
+  "cann_compiled": false,
+  "npu_executed": false,
+  "fixed_performance_acceptance": "not_run",
+  "host_semantic_cases_prepared": 776,
+  "host_semantic_cases_executed": 0,
+  "static_checks": {
+    "reference_unchanged": true,
+    "script_encoding": "UTF-8 no BOM, LF",
+    "original_manifest_valid": false,
+    "original_manifest_note": "Historical input ZIP manifest defect documented in docs/ACCEPTANCE_20261101.md; all imported frozen reference hashes still match."
+  },
+  "runtime_sources": [
+    {
+      "path": "common/t5_plan.h",
+      "sha256": "dfe4f6bd28d74a76f9243c6555c679c2e8cc656f57db56a2eb9a7d52cbb41a99",
+      "matches_f526712": true
+    },
+    {
+      "path": "csrc/torch_binding.cpp",
+      "sha256": "3d29a98ff738658c46696634a2c5d6c093b99b61614058cfd5b3393caf463a93",
+      "matches_f526712": true
+    },
+    {
+      "path": "direct/CMakeLists.txt",
+      "sha256": "03ccb90c9de5b86de7f8a352dd455f3b9afbfe170630fe438bb1ed730142b064",
+      "matches_f526712": true
+    },
+    {
+      "path": "direct/t5_direct.cpp",
+      "sha256": "a398f82400cd8b0023b0f5f4aa3785aafc9e2800aad5a8d0cb4d1f765161d9d1",
+      "matches_f526712": true
+    },
+    {
+      "path": "op_host/t5_split_qkv_append_cache.cpp",
+      "sha256": "b234eccfa9d0ddc08cafa8eecb80ba86922e08ec191ae4663f019768a0e9d220",
+      "matches_f526712": true
+    },
+    {
+      "path": "op_host/t5_split_qkv_append_cache_tiling.h",
+      "sha256": "cf3dbfe73355e2749b6f2d0ad93affda56caff0d82ad6c252f89a683a03148ed",
+      "matches_f526712": true
+    },
+    {
+      "path": "op_kernel/t5_copy.h",
+      "sha256": "2f1f39b85e2ab621ec626754d294e37f51761ee3ddc8af54c4b4ed5b37c407ff",
+      "matches_f526712": false
+    },
+    {
+      "path": "op_kernel/t5_split_qkv_append_cache.cpp",
+      "sha256": "1f1fb9793e60a6c3a2261fe97cf597c6f49369bc472c2b12efc122ad65817227",
+      "matches_f526712": true
+    },
+    {
+      "path": "op_project.json",
+      "sha256": "e50d38f8c9e30e3e87ab26021a1d0d508157267ab1b52a0c7254acc430a3f2b2",
+      "matches_f526712": true
+    },
+    {
+      "path": "setup.py",
+      "sha256": "b575de3ef3f1abd0d4085497fe0de5b3832557b5b1520e7c5b0b8909b56fd9c2",
+      "matches_f526712": true
+    },
+    {
+      "path": "solution.py",
+      "sha256": "0a8a64a66c0b38f12ad2cc7302656f44b960e22e306e5f3232c66114d2344256",
+      "matches_f526712": true
+    }
+  ],
+  "offline_evidence": {
+    "cpu_address_model_candidate_20261116.json": {
+      "sha256": "a47dc80a35f38984831058b8e3c7fb1bb283d8297f27ac2f38dcd7b606b3609f",
+      "result": {
+        "status": "passed",
+        "test_type": "CPU address-model checks only",
+        "npu_executed": false,
+        "public_shapes": 35,
+        "additional_random_shapes": 120,
+        "seconds": 0.7077830999915022
+      }
+    },
+    "host_kernel_compile_20261116.json": {
+      "sha256": "da2062e259d1ddfa7c38be6cdf935b0f4c416b20d15c4d639b1cd1b8b8d544be",
+      "result": {
+        "scope": "CPU adapter executes actual header; no device, cache, concurrency or performance validation",
+        "baseline_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "cann_compiled": false,
+        "npu_executed": false,
+        "work_directory": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\host-kernel-h_07ktfa",
+        "versions": {
+          "baseline": {
+            "kernel_sha256": "80187bdde2fc70e730a1f690dc1c0cfc4bf516a38a2d7988c9e3c0a911ea79c4",
+            "host_compiled": true,
+            "host_executed": false,
+            "build_log": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\host-kernel-h_07ktfa\\baseline\\build.log"
+          },
+          "candidate": {
+            "kernel_sha256": "2f1f39b85e2ab621ec626754d294e37f51761ee3ddc8af54c4b4ed5b37c407ff",
+            "host_compiled": true,
+            "host_executed": false,
+            "build_log": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\host-kernel-h_07ktfa\\candidate\\build.log"
+          }
+        },
+        "status": "host_compiled_not_executed"
+      }
+    },
+    "host_kernel_execution_block_20261116.json": {
+      "sha256": "6010f5fb4d07f117e130eadd9a3b78074bd9ea9686ad97b1e3655b528d6a6a95",
+      "result": {
+        "status": "blocked_by_windows_application_control",
+        "win32_error": 4551,
+        "executable": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\host-kernel-dk_8e4_q\\baseline\\test_t5_copy.exe",
+        "sha256": "77956d232bf93bc17a035e9bab5fc918535a134e81187d33b9aa94d372ddee71",
+        "attempts": [
+          "sandbox CreateProcess raised OSError WinError4551",
+          "sandbox-external PowerShell explicitly reported application control policy blocked file"
+        ],
+        "host_semantic_tests_executed": false,
+        "npu_executed": false,
+        "cann_compiled": false,
+        "next_step": "Run the prepared host test on an authorized Linux host; do not bypass application control"
+      }
+    },
+    "diagnostic_guard_checks_20261116.json": {
+      "sha256": "8c5267b05b695e15d228a6471897a8189883453a841ee2e192b16950c3ca2d7a",
+      "result": {
+        "status": "passed",
+        "scope": "offline CLI/path/report fixtures only; no tensor or device execution",
+        "npu_executed": false,
+        "script_sha256": "177c36f060881ce8479989fedb53234951b828bd43693a9156128a043cbfb5ae",
+        "checks": {
+          "matching_exclusive_opp": "passed",
+          "empty_opp_rejected": "passed",
+          "wrong_opp_rejected": "passed",
+          "mixed_opp_rejected": "passed",
+          "failed_block_retains_result": "passed",
+          "refuses_report_overwrite": "passed",
+          "python_ast_and_lf": "passed"
+        },
+        "fixture_directory": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\diagnostic-guards-s4njl2d8"
+      }
+    },
+    "repeated-flow-18v2f4nm/results.json": {
+      "sha256": "598db53f48d9cea5dacf6c7111152d1551a3f17e7d4061d912d9b6e4fc0cbebc",
+      "result": {
+        "scope": "one_time_shell_control_flow_only",
+        "npu_executed": false,
+        "source_sha256": "30a1e57112319741948a114e3c2e72938918302d51fbf2f7924a50a83d44aec8",
+        "cases": [
+          {
+            "scenario": "benchmark_fail",
+            "process_exit": 7,
+            "phase_exit": 7,
+            "benchmark_calls": 1,
+            "acceptance_calls": 0,
+            "fingerprint_calls": 0,
+            "benchmark_exits": [
+              7
+            ],
+            "device_inventory_stub_calls": 2
+          },
+          {
+            "scenario": "acceptance_fail",
+            "process_exit": 9,
+            "phase_exit": 9,
+            "benchmark_calls": 1,
+            "acceptance_calls": 1,
+            "fingerprint_calls": 0,
+            "benchmark_exits": [
+              0
+            ],
+            "device_inventory_stub_calls": 2
+          },
+          {
+            "scenario": "all_pass",
+            "process_exit": 0,
+            "phase_exit": 0,
+            "benchmark_calls": 5,
+            "acceptance_calls": 5,
+            "fingerprint_calls": 1,
+            "benchmark_exits": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "device_inventory_stub_calls": 10
+          }
+        ],
+        "status": "passed"
+      }
+    }
+  },
+  "unchanged": [
+    "frozen reference and performance protocol",
+    "original t5_qkv_task HEAD and tracked files",
+    "historical performance reports and delivery ZIP files"
+  ],
+  "required_next": [
+    "Read new raw five-run/round reports and actual binary/kernel identities",
+    "Verify Ascend910_9382, CANN 9.1.0, container, processes, ports and device allocation",
+    "Run 776 host semantic cases per version on an authorized Linux host",
+    "Compile CANN and validate smoke, correctness, repeat output stability, engineering and memory",
+    "Choose one discriminating address comparison from the collected evidence",
+    "Run original full acceptance and five independent fail-stop frozen performance processes"
+  ]
+}

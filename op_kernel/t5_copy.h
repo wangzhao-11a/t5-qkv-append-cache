@@ -73,16 +73,22 @@ class T5Copy {
     auto local = queue_.AllocTensor<uint16_t>();
     // The plain DMA path requires a complete 32-byte block count. Inspect the
     // actual GM addresses too: contiguous storage-offset views may be unaligned.
-    const bool aligned = alignedFragments_ || (((n & 15) == 0) &&
-        ((reinterpret_cast<uint64_t>(src.GetPhyAddr() + srcOffset) & 31) == 0) &&
+    // Alignment belongs to each transfer direction. An unaligned input must
+    // not force an otherwise aligned output to use padded DMA (or vice versa).
+    // Full blocks also ensure the G2L pad path inserts no dummy elements before
+    // an ordinary L2G copy. Keep the existing all-aligned fast path intact.
+    const bool fullBlocks = (n & 15) == 0;
+    const bool loadAligned = alignedFragments_ || (fullBlocks &&
+        ((reinterpret_cast<uint64_t>(src.GetPhyAddr() + srcOffset) & 31) == 0));
+    const bool storeAligned = alignedFragments_ || (fullBlocks &&
         ((reinterpret_cast<uint64_t>(dst.GetPhyAddr() + dstOffset) & 31) == 0));
     AscendC::DataCopyExtParams params{1, n * uint32_t(sizeof(uint16_t)), 0, 0, 0};
     AscendC::DataCopyPadExtParams<uint16_t> padding{false, 0, 0, 0};
-    if (aligned) AscendC::DataCopy(local, src[srcOffset], n);
+    if (loadAligned) AscendC::DataCopy(local, src[srcOffset], n);
     else AscendC::DataCopyPad(local, src[srcOffset], params, padding);
     queue_.EnQue(local);
     local = queue_.DeQue<uint16_t>();
-    if (aligned) AscendC::DataCopy(dst[dstOffset], local, n);
+    if (storeAligned) AscendC::DataCopy(dst[dstOffset], local, n);
     else AscendC::DataCopyPad(dst[dstOffset], local, params);
     queue_.FreeTensor(local);
   }
