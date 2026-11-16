@@ -1,0 +1,464 @@
+{
+  "time_utc": "2026-11-16T16:38:09.190424+00:00",
+  "status": "cpu_semantics_and_native_builds_passed",
+  "target": "199.142.52.52",
+  "container": "248a9b8f1bbd",
+  "candidate_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "baseline_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "preparation_pid": 3738,
+  "preparation_exit": 0,
+  "evidence": {
+    "host_semantics_summary.json": {
+      "sha256": "2837500161b41884af56b1e0e3683e430c77800eeb43f81a75b21122608fae93",
+      "result": {
+        "purpose": "CPU actual-header semantic checks; not CANN/device/performance acceptance",
+        "candidate_source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+        "baseline_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "candidate_directory": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f",
+        "baseline_directory": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769",
+        "log_directory": "/workspace/t5_qkv_tasks/host_semantics_20261116",
+        "shell_exit_code": 0,
+        "npu_executed": false,
+        "cann_compiled": false,
+        "stages": {
+          "verify_sources": {
+            "exit_code": 0,
+            "status": "passed"
+          },
+          "compiler_version": {
+            "exit_code": 0,
+            "status": "passed"
+          },
+          "baseline_compile": {
+            "exit_code": 0,
+            "status": "passed"
+          },
+          "baseline_run": {
+            "exit_code": 0,
+            "status": "passed"
+          },
+          "candidate_compile": {
+            "exit_code": 0,
+            "status": "passed"
+          },
+          "candidate_run": {
+            "exit_code": 0,
+            "status": "passed"
+          }
+        },
+        "versions": {
+          "baseline": {
+            "records": [
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 0,
+                "dma_read": 3086,
+                "pad_read": 0,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 1,
+                "dma_read": 2558,
+                "pad_read": 528,
+                "dma_write": 2558,
+                "pad_write": 528
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 2,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 1807,
+                "pad_write": 1279
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 4,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 1807,
+                "pad_write": 1279
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 0,
+                "dma_read": 3086,
+                "pad_read": 0,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 1,
+                "dma_read": 2558,
+                "pad_read": 528,
+                "dma_write": 2558,
+                "pad_write": 528
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 2,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 1807,
+                "pad_write": 1279
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 4,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 1807,
+                "pad_write": 1279
+              },
+              {
+                "status": "passed",
+                "host_semantic_cases": 776,
+                "npu_executed": false,
+                "cann_compiled": false,
+                "dma_read": 21204,
+                "pad_read": 19100,
+                "dma_write": 21204,
+                "pad_write": 19100
+              }
+            ],
+            "executable_sha256": "50e30a2162f6652c8c9564ac1ed1ed6da468c932350795445d447d61acd3db2f"
+          },
+          "candidate": {
+            "records": [
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 0,
+                "dma_read": 3086,
+                "pad_read": 0,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 1,
+                "dma_read": 2558,
+                "pad_read": 528,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 2,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "fp16",
+                "offset_mask": 4,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 0,
+                "dma_read": 3086,
+                "pad_read": 0,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 1,
+                "dma_read": 2558,
+                "pad_read": 528,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 2,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "case": "large",
+                "dtype_bits": "bf16",
+                "offset_mask": 4,
+                "dma_read": 1807,
+                "pad_read": 1279,
+                "dma_write": 3086,
+                "pad_write": 0
+              },
+              {
+                "status": "passed",
+                "host_semantic_cases": 776,
+                "npu_executed": false,
+                "cann_compiled": false,
+                "dma_read": 23892,
+                "pad_read": 16412,
+                "dma_write": 30064,
+                "pad_write": 10240
+              }
+            ],
+            "executable_sha256": "23af192b23375df155b68066ee7cc84988e7ac1f3c4494b9783fd00c70be68f2"
+          }
+        },
+        "errors": [],
+        "verified_sources": {
+          "candidate_kernel": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/op_kernel/t5_copy.h",
+            "sha256": "2f1f39b85e2ab621ec626754d294e37f51761ee3ddc8af54c4b4ed5b37c407ff"
+          },
+          "baseline_kernel": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769/op_kernel/t5_copy.h",
+            "sha256": "80187bdde2fc70e730a1f690dc1c0cfc4bf516a38a2d7988c9e3c0a911ea79c4"
+          },
+          "candidate_plan": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/common/t5_plan.h",
+            "sha256": "dfe4f6bd28d74a76f9243c6555c679c2e8cc656f57db56a2eb9a7d52cbb41a99"
+          },
+          "baseline_plan": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769/common/t5_plan.h",
+            "sha256": "dfe4f6bd28d74a76f9243c6555c679c2e8cc656f57db56a2eb9a7d52cbb41a99"
+          },
+          "host_adapter": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/tests/host_kernel/kernel_operator.h",
+            "sha256": "605417965936f5485d5804dc1c639382105c45c8e7502cb8a11927c4d734ed57"
+          },
+          "host_test": {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/tests/host_kernel/test_t5_copy.cpp",
+            "sha256": "512cc3e7f386b745805c062436bd65d8c1e2969cc9c77b364359de57a8dcf926"
+          },
+          "candidate_deployment_manifest_present": true,
+          "baseline_deployment_manifest_present": true
+        },
+        "status": "passed_host_semantics_only"
+      }
+    },
+    "native_f526_manifest.json": {
+      "sha256": "cae1bdd0b7d808bcfde35de0a7d93daea8b2dab2fbb18a67bc919f762657b409",
+      "result": {
+        "status": "compiled_native_only",
+        "npu_executed": false,
+        "torch_binding_built": false,
+        "source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "private_opp": "/root/.local/t5_qkv_f52671207769",
+        "files": [
+          {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769/build/direct/lib/libt5_direct.so",
+            "bytes": 403560,
+            "sha256": "93d574c596fa9054595e20317564a85929e2817f2c2a88c6a8b5bb6cfd0ca7a2"
+          },
+          {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769/build/examples/t5_example",
+            "bytes": 101608,
+            "sha256": "7b74190750cf0d64298c58f32530f378381e97e10eff834a6ae697fe10696d91"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/framework/tensorflow/npu_supported_ops.json",
+            "bytes": 202,
+            "sha256": "da686325519321709a457d8e418044e59841e90327af366070ecbef1ad5bf30c"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h",
+            "bytes": 1373,
+            "sha256": "e2903a3b28a249685d6b79f83c21cd64403afa575aa2e0f8b3f763869a3566b6"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+            "bytes": 68056,
+            "sha256": "5fe6899ce81965413657243cf1a195cee02c8d2bac8877fa0e28bac5fda5c186"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/config/ascend910_93/aic-ascend910_93-ops-info.json",
+            "bytes": 2453,
+            "sha256": "57632613e67efd825e8a81033e40aa68ca9cc3a530c628bd30b50f3ca07be124"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.json",
+            "bytes": 2963,
+            "sha256": "6ad98ed8a610f805b3fa8c487426a47e8704e7115b364f7ec3e13041d79b2e44"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+            "bytes": 10280,
+            "sha256": "a918cd24df7631e2525bcc0f58925144f6b8efa536e8cd36b20a38fef5a2b7d5"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.json",
+            "bytes": 2933,
+            "sha256": "36b8fab31a69d879e8bb7f37d8593defb3063c01991b9887e79ff8cf350fbc45"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o",
+            "bytes": 10280,
+            "sha256": "bdf62c008daa18ed88d0d8331263b93998287cee25c9f3dbeb30e2a4f30ad539"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/binary_info_config.json",
+            "bytes": 2506,
+            "sha256": "d8f94e7f8c8f3a26614acc40821d9336afe994d75b66bd734b91de8c83589b9c"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/t5_split_qkv_append_cache.json",
+            "bytes": 5417,
+            "sha256": "46f7450e80a268c4a5b5d02bc904d375dbd40b844272a717ec21919625f376a0"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+            "bytes": 264504,
+            "sha256": "7b4e534dc46e2e696c445fbb0e8c835cfac197e82d6ab2776ff75d74c6448719"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/liboptiling.so",
+            "bytes": 264504,
+            "sha256": "7b4e534dc46e2e696c445fbb0e8c835cfac197e82d6ab2776ff75d74c6448719"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_proto/inc/op_proto.h",
+            "bytes": 539,
+            "sha256": "3d22d52bc09226888ebb8996d7a0fd2c1d5a9e1c227998b6d9de6403d687bae8"
+          },
+          {
+            "path": "/root/.local/t5_qkv_f52671207769/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so",
+            "bytes": 264504,
+            "sha256": "d15071f3910074b44dc1c585117edcde8644db3af9a218d9ac1632af10cda2cf"
+          }
+        ]
+      }
+    },
+    "native_a201_manifest.json": {
+      "sha256": "c9ac1cfafba3a29499733ae6d01c06bd21c6be6f6bf887fcc7f4fdac6157dff5",
+      "result": {
+        "status": "compiled_native_only",
+        "npu_executed": false,
+        "torch_binding_built": false,
+        "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+        "private_opp": "/root/.local/t5_qkv_a2013d56db4f",
+        "files": [
+          {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/lib/libt5_direct.so",
+            "bytes": 402856,
+            "sha256": "bda8faf74e2fb9ab6d757f7b84a4c18bb3eb016ca08e3bfb15871148e69cdb62"
+          },
+          {
+            "path": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/examples/t5_example",
+            "bytes": 101608,
+            "sha256": "4ac4b7a6ea96c5178ac66f9c875607a7be49fe9c5675193bb818fbe29a5af3ed"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/framework/tensorflow/npu_supported_ops.json",
+            "bytes": 202,
+            "sha256": "da686325519321709a457d8e418044e59841e90327af366070ecbef1ad5bf30c"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h",
+            "bytes": 1373,
+            "sha256": "e2903a3b28a249685d6b79f83c21cd64403afa575aa2e0f8b3f763869a3566b6"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+            "bytes": 68056,
+            "sha256": "5fe6899ce81965413657243cf1a195cee02c8d2bac8877fa0e28bac5fda5c186"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/config/ascend910_93/aic-ascend910_93-ops-info.json",
+            "bytes": 2453,
+            "sha256": "57632613e67efd825e8a81033e40aa68ca9cc3a530c628bd30b50f3ca07be124"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.json",
+            "bytes": 2963,
+            "sha256": "394e376c6c5ad9d50c8cabf303afe90b1e7a2981d7350a65447422da8a34f8eb"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o",
+            "bytes": 10280,
+            "sha256": "37c110d483ac6702a819f7f8447aa4daf49fec5f82ffe912a7a0476ddf6f9247"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.json",
+            "bytes": 2933,
+            "sha256": "d5a26911a292e983f66b9ca714a28b6c2ff8ded3b9f4c18d7c9a43750e05d51a"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o",
+            "bytes": 10280,
+            "sha256": "da90862b69fe6856082b3102d4dcd179b2d72d4ab6c0779a213a9049f60ed2b0"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/binary_info_config.json",
+            "bytes": 2506,
+            "sha256": "d8f94e7f8c8f3a26614acc40821d9336afe994d75b66bd734b91de8c83589b9c"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/t5_split_qkv_append_cache.json",
+            "bytes": 5417,
+            "sha256": "46f7450e80a268c4a5b5d02bc904d375dbd40b844272a717ec21919625f376a0"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+            "bytes": 264504,
+            "sha256": "7b4e534dc46e2e696c445fbb0e8c835cfac197e82d6ab2776ff75d74c6448719"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/liboptiling.so",
+            "bytes": 264504,
+            "sha256": "7b4e534dc46e2e696c445fbb0e8c835cfac197e82d6ab2776ff75d74c6448719"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_proto/inc/op_proto.h",
+            "bytes": 539,
+            "sha256": "3d22d52bc09226888ebb8996d7a0fd2c1d5a9e1c227998b6d9de6403d687bae8"
+          },
+          {
+            "path": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so",
+            "bytes": 264504,
+            "sha256": "d15071f3910074b44dc1c585117edcde8644db3af9a218d9ac1632af10cda2cf"
+          }
+        ]
+      }
+    }
+  },
+  "npu_tests_started": false,
+  "performance_tested": false,
+  "private_python_setup": {
+    "pid": 7638,
+    "script_sha256": "8a768929749cba55823d65b9bc772acdfcafd7b7df84465b07933d5e0808761a",
+    "log": "/tmp/t5_prepare_private_python_20261116.log",
+    "status_at_last_observation": "downloading_pinned_packages",
+    "existing_other_project_runtime_modified": false
+  },
+  "ssh_session": 25514,
+  "original_five_run_reports_found": false,
+  "search_receipts": [
+    "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\external_report_search_summary.json",
+    "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\generic_report_gap_results.json",
+    "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\local_t5_numeric_search.json"
+  ],
+  "limitations": [
+    "Host CPU adapter does not model device aliases, asynchronous DMA, cache mapping or performance",
+    "Native object differences do not yet prove specific hot-path instructions or performance behavior",
+    "New container/device allocation differs from historical accepted run",
+    "Original user-reported five-run raw evidence is still not located; a new controlled baseline must be labeled separately"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "time_utc": "2026-11-16T17:21:07.516309+00:00",
+  "status": "native_npu_smoke_passed_only",
+  "target": "199.142.52.52",
+  "container": "248a9b8f1bbd",
+  "evidence": {
+    "native_smoke_f526_summary.json": {
+      "sha256": "4e7ef603a48d7efc4e77180276bb73a6f54f2d0123e4e86dc86116047c267424",
+      "result": {
+        "status": "passed_native_smoke_only",
+        "npu_executed": true,
+        "records": {
+          "fp16": [
+            {
+              "status": "passed",
+              "workspace_bytes": 0,
+              "bit_mismatches": 0
+            }
+          ],
+          "bf16": [
+            {
+              "status": "passed",
+              "workspace_bytes": 0,
+              "bit_mismatches": 0
+            }
+          ],
+          "negative": [
+            {
+              "metadata_scenario": 0,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 1,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 2,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 3,
+              "status": "passed",
+              "acl_status": 161002
+            },
+            {
+              "metadata_scenario": 4,
+              "status": "passed",
+              "acl_status": 561002
+            }
+          ]
+        },
+        "source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "physical_device": 3,
+        "runtime_selector": 1,
+        "logical_device": 0,
+        "limitations": "Small shape only; not 35-case accuracy, engineering, memory or performance acceptance"
+      }
+    },
+    "native_smoke_a201_summary.json": {
+      "sha256": "acc68185b176001841ca120a8650dd4ec562c157b6753d4c3614001781d1c43e",
+      "result": {
+        "status": "passed_native_smoke_only",
+        "npu_executed": true,
+        "records": {
+          "fp16": [
+            {
+              "status": "passed",
+              "workspace_bytes": 0,
+              "bit_mismatches": 0
+            }
+          ],
+          "bf16": [
+            {
+              "status": "passed",
+              "workspace_bytes": 0,
+              "bit_mismatches": 0
+            }
+          ],
+          "negative": [
+            {
+              "metadata_scenario": 0,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 1,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 2,
+              "status": "passed",
+              "acl_status": 561002
+            },
+            {
+              "metadata_scenario": 3,
+              "status": "passed",
+              "acl_status": 161002
+            },
+            {
+              "metadata_scenario": 4,
+              "status": "passed",
+              "acl_status": 561002
+            }
+          ]
+        },
+        "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+        "physical_device": 3,
+        "runtime_selector": 1,
+        "logical_device": 0,
+        "limitations": "Small shape only; not 35-case accuracy, engineering, memory or performance acceptance"
+      }
+    }
+  },
+  "executed_script_sha256": "3a60d8a1128a27bf2f1ab77a5133de956b788e3b7d10a5dde2959cb57001a53c",
+  "full_correctness_run": false,
+  "performance_run": false,
+  "original_five_run_evidence_found": false,
+  "existing_accepted_delivery_replaced": false,
+  "runtime_preparation": "Offline v3 setup and both Python bindings completed with total exit 0; functional pipeline PID15576 now running. Full functional/performance results pending.",
+  "limitations": [
+    "Small shape native smoke does not establish large cache correctness or fixed performance",
+    "Candidate alignment change remains an unproven performance hypothesis"
+  ],
+  "post_smoke_binary_check": {
+    "sha256": "84ad1580b7d670809f399e88ce72f1619155e9154cb05fe3947ecc38fa19d0b7",
+    "result": {
+      "results": [
+        {
+          "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+          "native_files_unchanged_after_smoke": 16
+        },
+        {
+          "commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+          "native_files_unchanged_after_smoke": 16
+        }
+      ],
+      "new_npu_execution": false
+    }
+  },
+  "runtime_metadata_sha256": "f90737e7227be05b60b9b0cb57459dab60e515dbcf28af02dc6c01c72b150715",
+  "binding_sha256": {
+    "f52671207769": "ab56bfb54225e00c23f86b8bf89c2acacce854f7f2b80489f77dc477b643d206",
+    "a2013d56db4f": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6"
+  }
+}

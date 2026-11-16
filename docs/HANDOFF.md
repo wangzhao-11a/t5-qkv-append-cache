@@ -1,3 +1,113 @@
+# 2026-11-16 离线依赖已传完，修正后私有环境/绑定构建启动
+
+全部 13 个本机官方 wheel 已传输并逐哈希验真，外部 Torch 完整 wheel 已在目标保存。
+两版 native smoke 后的 16 个文件各自哈希全部未变，收据
+`artifacts/remote_20261116/post_native_smoke_hashes_20261116.json`。
+
+离线 v3 首次检查因手工摘要遗漏内核版本 `.aarch64` 后缀拒绝；未建立 venv 或运行 pip。
+失败目录只含 setup.exit=1，已严格检查并原子重命名保留为
+`/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3_rejected_kernel_metadata`。
+修正直接读取原始 `target_platform_exact_20261116.json`（SHA2f7090ce...da36a），
+不再手写内核版本。实际 release 为 `5.10.0-216.0.0.115.oe2203sp4.aarch64`。
+
+修正版独占管道 PID **13943** 已启动，不能重复启动：
+- 日志 `/tmp/t5_offline_v3_and_bindings_corrected_20261116.log`
+- 总退出码 `/workspace/t5_qkv_tasks/offline_v3_and_bindings_corrected_20261116.exit`
+- 新环境 `/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3`
+- 安装成功后顺序构建 f526/a201 Python 绑定；尚未观察最终结果。
+
+功能 wrapper、单次固定 benchmark wrapper 已上传并通过目标 bash-n，尚未执行。
+绑定成功后，先由 `launch_functional_pair_20261116.sh` 完成两版 smoke/完整功能；
+再按当前环境新证据运行一次 f526 固定协议，不能自动重试失败性能。
+session25514 最近已超过 71 分钟、214 次心跳，仍在线。c9/f526/旧包均保留。
+
+---
+
+# 2026-11-16 两版原生 NPU smoke 已通过，离线 Python 依赖传输中
+
+当前 SSH session **25514** 仍有效，已持续超过 51 分钟并收到 155 次心跳；
+目标仍为 199.142.52.52 / 248a9b8f1bbd / Ascend910_9382。
+f526/a201 的 CPU 实际头文件各 776 项、CANN 原生构建及原生 C++ NPU smoke
+均通过。smoke 使用 physical3/runtime selector1：FP16/BF16 bit_mismatches=0，
+五项非法参数均拒绝，结束后设备清空且监听端口无变化；这不是完整 35 例或性能验收。
+原始摘要已收回 artifacts/remote_20261116/native_smoke_{f526,a201}_summary.json。
+
+原生重建 f526 的 direct.so 与 C++ example 与历史已验收文件逐字节相同；
+不能据此归因于原生 ABI/编译器回归。a201 的设备对象不同，具体热路径尚未证明。
+实际执行的 smoke 脚本 SHA=3a60d8a1128a27bf2f1ab77a5133de956b788e3b7d10a5dde2959cb57001a53c，
+已回收同名本地文件。后编辑的 with_hash_guard_v2.sh 未执行，另存以免混淆。
+后续补验原生文件哈希，不为此重复 NPU 测试。
+
+Python 准备 v1 官方下载超时 exit124；v2 镜像 GET403，另一个镜像目标端小 GET 也403，
+已停止镜像尝试，两个失败环境及下载片段保留。完整 Torch 官方 wheel 已在目标端校验，
+其余官方 wheel 从本机下载并校验后通过现有 SSH 传输；TorchNPU 已收到 SHA 验真 ACK，
+NumPy 和其余依赖在队列中。新环境将使用全新后缀 offline_v3，严格 no-index/hash 安装。
+现有其他工程 Torch2.8 环境未改动。绑定脚本已上传并验真，尚未执行。
+
+下一步：确认所有上传 ACK → 全部 wheel 复核 → offline_v3 安装 → 两版绑定 →
+完整正确性/重复输出/工程/内存 → 当前环境 f526 固定基线及有区分度的性能对照。
+新五轮复测原始报告在已搜索本机范围内未找到；新环境实测须与历史证据分别记账。
+**固定性能稳定 10/10 尚未完成，没有替换旧交付件。** 下文均为较早的进度快照。
+
+---
+
+# 2026-11-16 原版/候选 CPU 语义与 CANN 原生编译已通过
+
+新授权连回同一248a9b8f1bbd容器，当前长连接session **25514**，双层20秒保活。
+PID3738已经结束，总exit=0；f526与a201真实头文件各776项CPU语义全部通过，
+两版ACLNN包/direct/C++ example原生构建成功，三份完整JSON已下载并校验。
+见 `reports/native_validation_20261116.json`；尚未运行NPU正确性或任何性能测试。
+
+新私有Python环境准备已正常通过审批后启动，PID **7638**（不要重复启动），
+脚本 `/tmp/t5_sources_20261116/prepare_private_python.sh`，
+日志 `/tmp/t5_prepare_private_python_20261116.log`，
+目标 `/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116`。
+下一步先看setup.exit及metadata_verified.json；确认官方wheel SHA、版本和git5dd8后
+再构建两版绑定。现有其他工程torch2.8环境未改。
+
+绑定脚本已本地review并排队上传 `/tmp/t5_sources_20261116/build_binding_20261116.sh`，
+当前SHA41115edbb8eea50ae6fa83158c8b2868c3f0263d4cbae7ba38b33510ad335170。
+它保留已验证的CANN/Python动态库路径，仅前置新venv及本target库；尚未执行。
+
+本机报告查找已经完成含近期generic文件名的补查：未找到新五次复测原始JSON。
+旧提交包只有70.22155/70.2012证据，不能作为本轮原始结果。搜索索引在
+artifacts/remote_20261116；需要按当前机器重新建立对照时，与旧验收分开标记。
+下面“结果未回收”“未安装调用”是此前断线时的历史快照。
+
+---
+
+# 2026-11-16 新 A3 已部署，后台结果待授权恢复后收取
+
+新授权曾连接 199.142.52.52 / 容器 248a9b8f1bbd，官方 SoC 为 Ascend910_9382，
+CANN9.1.0、driver26.1.1。当前映射 card1/chip0=physical2、chip1=physical3，
+两个 runtime selector 为0/1；尚未为NPU测试选卡。已见整板无任务，端口见结构化报告。
+新机器无原T5目录和本次复测原始报告。已完整验证并新建 c9/f526/a201 三份源码目录，
+保留所有原本地基线、历史二进制和交付件。具体SHA/文件数见 reports/remote_preparation_20261116.json。
+
+后台准备 PID **3738** 已启动：CPU两版语义检查通过后才依次编译 f526/a201 原生产物，
+不调用NPU。**尚未收回结果，不能宣称CPU语义或CANN编译通过，也不得重新启动。**
+- 外层日志：`/tmp/t5_cpu_native_pipeline_20261116.log`
+- 总退出码：`/workspace/t5_qkv_tasks/preparation_20261116.exit`
+- CPU摘要：`/workspace/t5_qkv_tasks/host_semantics_20261116/summary.json`
+- 各源码目录下：`artifacts/validation/native_build.log`、`.exit`、`native_binary_manifest.json`
+
+SSH会话41021最后成功状态1554.2秒、77次心跳；1572秒时失效。复用授权重连99632被
+跳板明确拒绝 platform authorization denied。停止重试，已请求刷新同容器授权。
+当前没有SSH长连接；双层20秒保活和远端20秒心跳不能阻止平台撤销授权。
+
+默认Python3.12.13缺torch/torch_npu/ml_dtypes；现有其他工程venv是torch2.8，未改动。
+已准备全新任务私有Python3.12/Torch2.10环境脚本和官方wheel校验。该调用因自动审批服务断流
+未执行，文件未上传、环境未安装；之后SSH也断开。重连后先检查路径再正常执行。
+
+用户认为复测报告应在本机，已查78个T5目录和Desktop/Downloads/Documents相关文件。
+目前只找到旧f526性能70.22155/70.2012与本轮反馈摘要，没有新五次原始JSON。
+搜索索引保存在artifacts/remote_20261116，正在补查近期generic文件名；不把旧包当新证据。
+
+恢复后的第一步是取回已有任务状态及日志，然后继续环境/正确性验证；任何性能对照都
+需源码/二进制身份明确、设备清场，并与原历史验收分别记账。原固定性能稳定10/10目标未完成。
+
+---
+
 # 2026-11-16 新机器连接停在跳板认证前
 
 用户已授权 199.142.52.52，要求保持 SSH 长连接、先收复测原始证据、保留 c9/f526712。

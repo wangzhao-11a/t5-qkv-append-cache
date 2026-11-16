@@ -1,0 +1,157 @@
+{
+  "recorded_at_utc": "2026-11-16T16:24:22.353350+00:00",
+  "status": "remote_preparation_started_results_pending_authorization_refresh",
+  "target": "199.142.52.52",
+  "hostname": "248a9b8f1bbd",
+  "official_runtime": {
+    "soc": "Ascend910_9382",
+    "visible_device_count": 2
+  },
+  "target_hostkey_sha256": "39c40d22798a6857babd02164a1d04b2923247a3978cf2bab054f5eb8ff10d57",
+  "cann_realpath": "/usr/local/Ascend/cann-9.1.0",
+  "driver": "26.1.1",
+  "device_mapping": [
+    {
+      "card": 1,
+      "chip": 0,
+      "physical": 2,
+      "runtime_selector": 0
+    },
+    {
+      "card": 1,
+      "chip": 1,
+      "physical": 3,
+      "runtime_selector": 1
+    }
+  ],
+  "selected_device_for_npu_tests": null,
+  "observed_occupancy": "No running processes found in NPU 1 before preparation",
+  "listening_tcp_ports": [
+    22,
+    6988,
+    9500,
+    9501,
+    9508,
+    38041
+  ],
+  "inventory_sha256": "47a5bf1a554fa72d7ae31bc6a498ab7274bd374abb5582206bc2e2bc057879f7",
+  "default_python_packages": {
+    "torch": "not installed",
+    "torch_npu": "not installed",
+    "numpy": "2.5.1",
+    "ml_dtypes": "not installed"
+  },
+  "existing_other_project_venv": {
+    "python": "3.12.13",
+    "torch": "2.8.0",
+    "torch_npu": "2.8.0.post5",
+    "numpy": "1.26.4",
+    "ml_dtypes": "absent",
+    "modified": false
+  },
+  "deployments": [
+    {
+      "commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+      "source_directory": "/workspace/t5_qkv_tasks/t5_qkv_c9decf212667",
+      "archive_sha256": "1ac44d8c93f86b8dea7df3e35b3e0701d0355fc2e153e05f34adcde7d5cbfb5c",
+      "files_verified": 117,
+      "remote_deployment": "verified_new_directory",
+      "original_baselines_overwritten": false
+    },
+    {
+      "commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+      "source_directory": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769",
+      "archive_sha256": "91694dcfa5ce854c0c45464c7824cc68ba994610df8aae64eff7f904f8e605e9",
+      "files_verified": 191,
+      "remote_deployment": "verified_new_directory",
+      "original_baselines_overwritten": false
+    },
+    {
+      "commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+      "source_directory": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f",
+      "archive_sha256": "db5a41cc54cd9f1a005298501123a32a2fd373e1bf6128e37dc3bc04d44c0f19",
+      "files_verified": 229,
+      "remote_deployment": "verified_new_directory",
+      "original_baselines_overwritten": false
+    }
+  ],
+  "scripts": [
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\inventory.sh",
+      "sha256": "5a62d6e9fc9eba09e8e66da9a625753a413939cfcaafc437d7e61105d989a574",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\python_environments.sh",
+      "sha256": "1419dc2ca5136f132bb39a346b90a7338ced32f8738ae4234afd752fb8eeb3e2",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\deploy_sources.sh",
+      "sha256": "e23dbd4ad4d805713aeb6619b2da574fbb6f1db121dd522e01c266e5719f3d99",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\run_host_semantics_20261116.sh",
+      "sha256": "15b769a4cc914453f34caf9d11e63e532ba7a38fdd188b509f23e10fa384ee5e",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\build_native_20261116.sh",
+      "sha256": "b5b4d6f99643815ea38ff6c7c052e777e0daf1c5572265d37366925991e72adc",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\cpu_native_pipeline.sh",
+      "sha256": "86ef3c3ec266583e0b48beae278e4ceb06c375720943ee9baece76e5948806a6",
+      "uploaded": true
+    },
+    {
+      "path": "C:\\Users\\wzy85\\Documents\\ChatGPT\\zh\\t5_qkv_revalidation_20261116\\artifacts\\remote_20261116\\prepare_private_python.sh",
+      "sha256": "8a768929749cba55823d65b9bc772acdfcafd7b7df84465b07933d5e0808761a",
+      "uploaded": false
+    }
+  ],
+  "background_job": {
+    "pid": 3738,
+    "script": "/tmp/t5_sources_20261116/cpu_native_pipeline.sh",
+    "outer_log": "/tmp/t5_cpu_native_pipeline_20261116.log",
+    "exit_file": "/workspace/t5_qkv_tasks/preparation_20261116.exit",
+    "cpu_summary": "/workspace/t5_qkv_tasks/host_semantics_20261116/summary.json",
+    "order": [
+      "CPU baseline and candidate semantic tests",
+      "f526 native-only build",
+      "a201 native-only build"
+    ],
+    "results_retrieved": false,
+    "must_not_restart": true
+  },
+  "private_python_setup": {
+    "script_prepared": true,
+    "uploaded": false,
+    "executed": false,
+    "reason": "Automatic approval service disconnected before the write_stdin action; subsequent SSH transport loss prevented retry",
+    "target_path": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116"
+  },
+  "ssh": {
+    "last_session_id": 41021,
+    "last_active_seconds": 1554.2,
+    "last_active_heartbeats": 77,
+    "inactive_seconds": 1572.0,
+    "reconnect_session_id": 99632,
+    "reconnect_error": "platform authorization denied: Administratively prohibited",
+    "currently_connected": false,
+    "automatic_retries": false,
+    "awaiting_new_authorization": true
+  },
+  "new_user_repeat_reports_found": false,
+  "npu_tests_started": false,
+  "performance_benchmarks_started": false,
+  "next_actions": [
+    "Refresh same container authorization",
+    "Read existing background PID/log/exit and collect CPU/native summaries before any new launch",
+    "Finish bounded local report search",
+    "Create new private pinned Python environment only after confirming no previous setup ran",
+    "Confirm current device allocation and occupancy before any NPU validation"
+  ]
+}
