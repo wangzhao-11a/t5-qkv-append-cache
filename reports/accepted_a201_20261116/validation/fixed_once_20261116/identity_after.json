@@ -1,0 +1,40 @@
+{
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "deployment_manifest_sha256": "b3cfc158144f1ee06ab3bdee2dba903a6eec806fd5bb7a7aee41fb892fe9c734",
+  "wrapper_sha256": "956979ae50769243dfbc4e97d0d727c094c153476b35550142145e17b9222509",
+  "extension_sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6",
+  "native_files_verified": 16,
+  "private_opp": "/root/.local/t5_qkv_a2013d56db4f",
+  "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+  "physical_device": 3,
+  "runtime_selector": 1,
+  "logical_device": 0,
+  "case_ids": [
+    "T5SplitQkvAppendCache_001_float16_random",
+    "T5SplitQkvAppendCache_005_float16_random",
+    "T5SplitQkvAppendCache_006_float16_random",
+    "T5SplitQkvAppendCache_007_float16_random",
+    "T5SplitQkvAppendCache_008_float16_random",
+    "T5SplitQkvAppendCache_011_bfloat16_random",
+    "T5SplitQkvAppendCache_015_bfloat16_random",
+    "T5SplitQkvAppendCache_016_bfloat16_random",
+    "T5SplitQkvAppendCache_017_bfloat16_random",
+    "T5SplitQkvAppendCache_018_bfloat16_random"
+  ],
+  "receipt_sha256": {
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/binding_import.json": "7854493e3daaf777500248f517059d34f5bcdf31ce4ab6f38fe9e0fb7cbb7d68",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/binding_gate.json": "5a78da82fbf370ae6bcc274e94c0af904368c0892867f2be4428f0ea614f5512",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/native_binary_manifest.json": "c9ac1cfafba3a29499733ae6d01c06bd21c6be6f6bf887fcc7f4fdac6157dff5",
+    "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/metadata_verified.json": "f90737e7227be05b60b9b0cb57459dab60e515dbcf28af02dc6c01c72b150715",
+    "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/install-report.json": "8a325bad991598453550448cfb3139aeda3c994a07f344f9408313ce08230647",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_smoke/summary.json": "5f65e49dd0e71596c9080d6f3596ac6f344e75b5ff2e19e3c478b864aeeac1cf",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_smoke/identity.json": "d4d0edf3435a85e0da02f219703310e658c26fcb1a5aca4a11657778c1e6f6a2",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/smoke_stability.json": "10e93d2cd52c5ca9ee2fb3262c715baa765739fc13d5c67c24a6b551fcd2d3d4",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/summary.json": "b3ce4fbe09d962ac5ce46d40ac6f6c45dba61f85ed64c67378e2f6ca8df67bea",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/identity.json": "d4d0edf3435a85e0da02f219703310e658c26fcb1a5aca4a11657778c1e6f6a2",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/public_accuracy.json": "9f086bcf9669f99b7a5af021177e2196be37ab03fcd8c8defdb211a96ccf9ab0",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/extended_accuracy.json": "941d3b4b924153a03326cd112a4ada845c29def12c261506d2f26cb9d662dde9",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/engineering.json": "67052265049452f3a34e528a9f6d7f8b4f47162c0a544a2badb0eb7d1644f990",
+    "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/memory.json": "034554a64b203b46c83a4f3c9b0f13c6b7a7d9fa079748dda2da7539fef6f117"
+  }
+}

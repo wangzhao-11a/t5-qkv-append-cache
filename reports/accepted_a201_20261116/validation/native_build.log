@@ -1,0 +1,397 @@
+Compile-only deployment: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f
+Private OPP: /root/.local/t5_qkv_a2013d56db4f
+CANN: /usr/local/Ascend/cann-9.1.0
+b5b4d6f99643815ea38ff6c7c052e777e0daf1c5572265d37366925991e72adc  /tmp/t5_sources_20261116/build_native_20261116.sh
+b3cfc158144f1ee06ab3bdee2dba903a6eec806fd5bb7a7aee41fb892fe9c734  DEPLOYMENT_MANIFEST.json
+Build interpreter: /usr/bin/python3 3.11.6 (main, Sep 21 2026, 19:47:56) [GCC 12.3.1 (openEuler 12.3.1-111.oe2403sp3)]
+cmake version 3.27.9
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+c++ (GCC) 12.3.1 (openEuler 12.3.1-105.oe2403sp3)
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+{
+  "reference_unchanged": true,
+  "script_encoding": "UTF-8 no BOM, LF",
+  "original_manifest_valid": false
+}
+Cache policy guard: no unsupported PERSISTENT hint requested
+2026-11-16 16:13:48 (5267) - [WARNING] The path /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/op_project.json should not be written by user group or others, which will cause security risks 
+=================================================================
+                   >>>>>   MindStudio   <<<<<
+    THE END-TO-END TOOLCHAIN TO UNLEASH HUAWEI ASCEND COMPUTE
+=================================================================
+
+2026-11-16 16:13:48 (5267) - [INFO] Start to generate AI Core operator files. 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the ir template:/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/op_project.json 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the op: T5SplitQkvAppendCache 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the input_desc: qkv 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the input_desc: past_key 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the input_desc: past_value 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the output_desc: query 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the output_desc: key 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the output_desc: value 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the attribute: head_num 
+2026-11-16 16:13:48 (5267) - [INFO] Start to parse the attribute: head_dim 
+2026-11-16 16:13:48 (5267) - [INFO] Start to check the type and format between the inputs/outputs in IR template. 
+2026-11-16 16:13:48 (5267) - [INFO] Start to generate a new project. 
+2026-11-16 16:13:48 (5267) - [WARNING] User used the "aclnn" parameter to generate an AscendC template project via the tool; this feature will be deprecated in future releases. 
+2026-11-16 16:13:48 (5267) - [INFO] File /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/op_kernel/t5_split_qkv_append_cache_tiling.h generated successfully. 
+2026-11-16 16:13:48 (5267) - [INFO] File /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/op_host/t5_split_qkv_append_cache.cpp generated successfully. 
+2026-11-16 16:13:48 (5267) - [INFO] File /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/op_kernel/t5_split_qkv_append_cache.cpp generated successfully. 
+2026-11-16 16:13:48 (5267) - [INFO] Generation completed. 
+Configured: ['ASCEND_COMPUTE_UNIT', 'ENABLE_BINARY_PACKAGE', 'ENABLE_SOURCE_PACKAGE', 'vendor_name']
+using ASCEND_HOME_PATH: /usr/local/Ascend/cann-9.1.0
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/cann-9.1.0"
+  ASCEND_COMPUTE_UNIT:STRING="ascend910_93"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  ASCEND_PYTHON_EXECUTABLE:STRING="python3"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="TRUE"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="FALSE"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="t5qkv"
+
+-- The C compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- set package config: INSTALL_PATH;/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/
+-- Opbuild generating sources
+-- Opbuild generating sources - done
+INFO target name: cust_optiling
+INFO target name: cust_opapi
+INFO target name: cust_op_proto
+INFO target name: ascendc_kernels
+-- Configuring done (2.1s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    ASCEND_PACK_SHARED_LIBRARY
+    CMAKE_CROSS_PLATFORM_COMPILER
+    ENABLE_TEST
+
+
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out
+[ 50%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/t5_split_qkv_append_cache.cpp.o
+[ 50%] Generating ../autogen/copy_kernel_src.timestamp
+[ 50%] Built target ascendc_kernels_copy_kernel_srcs
+[ 75%] Generating ascendc_kernels/tbe/op_info_cfg/ai_core/ascend910_93/aic-ascend910_93-ops-info.json
+
+
+==============check valid for ops info start==============
+==============check valid for ops info end================
+
+
+Compile op info cfg successfully.
+[ 75%] Built target ascendc_kernels_ops_info_gen_ascend910_93
+[ 75%] Built target cust_optiling
+[100%] Linking CXX shared library libcust_opmaster_rt2.0.so
+[100%] Built target t5qkv_ascendc_cust_optiling
+[ascend910_93] Generating T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898 ...
+[ascend910_93] Generating T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a ...
+[INFO] RUNTIME(5419,python3):2026-11-16-16:13:53.704.723 [task_fail_callback_data_manager.cc:93] 5419 TaskFailCallBackManager: Constructor.
+[INFO] RUNTIME(5419,python3):2026-11-16-16:13:53.704.758 [xpu_task_fail_callback_data_manager.cc:59] 5419 XpuTaskFailCallBackManager: XpuTaskFailCallBackManager Constructor.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(5419,python3):2026-11-16-16:13:55.454.338 [xpu_task_fail_callback_data_manager.cc:64] 5419 ~XpuTaskFailCallBackManager: XpuTaskFailCallBackManager Destructor.
+[INFO] RUNTIME(5419,python3):2026-11-16-16:13:55.454.355 [task_fail_callback_data_manager.cc:98] 5419 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(5419,python3):2026-11-16-16:13:55.456.340 [stacktrace_signal.c:199](tid:5419) unregister all signal handlers, can not capture signal.
+[ascend910_93] Generating T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898 Done
+[INFO] RUNTIME(5418,python3):2026-11-16-16:13:53.710.315 [task_fail_callback_data_manager.cc:93] 5418 TaskFailCallBackManager: Constructor.
+[INFO] RUNTIME(5418,python3):2026-11-16-16:13:53.710.344 [xpu_task_fail_callback_data_manager.cc:59] 5418 XpuTaskFailCallBackManager: XpuTaskFailCallBackManager Constructor.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(5418,python3):2026-11-16-16:13:55.477.252 [xpu_task_fail_callback_data_manager.cc:64] 5418 ~XpuTaskFailCallBackManager: XpuTaskFailCallBackManager Destructor.
+[INFO] RUNTIME(5418,python3):2026-11-16-16:13:55.477.267 [task_fail_callback_data_manager.cc:98] 5418 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(5418,python3):2026-11-16-16:13:55.479.282 [stacktrace_signal.c:199](tid:5418) unregister all signal handlers, can not capture signal.
+[ascend910_93] Generating T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a Done
+[100%] Built target T5SplitQkvAppendCache_ascend910_93
+[100%] Built target ascendc_kernels_ascendc_bin_ascend910_93_gen_ops_config
+[100%] Built target binary
+[  9%] Generating scripts/install.sh, scripts/upgrade.sh, scripts/uninstall.sh
+[ 18%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 18%] Built target gen_version_info
+[ 36%] Built target ascendc_kernels_copy_kernel_srcs
+[ 36%] Generating ascendc_kernels/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 54%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/t5_split_qkv_append_cache.cpp.o
+[ 54%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_t5_split_qkv_append_cache.cpp.o
+[ 63%] Built target cust_optiling
+/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/autogen /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/op_kernel/ascendc_kernels/tbe/op_info_cfg/ai_core
+[ 63%] Built target modify_vendor
+[INFO] Succeeded generated /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/op_kernel/ascendc_kernels/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 72%] Built target ascendc_kernels_ops_info_gen_ascend910_93
+[ 81%] Built target t5qkv_ascendc_cust_optiling
+[ 81%] Built target t5qkv_npu_supported_ops
+[ 81%] Built target optiling_compat
+[ 81%] Built target t5qkv_update_so_names
+[ 81%] Built target cust_opapi
+[ 90%] Linking CXX shared library libcust_opapi.so
+[ 90%] Built target t5qkv_ascendc_cust_opapi
+[ 90%] Built target cust_op_proto
+[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[100%] Built target t5qkv_ascendc_cust_op_proto
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CPack: Create package
+
+About to compress 1140 KB of data...
+Adding files to archive named "custom_opp_openEuler_aarch64.run"...
+./help.info
+./install.sh
+./packages/vendors/t5qkv/framework/tensorflow/npu_supported_ops.json
+./packages/vendors/t5qkv/op_api/include/aclnn_t5_split_qkv_append_cache.h
+./packages/vendors/t5qkv/op_api/lib/libcust_opapi.so
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/config/ascend910_93/aic-ascend910_93-ops-info.json
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.json
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_3970525490e9d76b11887a55db05e48a.o
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.json
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_efdb9925f57fae43f67ac13b5cefa898.o
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/binary_info_config.json
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/kernel/config/ascend910_93/t5_split_qkv_append_cache.json
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so
+./packages/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/liboptiling.so
+./packages/vendors/t5qkv/op_proto/inc/op_proto.h
+./packages/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so
+./packages/vendors/t5qkv/version.info
+./uninstall.sh
+./upgrade.sh
+CRC: 2239954276
+SHA256: fb30235a1d174138dbd912376110e7f546450d280d9171b964e7c7ff87161b29
+Skipping md5sum at user request
+
+Self-extractable archive "custom_opp_openEuler_aarch64.run" successfully created.
+Copy /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out//_CPack_Packages/Linux/External/custom_opp_openEuler_aarch64.run/custom_opp_openEuler_aarch64.run to /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/
+Copy /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out//_CPack_Packages/Linux/External/custom_opp_openEuler_aarch64.run/custom_opp_openEuler_aarch64.run to /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out//
+CPack: - package: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/custom_opp_openEuler_aarch64.run.json generated.
+CPack: - package: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/aclnn/build_out/custom_opp_openEuler_aarch64.run generated.
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors.
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv.
+[ops_custom] [2026-11-16 16:13:58] [INFO] validate shared libraries before installation
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade framework
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/framework.
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new ops framework files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade op proto
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_proto.
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new ops op_proto files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade op impl
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_impl.
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new ops op_impl files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade op api
+[ops_custom] [2026-11-16 16:13:58] [INFO] create /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api.
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new ops op_api files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade uninstall
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new uninstall.sh files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] upgrade version.info
+[ops_custom] [2026-11-16 16:13:58] [INFO] copy new version.info files ......
+[ops_custom] [2026-11-16 16:13:58] [INFO] no need to upgrade custom.proto files
+[ops_custom] [2026-11-16 16:13:58] [INFO] using requirements: when custom module install finished or before you run the custom module, execute the command [ source /root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/bin/set_env.bash ] to set the environment path
+SUCCESS
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct
+[  2%] Creating directories for 't5_direct_precompile'
+[  4%] No download step for 't5_direct_precompile'
+[  7%] No update step for 't5_direct_precompile'
+[  9%] No patch step for 't5_direct_precompile'
+[ 11%] Performing configure step for 't5_direct_precompile'
+-- The C compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    DYNAMIC_MODE
+    INCLUDE_DIR
+
+
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_precompile-prefix/src/t5_direct_precompile-build
+[ 14%] Performing build step for 't5_direct_precompile'
+[100%] Building CXX object CMakeFiles/precompile_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[100%] Built target precompile_obj
+[100%] Built target check_src_template
+[ 16%] No install step for 't5_direct_precompile'
+[ 19%] Completed 't5_direct_precompile'
+[ 19%] Built target t5_direct_precompile
+[ 21%] Creating directories for 't5_direct_preprocess'
+[ 23%] No download step for 't5_direct_preprocess'
+[ 26%] No update step for 't5_direct_preprocess'
+[ 28%] No patch step for 't5_direct_preprocess'
+[ 30%] Performing configure step for 't5_direct_preprocess'
+-- The C compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_preprocess-prefix/src/t5_direct_preprocess-build
+[ 33%] Performing build step for 't5_direct_preprocess'
+[ 33%] Building CXX object CMakeFiles/preprocess_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[100%] Building CXX object CMakeFiles/aiv_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[100%] Building CXX object CMakeFiles/aic_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[100%] Built target preprocess_obj
+[100%] Built target aic_obj
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/ccec_compiler/bin/ld.lld -m aicorelinux -Ttext=0 /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_preprocess-prefix/src/t5_direct_preprocess-build/CMakeFiles/aic_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o -o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_preprocess-prefix/src/t5_direct_preprocess-build/CMakeFiles/aic_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o[100%] Built target merge_aic_obj_text
+[100%] Built target aiv_obj
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/ccec_compiler/bin/ld.lld -m aicorelinux -Ttext=0 /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_preprocess-prefix/src/t5_direct_preprocess-build/CMakeFiles/aiv_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o -o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_preprocess-prefix/src/t5_direct_preprocess-build/CMakeFiles/aiv_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o[100%] Built target merge_aiv_obj_text
+[100%] Built target _host_cpp
+[ 35%] No install step for 't5_direct_preprocess'
+[ 38%] Completed 't5_direct_preprocess'
+[ 38%] Built target t5_direct_preprocess
+[ 45%] Creating directories for 't5_direct_aic_device'
+[ 45%] Creating directories for 't5_direct_host'
+[ 45%] Creating directories for 't5_direct_aiv_device'
+[ 47%] No download step for 't5_direct_host'
+[ 52%] No download step for 't5_direct_aic_device'
+[ 52%] No download step for 't5_direct_aiv_device'
+[ 54%] No update step for 't5_direct_host'
+[ 59%] No update step for 't5_direct_aic_device'
+[ 59%] No update step for 't5_direct_aiv_device'
+[ 61%] No patch step for 't5_direct_host'
+[ 66%] No patch step for 't5_direct_aic_device'
+[ 66%] No patch step for 't5_direct_aiv_device'
+[ 69%] Performing configure step for 't5_direct_host'
+[ 73%] Performing configure step for 't5_direct_aiv_device'
+[ 73%] Performing configure step for 't5_direct_aic_device'
+-- The C compiler identification is GNU 12.3.1
+-- The C compiler identification is GNU 12.3.1
+-- The C compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting C compiler ABI info - done
+-- Detecting CXX compiler ABI info
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    ASCEND_PYTHON_EXECUTABLE
+
+
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_host-prefix/src/t5_direct_host-build
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    BUILD_MODE
+
+
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_aic_device-prefix/src/t5_direct_aic_device-build
+-- Detecting CXX compiler ABI info - done
+[ 76%] Performing build step for 't5_direct_host'
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_aiv_device-prefix/src/t5_direct_aiv_device-build
+[ 78%] Performing build step for 't5_direct_aic_device'
+[ 80%] Performing build step for 't5_direct_aiv_device'
+[100%] Building CXX object CMakeFiles/host_bisheng_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[ 83%] No install step for 't5_direct_aic_device'
+[ 85%] Completed 't5_direct_aic_device'
+[100%] Building CXX object CMakeFiles/device_aiv_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/auto_gen/t5_direct/auto_gen_t5_direct.cpp.o
+[ 85%] Built target t5_direct_aic_device
+[100%] Built target host_bisheng_obj
+[ 88%] Performing install step for 't5_direct_host'
+[100%] Built target host_bisheng_obj
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_host_dir/./objects-Release/host_bisheng_obj/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o
+[ 90%] Completed 't5_direct_host'
+[ 90%] Built target t5_direct_host
+[100%] Built target device_aiv_obj
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/ccec_compiler/bin/ld.lld  -m aicorelinux -r  -Ttext=0 /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_aiv_device-prefix/src/t5_direct_aiv_device-build/CMakeFiles/device_aiv_obj.dir/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/auto_gen/t5_direct/auto_gen_t5_direct.cpp.o -static -o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_aiv_device_dir/device_aiv.o
+[100%] Built target merge_aiv_device_obj
+[ 92%] No install step for 't5_direct_aiv_device'
+[ 95%] Completed 't5_direct_aiv_device'
+[ 95%] Built target t5_direct_aiv_device
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/ccec_compiler/bin/ld.lld -x -m aicorelinux   -Ttext=0 /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_aiv_device_dir/device_aiv.o -static -o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_merge_obj_dir/device_aiv.o
+[ 95%] Built target t5_direct_merge_obj
+[ 97%] Building CXX object CMakeFiles/t5_direct_host_stub_obj.dir/auto_gen/t5_direct/host_stub.cpp.o
+[ 97%] Built target t5_direct_host_stub_obj
+[100%] Linking CXX shared library lib/libt5_direct.so
+/usr/local/Ascend/cann-9.1.0/bin/ascendc_pack_kernel /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/CMakeFiles/t5_direct_host_stub_obj.dir/auto_gen/t5_direct/host_stub.cpp.o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_merge_obj_dir/device_aiv.o 1 /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/CMakeFiles/t5_direct_host_stub_obj.dir/auto_gen/t5_direct/host_stub.cpp.o
+recompile: /usr/bin/c++ -fPIC -O3 -DNDEBUG -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s -shared -Wl,-soname,libt5_direct.so -o lib/libt5_direct.so CMakeFiles/t5_direct_host_stub_obj.dir/auto_gen/t5_direct/host_stub.cpp.o /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/t5_direct_host_dir/objects-Release/host_bisheng_obj/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/direct/t5_direct.cpp.o    -L/usr/local/Ascend/cann-9.1.0/lib64  -L/usr/local/Ascend/cann-9.1.0/tools/simulator/Ascend910_9382/lib  /usr/local/Ascend/cann-9.1.0/lib64/libascendc_runtime.a -lascend_dump -lc_sec
+[100%] Built target t5_direct
+-- The CXX compiler identification is GNU 12.3.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/examples
+[ 50%] Building CXX object CMakeFiles/t5_example.dir/aclnn_example.cpp.o
+[100%] Linking CXX executable t5_example
+[100%] Built target t5_example
+Native package, direct launcher and C++ example compiled; no example or NPU test executed.

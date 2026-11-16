@@ -1,0 +1,14 @@
+{
+  "machine": "aarch64",
+  "python_system_probe": "3.11.6",
+  "system": "Linux",
+  "platform_release": "5.10.0-216.0.0.115.oe2203sp4.aarch64",
+  "platform_version": "#1 SMP Thu Jun 27 15:22:10 CST 2024",
+  "libc": [
+    "glibc",
+    "2.38"
+  ],
+  "old_path": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3",
+  "preserved_path": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3_rejected_kernel_metadata",
+  "reason": "Exact kernel release summary omitted .aarch64; setup stopped before venv or pip"
+}

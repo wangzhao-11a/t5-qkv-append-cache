@@ -1,0 +1,4 @@
+	NPU ID                         Chip ID                        Chip Logic ID                  Chip Phy-ID                    Chip Name                     
+	1                              0                              0                              2                              Ascend910
+	1                              1                              1                              3                              Ascend910
+	1                              2                              -                              -                              Mcu                           

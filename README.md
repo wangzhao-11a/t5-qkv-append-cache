@@ -2,9 +2,11 @@
 
 本工程对应用户提供的 2026-10-23 固定耗时目标任务包。
 
+2026-11-16：运行源码 `a2013d56db4ff8367160b157335d2ff670aad411` 在新的 Ascend910_9382 环境完成完整功能验收，首次固定 **10/10**，随后预定的 **5 个独立进程均为 10/10**。007/017 的五次最差中位数为 **71.34950 / 71.21085 μs**（上限75/77）。见 [本轮验收](docs/ACCEPTANCE_20261116.md) 与 [当前状态](reports/STATUS_latest.json)。c9、f526 和旧交付件保留；本轮结果没有证明旧离散档位的对齐根因。
+
 2026-11-03 按任务书第 4、5 节完成交付复核并修正旧设计文档与环境摘要，见 [交付复核清单](docs/DELIVERY_REVIEW_20261103.md)。包内源码、安装包和七件材料齐备；个人实现仓现已发布并经匿名访问验证，见 [提交链接](SUBMISSION_LINKS.md)。实现 PR 和社区正式评审仍待完成。
 
-2026-11-01：运行源码 `f52671207769` 已完成固定性能 **10/10**，两个大缓存 **70.222 / 70.201 μs**。精度、工程、内存全部通过。最新证据见 [最终验收](docs/ACCEPTANCE_20261101.md) 与 [STATUS_latest.json](reports/STATUS_latest.json)。原根目录 reports/STATUS.json、performance.json 仍保留 c9decf2 历史结果。
+2026-11-01 历史结果：运行源码 `f52671207769` 单次固定性能 **10/10**，两个大缓存 **70.222 / 70.201 μs**。精度、工程、内存全部通过。见 [历史验收](docs/ACCEPTANCE_20261101.md) 与 [原状态快照](reports/accepted_f526712/STATUS_before_20261116.json)。原根目录 reports/STATUS.json、performance.json 仍保留 c9decf2 历史结果。
 
 ## 实现
 
@@ -15,7 +17,7 @@
 - `examples/`：独立 ACLNN C++ 样例及 5 类非法元数据拒绝检查。
 - `reference/`：从原始 ZIP 导入的 12 个文件，保持内容字节不变。
 - `tests/`：CPU 地址模型及 NPU 扩展检查、同机基线对照。
-- `task_submission/`：本地保留 c9decf2 原七件；新完整交付 ZIP 中此目录为本次通过版本，旧七件另存于 `evidence/baseline_c9decf2/`。
+- `task_submission/`：本轮a201七件材料；c9原七件另存于 `evidence/baseline_c9decf2/task_submission/`，旧提交和ZIP保留。新九文件上传包一次上传，源码及完整证据由固定仓库链接提供。
 
 ## 构建与测试
 

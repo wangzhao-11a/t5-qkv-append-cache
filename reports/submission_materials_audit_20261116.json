@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "xlsx_count": 3,
+  "log_count": 3,
+  "accuracy_rows": 98,
+  "engineering_rows": 102,
+  "first_fixed_cases": 10,
+  "repeat_processes": 5,
+  "repeat_cases": 50,
+  "raw_round_means": 250,
+  "memory_rows": 20,
+  "preserved_template_merges": true,
+  "formula_cached_values_match_sources": true,
+  "log_raw_sections": {
+    "2.2 精度自验证日志.log": 14,
+    "3.2 性能自验证日志.log": 28,
+    "4.2 内存自验证日志.log": 6
+  },
+  "files": [
+    {
+      "name": "2.1 精度自验证报告.xlsx",
+      "bytes": 14289,
+      "sha256": "478cf067d20eba55d85f5f798502238d12a7459eb398b4ff61d3723ede5f1c79"
+    },
+    {
+      "name": "2.2 精度自验证日志.log",
+      "bytes": 114620,
+      "sha256": "d8b2d7ecbcbb85b332347a9605400a5d9c62789cba9e9766fd7d2b434f8ffa0f"
+    },
+    {
+      "name": "3.1 性能自验证报告.xlsx",
+      "bytes": 15654,
+      "sha256": "2b7ef8bc73c9d87c931d425c9cb760bdf7e2249746bc501293c0c5033a3d8f6a"
+    },
+    {
+      "name": "3.2 性能自验证日志.log",
+      "bytes": 173930,
+      "sha256": "2734894a312249d6090e50dec13cb7ee3d24fc1e7b823bd30877093003c47190"
+    },
+    {
+      "name": "4.1 内存自验证报告.xlsx",
+      "bytes": 9857,
+      "sha256": "d735580cc847ba187fc5e292c83a4263eb78688a456672b6408311525509142b"
+    },
+    {
+      "name": "4.2 内存自验证日志.log",
+      "bytes": 43697,
+      "sha256": "66dcf36c05cdcd51a4a2d7c0ae67254c682aff1151c6019433fa8977ee038b98"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "status": "passed_functional_only",
+  "phase": "smoke",
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "npu_executed": true,
+  "performance_executed": false,
+  "counts": {
+    "smoke_stability.json": 8
+  },
+  "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+}

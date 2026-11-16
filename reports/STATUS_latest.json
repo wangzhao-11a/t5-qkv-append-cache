@@ -1,46 +1,46 @@
 {
-  "overall_status": "accepted_fixed_performance_10_of_10",
-  "report_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "overall_status": "accepted_fixed_10_of_10_and_five_fresh_processes",
+  "report_source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "preserved_baselines": [
+    "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+    "f52671207769bf5f334972c997743eb6aa6f91b3"
+  ],
   "public_reference_files_unchanged": true,
-  "report_directory": "reports/accepted_f526712",
-  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769",
-  "launch_command": "bash /tmp/t5_launch_aligned_fragments_20261101.sh",
-  "launch_script_evidence": "evidence/tested/reports/launch_aligned_fragments_used.sh",
-  "evidence": {
-    "archive_sha256": "fcb4f5398b008bd3affe784bfe39a0d842c669cfaad5824c51f9488e5edadff6",
-    "archive_members": 65,
-    "binary_manifest_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
-    "phase_exits": {
-      "build_full": 0,
-      "correctness_phase": 0,
-      "performance_phase": 0,
-      "smoke_phase": 0
-    },
-    "candidate_pipeline_exit": 0
+  "report_directory": "reports/accepted_a201_20261116",
+  "remote_workdir": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f",
+  "container": "248a9b8f1bbd",
+  "physical_device": 3,
+  "runtime_selector": 1,
+  "model_path": null,
+  "service_ports": [],
+  "environment": {
+    "torch": "2.10.0+cpu",
+    "torch_npu": "2.10.0.post4",
+    "numpy": "2.2.6",
+    "ml_dtypes": "0.6.0"
   },
+  "driver_actual": "26.1.1",
+  "driver_task_required_not_tested": "25.5.t6.b001",
   "npu_accuracy": {
-    "status": "passed",
-    "valid_entry_records": 98,
-    "negative_records": 84,
-    "verifier_counterexamples": 3
+    "public_cases": 35,
+    "extended_records": 150,
+    "status": "passed"
   },
   "npu_engineering": {
-    "status": "passed",
-    "records": 15
+    "records": 15,
+    "status": "passed"
   },
   "npu_memory": {
-    "status": "passed",
     "records": 20,
-    "reclaims_per_record": 20,
-    "workspace_bytes": 0
+    "workspace_bytes": 0,
+    "status": "passed"
   },
   "npu_stability": {
-    "status": "passed",
     "records": 8,
-    "repeats_per_record": 20
+    "repeats_per_record": 20,
+    "status": "passed"
   },
   "npu_performance": {
-    "status": "passed",
     "fixed_limit_passed": 10,
     "fixed_limit_total": 10,
     "protocol": {
@@ -48,192 +48,70 @@
       "iterations": 200,
       "rounds": 5
     },
-    "started_at_utc": "2026-11-01T11:40:40.541204+00:00",
-    "finished_at_utc": "2026-11-01T11:40:48.166526+00:00",
-    "checks": [
-      {
-        "case_name": "T5SplitQkvAppendCache_001_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          27.217,
-          23.278200000000002,
-          22.27515,
-          22.035400000000003,
-          22.6229
-        ],
-        "wall_us_median": 22.6229,
-        "max_wall_us": 28
+    "first_fixed_large_us": {
+      "007": 69.5922,
+      "017": 70.0743
+    },
+    "independent_fixed_runs": 5,
+    "all_independent_runs_passed": true,
+    "repeated_summary": {
+      "T5SplitQkvAppendCache_001_float16_random": {
+        "min_process_median_us": 22.20945,
+        "max_process_median_us": 23.91215,
+        "max_round_mean_us": 35.7156
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_005_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          22.644,
-          22.89065,
-          25.1466,
-          22.401049999999998,
-          22.8078
-        ],
-        "wall_us_median": 22.8078,
-        "max_wall_us": 28
+      "T5SplitQkvAppendCache_005_float16_random": {
+        "min_process_median_us": 22.413349999999998,
+        "max_process_median_us": 24.99835,
+        "max_round_mean_us": 25.13645
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_006_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          24.20055,
-          24.0445,
-          24.2595,
-          24.4322,
-          24.42225
-        ],
-        "wall_us_median": 24.2595,
-        "max_wall_us": 29
+      "T5SplitQkvAppendCache_006_float16_random": {
+        "min_process_median_us": 23.48215,
+        "max_process_median_us": 25.6079,
+        "max_round_mean_us": 25.78275
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_007_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          70.5985,
-          70.22155000000001,
-          70.00675,
-          70.11030000000001,
-          70.4591
-        ],
-        "wall_us_median": 70.22155000000001,
-        "max_wall_us": 75
+      "T5SplitQkvAppendCache_007_float16_random": {
+        "min_process_median_us": 69.1809,
+        "max_process_median_us": 71.3495,
+        "max_round_mean_us": 71.8647
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_008_float16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          31.2742,
-          22.1575,
-          22.157400000000003,
-          22.14225,
-          22.3143
-        ],
-        "wall_us_median": 22.1575,
-        "max_wall_us": 29
+      "T5SplitQkvAppendCache_008_float16_random": {
+        "min_process_median_us": 23.88925,
+        "max_process_median_us": 25.5987,
+        "max_round_mean_us": 26.6535
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          22.43175,
-          22.11725,
-          22.068,
-          22.29685,
-          22.120099999999997
-        ],
-        "wall_us_median": 22.120099999999997,
-        "max_wall_us": 28
+      "T5SplitQkvAppendCache_011_bfloat16_random": {
+        "min_process_median_us": 23.07435,
+        "max_process_median_us": 24.106150000000003,
+        "max_round_mean_us": 24.65095
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          23.15305,
-          23.10065,
-          23.20345,
-          23.16105,
-          23.232
-        ],
-        "wall_us_median": 23.16105,
-        "max_wall_us": 28
+      "T5SplitQkvAppendCache_015_bfloat16_random": {
+        "min_process_median_us": 25.0236,
+        "max_process_median_us": 26.9686,
+        "max_round_mean_us": 37.42665
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          23.1058,
-          23.25725,
-          23.11495,
-          23.05365,
-          23.06175
-        ],
-        "wall_us_median": 23.1058,
-        "max_wall_us": 29
+      "T5SplitQkvAppendCache_016_bfloat16_random": {
+        "min_process_median_us": 23.952900000000003,
+        "max_process_median_us": 26.22425,
+        "max_round_mean_us": 26.5642
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          70.31365,
-          70.11314999999999,
-          70.2012,
-          70.04685,
-          70.2452
-        ],
-        "wall_us_median": 70.2012,
-        "max_wall_us": 77
+      "T5SplitQkvAppendCache_017_bfloat16_random": {
+        "min_process_median_us": 69.6263,
+        "max_process_median_us": 71.21085000000001,
+        "max_round_mean_us": 71.37255
       },
-      {
-        "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
-        "status": "passed",
-        "wall_us_rounds": [
-          22.96595,
-          22.768849999999997,
-          22.7272,
-          22.773400000000002,
-          23.4295
-        ],
-        "wall_us_median": 22.773400000000002,
-        "max_wall_us": 29
+      "T5SplitQkvAppendCache_018_bfloat16_random": {
+        "min_process_median_us": 24.536,
+        "max_process_median_us": 25.296400000000002,
+        "max_round_mean_us": 26.010650000000002
       }
-    ]
+    }
   },
-  "environment": {
-    "container": "e60fcee5f79f",
-    "image_identity": "unknown_inside_container",
-    "host": "199.103.53.243",
-    "soc": "Ascend910_9382",
-    "cann": "9.1.0",
-    "driver_actual": "26.1.1",
-    "driver_required": "25.5.t6.b001",
-    "driver_difference_accepted_by_user": true,
-    "required_driver_tested": false,
-    "python": "3.12.13",
-    "torch": "2.10.0+cpu",
-    "torch_npu": "2.10.0.post4",
-    "numpy": "2.2.6",
-    "numpy_evidence": "evidence/tested/reports/environment_correctness_phase.json and environment_performance_phase.json; both inventory.versions.numpy=2.2.6",
-    "ml_dtypes": "0.6.0",
-    "torch_npu_source": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
-    "card": 3,
-    "chip": 1,
-    "physical_device": 7,
-    "visible_device_selector": "1",
-    "logical_device": 0,
-    "model_path": null,
-    "service_ports": [],
-    "private_installation": "/root/.local/t5_qkv_f52671207769"
+  "evidence": {
+    "archive_sha256": "95df31d9e7745ba5ba15b4c201fbb776f76713ca0d51a91d7f0136c5ea6dedb1",
+    "original_archive_members": 255,
+    "source": "reports/accepted_a201_20261116"
   },
-  "final_clearance": {
-    "npu_processes": [],
-    "task_workers": [],
-    "listening_ports_unchanged": true,
-    "listening_tcp_ports": [
-      22,
-      6988,
-      9500,
-      9508,
-      38429
-    ],
-    "evidence": "reports/final_clearance_f526712_20261101.json"
-  },
-  "control": {
-    "status": "passed",
-    "control_solution": "/workspace/t5_qkv_tasks/t5_qkv_b661926b6e5c/solution.py",
-    "control_finished_at_utc": "2026-11-01T11:21:35.996303+00:00",
-    "age_seconds": 1144.127311,
-    "max_age_seconds": 1800,
-    "scope": "Temporal comparison guard; does not prove identical physical memory placement.",
-    "control_report": "/workspace/t5_qkv_tasks/t5_qkv_a98053363dfb/artifacts/validation/suffix_current_window_control_20261101.json",
-    "control_source_commit": "b661926b6e5c833abeb1fa09d453f8ca89191abf"
-  },
-  "scope": "One full frozen benchmark run; no result stitching. Cross-process timing and physical cache placement remain variable. Not a claim of acceptance on driver 25.5.t6.b001.",
-  "baseline_preservation": "reports/baseline_preservation_20261101.json",
-  "original_manifest_valid": false,
-  "original_manifest_note": "Original task ZIP listed a missing task-document path; imported reference hashes remain unchanged."
+  "causal_claim": "No confirmed alignment root cause; independent-process speed differences are not attributed solely to the source change",
+  "community_pr_validation": "Upstream port is distinct and has not been revalidated by these results"
 }

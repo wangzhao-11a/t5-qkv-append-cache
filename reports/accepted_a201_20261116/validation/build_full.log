@@ -1,0 +1,137 @@
+Binding-only source: /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f
+Private venv: /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3
+Private OPP: /root/.local/t5_qkv_a2013d56db4f
+41115edbb8eea50ae6fa83158c8b2868c3f0263d4cbae7ba38b33510ad335170  /tmp/t5_sources_20261116/build_binding_20261116.sh
+b3cfc158144f1ee06ab3bdee2dba903a6eec806fd5bb7a7aee41fb892fe9c734  DEPLOYMENT_MANIFEST.json
+c9ac1cfafba3a29499733ae6d01c06bd21c6be6f6bf887fcc7f4fdac6157dff5  artifacts/validation/native_binary_manifest.json
+{"status": "passed", "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411", "native_files_verified": 16, "private_opp": "/root/.local/t5_qkv_a2013d56db4f", "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python", "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302", "packages": {"torch": {"version": "2.10.0+cpu", "wheel_sha256": "179451716487f8cb09b56459667fa1f5c4c0946c1e75fbeae77cfc40a5768d87"}, "torch-npu": {"version": "2.10.0.post4", "wheel_sha256": "5cee8b07d98b2188297916342fc587228bfca5703ffa8f48be1a69373414aa44"}, "numpy": {"version": "2.2.6", "wheel_sha256": "f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87"}, "ml-dtypes": {"version": "0.6.0", "wheel_sha256": "37da32aa97749251025666d62372775019594577b9c9e9cfda83bed48d778fdb"}}, "npu_executed": false}
+{
+  "reference_unchanged": true,
+  "script_encoding": "UTF-8 no BOM, LF",
+  "original_manifest_valid": false,
+  "inventory": {
+    "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+    "machine": "aarch64",
+    "python": "3.12.13",
+    "executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+    "environment": {
+      "ASCEND_HOME_PATH": "/usr/local/Ascend/cann-9.1.0",
+      "ASCEND_RT_VISIBLE_DEVICES": null,
+      "ASCEND_CUSTOM_OPP_PATH": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv",
+      "T5_OPP_ROOT": "/root/.local/t5_qkv_a2013d56db4f",
+      "T5_ACLNN_EXECUTOR_REUSE": null,
+      "TASK_QUEUE_ENABLE": null,
+      "T5_FUNCTIONAL_DEVICE_SCOPE": null,
+      "T5_PHYSICAL_DEVICE": null,
+      "T5_CONTROL_REPORT": null,
+      "T5_CONTROL_SOLUTION": null,
+      "T5_CONTROL_COMMIT": null
+    },
+    "commands": [
+      {
+        "command": [
+          "npu-smi",
+          "info"
+        ],
+        "exit_code": 0,
+        "stdout": "+------------------------------------------------------------------------------------------------------------------+\n| npu-smi 26.1.1                              Version: 26.1.1                                                      |\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU   Name                | Health        | Power(W)             Temp(C)                 Hugepages-Usage(page)   |\n| Chip  Phy-ID              | Bus-Id        | AICore(%)            Memory-Usage(MB)        HBM-Usage(MB)           |\n+===========================+===============+======================================================================+\n| 1     Ascend910           | OK            | 176.0                47                      0    / 0                |\n| 0     2                   | 0000:99:00.0  | 0                    0    / 0                3125 / 65536            |\n+------------------------------------------------------------------------------------------------------------------+\n| 1     Ascend910           | OK            | -                    47                      0    / 0                |\n| 1     3                   | 0000:9B:00.0  | 0                    0    / 0                2873 / 65536            |\n+===========================+===============+======================================================================+\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |\n+===========================+===============+======================================================================+\n| No running processes found in NPU 1                                                                              |\n+===========================+===============+======================================================================+\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ss",
+          "-lntp"
+        ],
+        "error": "[Errno 2] No such file or directory: 'ss'"
+      },
+      {
+        "command": [
+          "ps",
+          "-eo",
+          "pid,ppid,comm,args"
+        ],
+        "exit_code": 0,
+        "stdout": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            /bin/bash -c while true; do sleep 3600; done\n    148       1 sshd            sshd: /usr/sbin/sshd -e [listener] 0 of 10-60 startups\n    187       0 node            /root/codeserver/lib/node /root/codeserver --bind-addr 0.0.0.0:6988 --auth=none /workspace\n    232     187 node            /root/codeserver/lib/node /root/codeserver/out/node/entry\n    376       1 supervisord     /usr/bin/python3 /usr/bin/supervisord -c /etc/supervisord.conf\n    500     376 python3         python3 main/agent.py -c /opt/clabagent/config/clabagent.yml\n    527     500 vector          /opt/clabagent/plugins/vector/bin/vector -c /opt/clabagent/plugins/vector_blue_metric/runtime/vector_blue_metric.yml --watch-config --threads 2\n    550     500 npu-exporter    /opt/clabagent/plugins/npu-exporter/bin/npu-exporter --ip 127.0.0.1 --port 9501\n    732     500 node_exporter   /opt/clabagent/plugins/node_exporter/bin/node_exporter --web.listen-address=127.0.0.1:9500\n   6918     148 sshd            sshd: root [priv]\n   6922    6918 sshd            sshd: root@notty\n   6923    6922 sftp-server     /usr/libexec/openssh/sftp-server\n   7092    6922 bash            bash -c while sleep 20; do printf 't5-ssh-alive\\n' || exit; done\n  12448       1 sleep           sleep 3600\n  13943       1 bash            bash /tmp/t5_sources_20261116/launch_offline_python_and_bindings_corrected_20261116.sh\n  14540    7092 sleep           sleep 20\n  14615   13943 bash            bash /tmp/t5_sources_20261116/build_binding_20261116.sh /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3\n  14628   14615 python          /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python -I tools/preflight.py --output artifacts/validation/environment_build_full.json\n  14642   14628 ps              ps -eo pid,ppid,comm,args\n",
+        "stderr": ""
+      }
+    ],
+    "versions": {
+      "torch": "2.10.0+cpu",
+      "torch_npu": "2.10.0.post4",
+      "numpy": "2.2.6",
+      "ml_dtypes": "0.6.0"
+    },
+    "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+    "listening_tcp_ports": [
+      22,
+      6988,
+      9500,
+      9501,
+      9508,
+      38041
+    ],
+    "/etc/os-release": "NAME=\"openEuler\"\nVERSION=\"24.03 (LTS-SP3)\"\nID=\"openEuler\"\nVERSION_ID=\"24.03\"\nPRETTY_NAME=\"openEuler 24.03 (LTS-SP3)\"\nANSI_COLOR=\"0;31\"\n\n",
+    "/usr/local/Ascend/driver/version.info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n"
+  }
+}
+Queried versions and agreed driver 26.1.1 match. Reference driver remains 25.5.t6.b001. Review npu-smi, CANN 9.1.0, OS and container evidence.
+running build_ext
+get env PATH = /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin:/usr/local/Ascend/cann-9.1.0/bin:/usr/local/Ascend/cann-9.1.0/compiler/ccec_compiler/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+W1116 17:40:26.607000 14645 torch/utils/cpp_extension.py:659] Attempted to use ninja as the BuildExtension backend but we could not find ninja.. Falling back to using the slow distutils backend.
+get env CXX = /usr/bin/c++
+building '_t5_qkv' extension
+creating build/temp.linux-aarch64-cpython-312/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/csrc
+/usr/bin/c++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -fPIC -I/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api/include -I/usr/local/Ascend/cann-9.1.0/include -I/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages -I/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include -I/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch/include -I/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/include -I/usr/local/python3.12.13/include/python3.12 -c /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/csrc/torch_binding.cpp -o build/temp.linux-aarch64-cpython-312/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/csrc/torch_binding.o -O3 -std=c++17 -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_t5_qkv
+In file included from /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUStream.h:10,
+                 from /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/csrc/torch_binding.cpp:3:
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUCachingAllocator.h: In function ‘void c10_npu::NPUCachingAllocator::init()’:
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUException.h:156:29: warning: unused variable ‘feature_not_support_warn_once’ [-Wunused-variable]
+  156 |                 static auto feature_not_support_warn_once = []() {               \
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUException.h:156:29: note: in definition of macro ‘NPU_CHECK_ERROR_CHECK_UCE’
+  156 |                 static auto feature_not_support_warn_once = []() {               \
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUCachingAllocator.h:338:5: note: in expansion of macro ‘NPU_CHECK_ERROR’
+  338 |     NPU_CHECK_ERROR(aclrtGetDeviceCount(&device_count));
+      |     ^~~~~~~~~~~~~~~
+In file included from /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/npu_log.h:7,
+                 from /workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/NPUException.h:22:
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h: At global scope:
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:99:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getAclOpInitMode()’ defined but not used [-Wunused-function]
+   99 | static std::unordered_map<int32_t, std::string> getAclOpInitMode()
+      |                                                 ^~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:93:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getTaskQueueEnableMode()’ defined but not used [-Wunused-function]
+   93 | static std::unordered_map<int32_t, std::string> getTaskQueueEnableMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:87:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getMemoryCacheMode()’ defined but not used [-Wunused-function]
+   87 | static std::unordered_map<int32_t, std::string> getMemoryCacheMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:81:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getLogLevelMode()’ defined but not used [-Wunused-function]
+   81 | static std::unordered_map<int32_t, std::string> getLogLevelMode()
+      |                                                 ^~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:75:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getDesyncDebugMode()’ defined but not used [-Wunused-function]
+   75 | static std::unordered_map<int32_t, std::string> getDesyncDebugMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:69:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getAsyncErrorHandlingMode()’ defined but not used [-Wunused-function]
+   69 | static std::unordered_map<int32_t, std::string> getAsyncErrorHandlingMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:63:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getLaunchBlockingMode()’ defined but not used [-Wunused-function]
+   63 | static std::unordered_map<int32_t, std::string> getLaunchBlockingMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:57:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getCombinedEnableMode()’ defined but not used [-Wunused-function]
+   57 | static std::unordered_map<int32_t, std::string> getCombinedEnableMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:51:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getDisableInfNanMode()’ defined but not used [-Wunused-function]
+   51 | static std::unordered_map<int32_t, std::string> getDisableInfNanMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:45:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getInfNanMode()’ defined but not used [-Wunused-function]
+   45 | static std::unordered_map<int32_t, std::string> getInfNanMode()
+      |                                                 ^~~~~~~~~~~~~
+/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/include/torch_npu/csrc/core/npu/register/OptionsManager.h:39:49: warning: ‘std::unordered_map<int, std::__cxx11::basic_string<char> > c10_npu::option::getHcclZeroCopyMode()’ defined but not used [-Wunused-function]
+   39 | static std::unordered_map<int32_t, std::string> getHcclZeroCopyMode()
+      |                                                 ^~~~~~~~~~~~~~~~~~~
+creating build/lib.linux-aarch64-cpython-312
+/usr/bin/c++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -shared -Wl,-rpath /usr/local/python3.12.13/lib build/temp.linux-aarch64-cpython-312/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/csrc/torch_binding.o -L/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api/lib -L/usr/local/Ascend/cann-9.1.0/lib64 -L/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/lib -L/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/lib -L/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch/lib -L/usr/local/python3.12.13/lib -Wl,--enable-new-dtags,-rpath,/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv/op_api/lib -Wl,--enable-new-dtags,-rpath,/usr/local/Ascend/cann-9.1.0/lib64 -Wl,--enable-new-dtags,-rpath,/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/lib/python3.12/site-packages/torch_npu/lib -Wl,--enable-new-dtags,-rpath,/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/build/direct/lib -lcust_opapi -lascendcl -lnnopbase -ltorch_npu -lt5_direct -lc10 -ltorch -ltorch_cpu -ltorch_python -o build/lib.linux-aarch64-cpython-312/_t5_qkv.cpython-312-aarch64-linux-gnu.so
+copying build/lib.linux-aarch64-cpython-312/_t5_qkv.cpython-312-aarch64-linux-gnu.so -> 
+{"status": "import_passed", "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python", "torch": "2.10.0+cpu", "torch_npu": "2.10.0.post4", "extension": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/_t5_qkv.cpython-312-aarch64-linux-gnu.so", "bytes": 10538968, "sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6", "npu_executed": false, "set_device_called": false}
+Binding built and imported; original native binaries and exact source remain verified. No NPU test executed.

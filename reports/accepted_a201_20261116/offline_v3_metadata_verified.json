@@ -1,0 +1,84 @@
+{
+  "status": "pinned_metadata_verified_no_device_execution",
+  "python": "3.12.13 (main, Aug  3 2026, 02:43:47) [GCC 12.3.1 (openEuler 12.3.1-105.oe2403sp3)]",
+  "executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+  "packages": {
+    "torch": {
+      "version": "2.10.0+cpu",
+      "wheel_sha256": "179451716487f8cb09b56459667fa1f5c4c0946c1e75fbeae77cfc40a5768d87"
+    },
+    "torch-npu": {
+      "version": "2.10.0.post4",
+      "wheel_sha256": "5cee8b07d98b2188297916342fc587228bfca5703ffa8f48be1a69373414aa44"
+    },
+    "numpy": {
+      "version": "2.2.6",
+      "wheel_sha256": "f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87"
+    },
+    "ml-dtypes": {
+      "version": "0.6.0",
+      "wheel_sha256": "37da32aa97749251025666d62372775019594577b9c9e9cfda83bed48d778fdb"
+    }
+  },
+  "all_packages": {
+    "filelock": {
+      "version": "4.2.10",
+      "wheel_sha256": "9479aaeb4db20b5a53e3da28493edd24720b66b8a0b84030aa56ccdf243d6857"
+    },
+    "fsspec": {
+      "version": "2026.9.0",
+      "wheel_sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f"
+    },
+    "jinja2": {
+      "version": "3.1.6",
+      "wheel_sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"
+    },
+    "markupsafe": {
+      "version": "3.0.4",
+      "wheel_sha256": "6a45c3d514f2436064db00d7fc8778d888f0236ebfed649b53d13a59e69ad51b"
+    },
+    "ml-dtypes": {
+      "version": "0.6.0",
+      "wheel_sha256": "37da32aa97749251025666d62372775019594577b9c9e9cfda83bed48d778fdb"
+    },
+    "mpmath": {
+      "version": "1.3.0",
+      "wheel_sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    "networkx": {
+      "version": "3.7",
+      "wheel_sha256": "e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0"
+    },
+    "numpy": {
+      "version": "2.2.6",
+      "wheel_sha256": "f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87"
+    },
+    "pyyaml": {
+      "version": "6.0.2",
+      "wheel_sha256": "1f71ea527786de97d1a0cc0eacd1defc0985dcf6b3f17bb77dcfc8c34bec4dc5"
+    },
+    "setuptools": {
+      "version": "80.9.0",
+      "wheel_sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"
+    },
+    "sympy": {
+      "version": "1.14.0",
+      "wheel_sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"
+    },
+    "torch": {
+      "version": "2.10.0+cpu",
+      "wheel_sha256": "179451716487f8cb09b56459667fa1f5c4c0946c1e75fbeae77cfc40a5768d87"
+    },
+    "torch-npu": {
+      "version": "2.10.0.post4",
+      "wheel_sha256": "5cee8b07d98b2188297916342fc587228bfca5703ffa8f48be1a69373414aa44"
+    },
+    "typing-extensions": {
+      "version": "4.16.0",
+      "wheel_sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    }
+  },
+  "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+  "npu_executed": false,
+  "note": "Fresh offline v3; all 14 package sources/hashes verified. Old environments preserved."
+}

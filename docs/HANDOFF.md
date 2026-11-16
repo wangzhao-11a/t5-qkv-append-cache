@@ -1,3 +1,63 @@
+# 2026-11-16 当前：预定五个独立进程固定10/10全部通过
+
+PID20761已结束，总exit0；原始255文件归档已下载并逐文件SHA/长度验真。
+候选a201首次固定10/10，随后五个新进程全部10/10，007/017最差中位数
+71.34950/71.21085us，25轮均值最大71.86470/71.37255us，均低于75/77。
+完整功能、覆盖、设备及端口清场、前后源码/二进制身份检查均通过。
+见 `docs/ACCEPTANCE_20261116.md`、`reports/stability_validation_20261116.json`。
+
+当前在制作新的九文件提交包并准备发布本轮个人仓分支；旧ZIP不覆盖。
+实测a201 `.run`已收回，SHA97b1f9e0e271df439ee8913e3fa67ffd970a737462f7b4c0c17b1d8fb980e42e，
+内嵌14文件与已测OPP全部匹配。两版Python扩展已收回到artifacts/remote_20261116。
+SSH session25514最近6842.8秒/342心跳仍有效，保持连接；没有存续NPU测试。
+未运行额外offset ABBA，因为预定稳定性门禁已全部通过；不宣称对齐根因已证明。
+后续发布仅针对本次独立工程，不能把上游PR移植版当作已实测版本。
+
+---
+
+# 2026-11-16 候选首次固定 10/10，五独立进程稳定性已启动
+
+候选 a201 首次固定协议和结束身份/清场检查均通过：007=69.5922us，017=70.0743us。
+本地原始 `artifacts/remote_20261116/performance_a201_fixed_once.json` SHA
+cdd8e8c5bc7c28c65e68c5151b6ad299d6f9664d9ea9da74a52c5e9681c4901b。
+这个跨进程结果尚不能将收益归因于对齐改动；与 f526 的本轮74.63/76.67分别记账。
+
+PID **20761** 稳定性流水线已启动，先复用现有 compare_baseline 完成完整coverage，
+再直接执行候选已追踪的 `scripts/phase_repeated_performance.sh`：五个新进程、
+每个原始10例/50预热/200调用×5轮，首败立即停。禁止重新启动或挑选通过结果。
+- 启动脚本 `/tmp/t5_sources_20261116/launch_candidate_stability_v2_20261116.sh`
+- SHA f0e0a18409507c310ddfd39a1f005ab9977bf9759eaee493244bd8df2f8e283d
+- 外层日志 `/tmp/t5_candidate_stability_20261116.log`
+- 总退出码 `/workspace/t5_qkv_tasks/candidate_stability_20261116.exit`
+- 各轮 `<a201>/artifacts/validation/repeated_performance/run_N.json/.exit`
+- 若失败，下一项考虑 f526/007/run/past-key/offset16 的单次同 backing ABBA，
+  检验保持32B对齐的32字节相位变化；不重复已否证的预算/核数/执行器扫描。
+
+---
+
+# 2026-11-16 两版完整功能通过，f526 首次固定 10/10 但接近上限
+
+修正版离线安装和两版 Python binding 全部成功，总 exit0；功能管道 PID15576
+也已 exit0。每版公开精度35、扩展150、工程15、内存20、smoke 160次均通过，
+结束设备及端口清场验证通过。完整159文件证据已下载逐项验真，归档 SHA
+0065e46b5886be15e9e03e7a383a23fa892a1f91c98c0dfbb1a2cc25f9a0fbfc，
+见 `reports/functional_validation_20261116.json`。
+
+当前新环境 f526 一次原始固定协议已通过10/10，007=74.62955us，017=76.67090us，
+阈值分别75/77us；余量仅0.37045/0.32910us，**不能宣称稳定性达标**。
+`artifacts/remote_20261116/performance_f526_fixed_once.json` SHA
+aa8b0ceb1103ba29f6ec5469d04f4fcf45527eb60aad735653017eca60d44597。
+该运行 performance_phase.exit=0，身份哈希及结束清场均通过。
+
+候选 a201 首次固定协议 PID **19912** 已启动，不得重复启动：
+`/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/performance_phase.log/.exit`，
+外层 `/tmp/t5_fixed_a201_20261116.log`。需先取结果，再按新证据选诊断/稳定性检验。
+两版跨进程差异不能单独证明对齐根因；候选全对齐源码快路径不变。
+当前 SSH session25514；源码 a201 未改变，证据提交95e8edc不是新的运行源码。
+旧 c9/f526 和旧交付件均保留，稳定10/10目标尚未完成。
+
+---
+
 # 2026-11-16 离线依赖已传完，修正后私有环境/绑定构建启动
 
 全部 13 个本机官方 wheel 已传输并逐哈希验真，外部 Torch 完整 wheel 已在目标保存。

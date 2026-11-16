@@ -1,0 +1,139 @@
+{
+  "scope": "performance_only",
+  "status": "passed",
+  "unit": "us",
+  "metric": "api_to_completion_wall_time",
+  "statistic": "median_of_round_means",
+  "checks": [
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        26.45175,
+        22.2565,
+        21.82965,
+        22.22625,
+        22.0252
+      ],
+      "wall_us_median": 22.22625,
+      "max_wall_us": 28
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_005_float16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        23.0627,
+        23.01695,
+        23.03525,
+        23.0276,
+        23.165
+      ],
+      "wall_us_median": 23.03525,
+      "max_wall_us": 28
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_006_float16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        24.36065,
+        24.31125,
+        24.0295,
+        24.064,
+        24.25125
+      ],
+      "wall_us_median": 24.25125,
+      "max_wall_us": 29
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        70.34335,
+        69.86515,
+        69.66275,
+        69.64685,
+        69.64085
+      ],
+      "wall_us_median": 69.66275,
+      "max_wall_us": 75
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_008_float16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        24.6613,
+        24.61475,
+        24.63805,
+        24.624200000000002,
+        24.5977
+      ],
+      "wall_us_median": 24.624200000000002,
+      "max_wall_us": 29
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        23.10355,
+        23.7422,
+        23.04275,
+        22.98215,
+        23.56855
+      ],
+      "wall_us_median": 23.10355,
+      "max_wall_us": 28
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        25.459400000000002,
+        25.47645,
+        25.22155,
+        25.03305,
+        24.9656
+      ],
+      "wall_us_median": 25.22155,
+      "max_wall_us": 28
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        24.12855,
+        23.954900000000002,
+        24.059450000000002,
+        24.30885,
+        24.05815
+      ],
+      "wall_us_median": 24.059450000000002,
+      "max_wall_us": 29
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        70.4115,
+        70.1975,
+        70.17905,
+        70.1065,
+        70.1516
+      ],
+      "wall_us_median": 70.17905,
+      "max_wall_us": 77
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "status": "passed",
+      "wall_us_rounds": [
+        25.0465,
+        24.94625,
+        24.974700000000002,
+        24.9202,
+        25.26545
+      ],
+      "wall_us_median": 24.974700000000002,
+      "max_wall_us": 29
+    }
+  ]
+}

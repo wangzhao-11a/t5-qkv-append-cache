@@ -1,0 +1,10 @@
+{
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "extension_sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6",
+  "native_files_verified": 16,
+  "reused_native_negative_sha256": "72d94b1730b1226223c46a6f829a4fa1b3571423fc96457b810975cd6dc58e81",
+  "physical_device": 3,
+  "runtime_selector": 1,
+  "logical_device": 0,
+  "performance_executed": false
+}

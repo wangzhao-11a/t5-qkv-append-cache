@@ -1,0 +1,106 @@
+{
+  "time_utc": "2026-11-16T18:04:21.401979+00:00",
+  "status": "both_full_functional_passed",
+  "target": "199.142.52.52",
+  "container": "248a9b8f1bbd",
+  "soc": "Ascend910_9382",
+  "physical_device": 3,
+  "runtime_selector": 1,
+  "logical_device": 0,
+  "archive_sha256": "0065e46b5886be15e9e03e7a383a23fa892a1f91c98c0dfbb1a2cc25f9a0fbfc",
+  "archive_bytes": 203419,
+  "source_commits": [
+    "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "a2013d56db4ff8367160b157335d2ff670aad411"
+  ],
+  "results": {
+    "f52671207769": {
+      "smoke": {
+        "status": "passed_functional_only",
+        "phase": "smoke",
+        "source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "npu_executed": true,
+        "performance_executed": false,
+        "counts": {
+          "smoke_stability.json": 8
+        },
+        "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+      },
+      "correctness": {
+        "status": "passed_functional_only",
+        "phase": "correctness",
+        "source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+        "npu_executed": true,
+        "performance_executed": false,
+        "counts": {
+          "public_accuracy.json": 35,
+          "extended_accuracy.json": 150,
+          "engineering.json": 15,
+          "memory.json": 20
+        },
+        "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+      },
+      "binding": {
+        "status": "import_passed",
+        "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+        "torch": "2.10.0+cpu",
+        "torch_npu": "2.10.0.post4",
+        "extension": "/workspace/t5_qkv_tasks/t5_qkv_f52671207769/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+        "bytes": 10538968,
+        "sha256": "ab56bfb54225e00c23f86b8bf89c2acacce854f7f2b80489f77dc477b643d206",
+        "npu_executed": false,
+        "set_device_called": false
+      },
+      "phase_exits": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0
+      }
+    },
+    "a2013d56db4f": {
+      "smoke": {
+        "status": "passed_functional_only",
+        "phase": "smoke",
+        "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+        "npu_executed": true,
+        "performance_executed": false,
+        "counts": {
+          "smoke_stability.json": 8
+        },
+        "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+      },
+      "correctness": {
+        "status": "passed_functional_only",
+        "phase": "correctness",
+        "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+        "npu_executed": true,
+        "performance_executed": false,
+        "counts": {
+          "public_accuracy.json": 35,
+          "extended_accuracy.json": 150,
+          "engineering.json": 15,
+          "memory.json": 20
+        },
+        "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+      },
+      "binding": {
+        "status": "import_passed",
+        "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+        "torch": "2.10.0+cpu",
+        "torch_npu": "2.10.0.post4",
+        "extension": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+        "bytes": 10538968,
+        "sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6",
+        "npu_executed": false,
+        "set_device_called": false
+      },
+      "phase_exits": {
+        "build_full": 0,
+        "smoke_phase": 0,
+        "correctness_phase": 0
+      }
+    }
+  },
+  "performance_stability_accepted": false,
+  "evidence_files_verified": 159
+}

@@ -14,3 +14,4 @@ CMakeLists.txt text eol=lf
 *.xlsx binary
 *.zip binary
 reference/* -text
+reports/accepted_a201_20261116/** -text

@@ -1,0 +1,81 @@
+{"source_commit": "a2013d56db4ff8367160b157335d2ff670aad411", "deployment_manifest_sha256": "b3cfc158144f1ee06ab3bdee2dba903a6eec806fd5bb7a7aee41fb892fe9c734", "wrapper_sha256": "956979ae50769243dfbc4e97d0d727c094c153476b35550142145e17b9222509", "extension_sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6", "native_files_verified": 16, "private_opp": "/root/.local/t5_qkv_a2013d56db4f", "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python", "physical_device": 3, "runtime_selector": 1, "logical_device": 0, "case_ids": ["T5SplitQkvAppendCache_001_float16_random", "T5SplitQkvAppendCache_005_float16_random", "T5SplitQkvAppendCache_006_float16_random", "T5SplitQkvAppendCache_007_float16_random", "T5SplitQkvAppendCache_008_float16_random", "T5SplitQkvAppendCache_011_bfloat16_random", "T5SplitQkvAppendCache_015_bfloat16_random", "T5SplitQkvAppendCache_016_bfloat16_random", "T5SplitQkvAppendCache_017_bfloat16_random", "T5SplitQkvAppendCache_018_bfloat16_random"], "receipt_sha256": {"/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/binding_import.json": "7854493e3daaf777500248f517059d34f5bcdf31ce4ab6f38fe9e0fb7cbb7d68", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/binding_gate.json": "5a78da82fbf370ae6bcc274e94c0af904368c0892867f2be4428f0ea614f5512", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/native_binary_manifest.json": "c9ac1cfafba3a29499733ae6d01c06bd21c6be6f6bf887fcc7f4fdac6157dff5", "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/metadata_verified.json": "f90737e7227be05b60b9b0cb57459dab60e515dbcf28af02dc6c01c72b150715", "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/install-report.json": "8a325bad991598453550448cfb3139aeda3c994a07f344f9408313ce08230647", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_smoke/summary.json": "5f65e49dd0e71596c9080d6f3596ac6f344e75b5ff2e19e3c478b864aeeac1cf", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_smoke/identity.json": "d4d0edf3435a85e0da02f219703310e658c26fcb1a5aca4a11657778c1e6f6a2", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/smoke_stability.json": "10e93d2cd52c5ca9ee2fb3262c715baa765739fc13d5c67c24a6b551fcd2d3d4", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/summary.json": "b3ce4fbe09d962ac5ce46d40ac6f6c45dba61f85ed64c67378e2f6ca8df67bea", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/identity.json": "d4d0edf3435a85e0da02f219703310e658c26fcb1a5aca4a11657778c1e6f6a2", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/public_accuracy.json": "9f086bcf9669f99b7a5af021177e2196be37ab03fcd8c8defdb211a96ccf9ab0", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/extended_accuracy.json": "941d3b4b924153a03326cd112a4ada845c29def12c261506d2f26cb9d662dde9", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/engineering.json": "67052265049452f3a34e528a9f6d7f8b4f47162c0a544a2badb0eb7d1644f990", "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/artifacts/validation/memory.json": "034554a64b203b46c83a4f3c9b0f13c6b7a7d9fa079748dda2da7539fef6f117"}}
+{
+  "reference_unchanged": true,
+  "script_encoding": "UTF-8 no BOM, LF",
+  "original_manifest_valid": false,
+  "inventory": {
+    "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+    "machine": "aarch64",
+    "python": "3.12.13",
+    "executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+    "environment": {
+      "ASCEND_HOME_PATH": "/usr/local/Ascend/cann-9.1.0",
+      "ASCEND_RT_VISIBLE_DEVICES": "1",
+      "ASCEND_CUSTOM_OPP_PATH": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv",
+      "T5_OPP_ROOT": "/root/.local/t5_qkv_a2013d56db4f",
+      "T5_ACLNN_EXECUTOR_REUSE": null,
+      "TASK_QUEUE_ENABLE": null,
+      "T5_FUNCTIONAL_DEVICE_SCOPE": "board",
+      "T5_PHYSICAL_DEVICE": "3",
+      "T5_CONTROL_REPORT": null,
+      "T5_CONTROL_SOLUTION": null,
+      "T5_CONTROL_COMMIT": null
+    },
+    "commands": [
+      {
+        "command": [
+          "npu-smi",
+          "info"
+        ],
+        "exit_code": 0,
+        "stdout": "+------------------------------------------------------------------------------------------------------------------+\n| npu-smi 26.1.1                              Version: 26.1.1                                                      |\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU   Name                | Health        | Power(W)             Temp(C)                 Hugepages-Usage(page)   |\n| Chip  Phy-ID              | Bus-Id        | AICore(%)            Memory-Usage(MB)        HBM-Usage(MB)           |\n+===========================+===============+======================================================================+\n| 1     Ascend910           | OK            | 174.9                47                      0    / 0                |\n| 0     2                   | 0000:99:00.0  | 0                    0    / 0                3125 / 65536            |\n+------------------------------------------------------------------------------------------------------------------+\n| 1     Ascend910           | OK            | -                    47                      0    / 0                |\n| 1     3                   | 0000:9B:00.0  | 0                    0    / 0                2873 / 65536            |\n+===========================+===============+======================================================================+\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |\n+===========================+===============+======================================================================+\n| No running processes found in NPU 1                                                                              |\n+===========================+===============+======================================================================+\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ss",
+          "-lntp"
+        ],
+        "error": "[Errno 2] No such file or directory: 'ss'"
+      },
+      {
+        "command": [
+          "ps",
+          "-eo",
+          "pid,ppid,comm,args"
+        ],
+        "exit_code": 0,
+        "stdout": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            /bin/bash -c while true; do sleep 3600; done\n    148       1 sshd            sshd: /usr/sbin/sshd -e [listener] 0 of 10-60 startups\n    187       0 node            /root/codeserver/lib/node /root/codeserver --bind-addr 0.0.0.0:6988 --auth=none /workspace\n    232     187 node            /root/codeserver/lib/node /root/codeserver/out/node/entry\n    376       1 supervisord     /usr/bin/python3 /usr/bin/supervisord -c /etc/supervisord.conf\n    500     376 python3         python3 main/agent.py -c /opt/clabagent/config/clabagent.yml\n    527     500 vector          /opt/clabagent/plugins/vector/bin/vector -c /opt/clabagent/plugins/vector_blue_metric/runtime/vector_blue_metric.yml --watch-config --threads 2\n    550     500 npu-exporter    /opt/clabagent/plugins/npu-exporter/bin/npu-exporter --ip 127.0.0.1 --port 9501\n    732     500 node_exporter   /opt/clabagent/plugins/node_exporter/bin/node_exporter --web.listen-address=127.0.0.1:9500\n   6918     148 sshd            sshd: root [priv]\n   6922    6918 sshd            sshd: root@notty\n   6923    6922 sftp-server     /usr/libexec/openssh/sftp-server\n   7092    6922 bash            bash -c while sleep 20; do printf 't5-ssh-alive\\n' || exit; done\n  12448       1 sleep           sleep 3600\n  19740    7092 sleep           sleep 20\n  19912       1 bash            bash /tmp/t5_sources_20261116/run_fixed_once_20261116.sh /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f\n  20027   19912 python          python tools/preflight.py --require-soc Ascend910_9382 --output artifacts/validation/environment_performance_phase.json\n  20041   20027 ps              ps -eo pid,ppid,comm,args\n",
+        "stderr": ""
+      }
+    ],
+    "versions": {
+      "torch": "2.10.0+cpu",
+      "torch_npu": "2.10.0.post4",
+      "numpy": "2.2.6",
+      "ml_dtypes": "0.6.0"
+    },
+    "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+    "listening_tcp_ports": [
+      22,
+      6988,
+      9500,
+      9501,
+      9508,
+      38041
+    ],
+    "/etc/os-release": "NAME=\"openEuler\"\nVERSION=\"24.03 (LTS-SP3)\"\nID=\"openEuler\"\nVERSION_ID=\"24.03\"\nPRETTY_NAME=\"openEuler 24.03 (LTS-SP3)\"\nANSI_COLOR=\"0;31\"\n\n",
+    "/usr/local/Ascend/driver/version.info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n"
+  },
+  "target": {
+    "soc": "Ascend910_9382",
+    "visible_device_count": 1
+  }
+}
+Board idle check 1: 1 consecutive
+Board idle check 2: 2 consecutive
+Board idle check 3: 3 consecutive
+Queried versions and agreed driver 26.1.1 match. Reference driver remains 25.5.t6.b001. Review npu-smi, CANN 9.1.0, OS and container evidence.
+Runtime controls match the completed correctness phase.
+benchmark_exit=0 checker_exit=0
+run_exit=0 identity_exit=0 inventory_exit=0 smi_exit=0 clearance_exit=0 final_exit=0

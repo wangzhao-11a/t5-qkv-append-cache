@@ -1,0 +1,11 @@
+{
+  "status": "import_passed",
+  "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+  "torch": "2.10.0+cpu",
+  "torch_npu": "2.10.0.post4",
+  "extension": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+  "bytes": 10538968,
+  "sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6",
+  "npu_executed": false,
+  "set_device_called": false
+}

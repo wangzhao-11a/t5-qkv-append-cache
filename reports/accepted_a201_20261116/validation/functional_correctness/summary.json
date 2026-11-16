@@ -1,0 +1,14 @@
+{
+  "status": "passed_functional_only",
+  "phase": "correctness",
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "npu_executed": true,
+  "performance_executed": false,
+  "counts": {
+    "public_accuracy.json": 35,
+    "extended_accuracy.json": 150,
+    "engineering.json": 15,
+    "memory.json": 20
+  },
+  "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+}

@@ -1,0 +1,52 @@
+{
+  "status": "passed_native_smoke_only",
+  "npu_executed": true,
+  "records": {
+    "fp16": [
+      {
+        "status": "passed",
+        "workspace_bytes": 0,
+        "bit_mismatches": 0
+      }
+    ],
+    "bf16": [
+      {
+        "status": "passed",
+        "workspace_bytes": 0,
+        "bit_mismatches": 0
+      }
+    ],
+    "negative": [
+      {
+        "metadata_scenario": 0,
+        "status": "passed",
+        "acl_status": 561002
+      },
+      {
+        "metadata_scenario": 1,
+        "status": "passed",
+        "acl_status": 561002
+      },
+      {
+        "metadata_scenario": 2,
+        "status": "passed",
+        "acl_status": 561002
+      },
+      {
+        "metadata_scenario": 3,
+        "status": "passed",
+        "acl_status": 161002
+      },
+      {
+        "metadata_scenario": 4,
+        "status": "passed",
+        "acl_status": 561002
+      }
+    ]
+  },
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "physical_device": 3,
+  "runtime_selector": 1,
+  "logical_device": 0,
+  "limitations": "Small shape only; not 35-case accuracy, engineering, memory or performance acceptance"
+}

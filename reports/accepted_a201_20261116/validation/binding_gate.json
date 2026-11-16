@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "native_files_verified": 16,
+  "private_opp": "/root/.local/t5_qkv_a2013d56db4f",
+  "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+  "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+  "packages": {
+    "torch": {
+      "version": "2.10.0+cpu",
+      "wheel_sha256": "179451716487f8cb09b56459667fa1f5c4c0946c1e75fbeae77cfc40a5768d87"
+    },
+    "torch-npu": {
+      "version": "2.10.0.post4",
+      "wheel_sha256": "5cee8b07d98b2188297916342fc587228bfca5703ffa8f48be1a69373414aa44"
+    },
+    "numpy": {
+      "version": "2.2.6",
+      "wheel_sha256": "f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87"
+    },
+    "ml-dtypes": {
+      "version": "0.6.0",
+      "wheel_sha256": "37da32aa97749251025666d62372775019594577b9c9e9cfda83bed48d778fdb"
+    }
+  },
+  "npu_executed": false
+}

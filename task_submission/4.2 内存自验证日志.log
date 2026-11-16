@@ -1,8 +1,11 @@
-T5 QKV task: original device logs
-Assembled at 2026-10-29T09:48:04.725021+00:00
+T5SplitQkvAppendCache original device evidence
+Source commit: a2013d56db4ff8367160b157335d2ff670aad411
+Archive SHA256: 95df31d9e7745ba5ba15b4c201fbb776f76713ca0d51a91d7f0136c5ea6dedb1
+Verified manifest files: 255
+All source sections below are raw bytes from the a201 deployment. The five repeated runs are five separate processes; each contains five timed rounds.
 
-===== memory.log =====
-[W1029 09:42:41.063829630 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/memory.log | bytes=13396 | sha256=3a69e14a54a7bd654df00fa6ab2310224358fd3b476c26a830984c599851c605 =====
+[W1116 17:45:45.672441580 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
 {"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "run", "status": "passed", "metric": "active_tensor_bytes", "before": 12800, "peak_increment": 13824, "output_bytes": 12288, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800], "outputs": [{"output": "query", "elements": 2048, "bit_mismatches": 0}, {"output": "key", "elements": 2048, "bit_mismatches": 0}, {"output": "value", "elements": 2048, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_001_float16_random", "entry": "run_direct", "status": "passed", "metric": "active_tensor_bytes", "before": 12800, "peak_increment": 13824, "output_bytes": 12288, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800, 12800], "outputs": [{"output": "query", "elements": 2048, "bit_mismatches": 0}, {"output": "key", "elements": 2048, "bit_mismatches": 0}, {"output": "value", "elements": 2048, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_005_float16_random", "entry": "run", "status": "passed", "metric": "active_tensor_bytes", "before": 266752, "peak_increment": 266752, "output_bytes": 265216, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752, 266752], "outputs": [{"output": "query", "elements": 512, "bit_mismatches": 0}, {"output": "key", "elements": 66048, "bit_mismatches": 0}, {"output": "value", "elements": 66048, "bit_mismatches": 0}]}
@@ -23,3 +26,1131 @@ Assembled at 2026-10-29T09:48:04.725021+00:00
 {"case_name": "T5SplitQkvAppendCache_017_bfloat16_random", "entry": "run_direct", "status": "passed", "metric": "active_tensor_bytes", "before": 134317568, "peak_increment": 134317568, "output_bytes": 134316032, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568, 134317568], "outputs": [{"output": "query", "elements": 16384, "bit_mismatches": 0}, {"output": "key", "elements": 33570816, "bit_mismatches": 0}, {"output": "value", "elements": 33570816, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "run", "status": "passed", "metric": "active_tensor_bytes", "before": 4196352, "peak_increment": 4195840, "output_bytes": 4195072, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352], "outputs": [{"output": "query", "elements": 128, "bit_mismatches": 0}, {"output": "key", "elements": 1048704, "bit_mismatches": 0}, {"output": "value", "elements": 1048704, "bit_mismatches": 0}]}
 {"case_name": "T5SplitQkvAppendCache_018_bfloat16_random", "entry": "run_direct", "status": "passed", "metric": "active_tensor_bytes", "before": 4196352, "peak_increment": 4195840, "output_bytes": 4195072, "workspace_bytes": 0, "allocation_allowance_bytes": 16384, "after_each_release": [4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352, 4196352], "outputs": [{"output": "query", "elements": 128, "bit_mismatches": 0}, {"output": "key", "elements": 1048704, "bit_mismatches": 0}, {"output": "value", "elements": 1048704, "bit_mismatches": 0}]}
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/memory.log =====
+
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/memory.json | bytes=21233 | sha256=034554a64b203b46c83a4f3c9b0f13c6b7a7d9fa079748dda2da7539fef6f117 =====
+{
+  "status": "passed",
+  "npu_executed": true,
+  "group": "memory",
+  "records": [
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12800,
+      "peak_increment": 13824,
+      "output_bytes": 12288,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_001_float16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12800,
+      "peak_increment": 13824,
+      "output_bytes": 12288,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_005_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 266752,
+      "peak_increment": 266752,
+      "output_bytes": 265216,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_005_float16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 266752,
+      "peak_increment": 266752,
+      "output_bytes": 265216,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_006_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12621312,
+      "peak_increment": 12621312,
+      "output_bytes": 12619776,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_006_float16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12621312,
+      "peak_increment": 12621312,
+      "output_bytes": 12619776,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 134317568,
+      "peak_increment": 134317568,
+      "output_bytes": 134316032,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 134317568,
+      "peak_increment": 134317568,
+      "output_bytes": 134316032,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_008_float16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 4196352,
+      "peak_increment": 4195840,
+      "output_bytes": 4195072,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_008_float16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 4196352,
+      "peak_increment": 4195840,
+      "output_bytes": 4195072,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12800,
+      "peak_increment": 13824,
+      "output_bytes": 12288,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12800,
+      "peak_increment": 13824,
+      "output_bytes": 12288,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800,
+        12800
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 2048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 2048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 266752,
+      "peak_increment": 266752,
+      "output_bytes": 265216,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 266752,
+      "peak_increment": 266752,
+      "output_bytes": 265216,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752,
+        266752
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 512,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 66048,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 66048,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12621312,
+      "peak_increment": 12621312,
+      "output_bytes": 12619776,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 12621312,
+      "peak_increment": 12621312,
+      "output_bytes": 12619776,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312,
+        12621312
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 6144,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 3151872,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 134317568,
+      "peak_increment": 134317568,
+      "output_bytes": 134316032,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 134317568,
+      "peak_increment": 134317568,
+      "output_bytes": 134316032,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568,
+        134317568
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 16384,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 33570816,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "entry": "run",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 4196352,
+      "peak_increment": 4195840,
+      "output_bytes": 4195072,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    },
+    {
+      "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+      "entry": "run_direct",
+      "status": "passed",
+      "metric": "active_tensor_bytes",
+      "before": 4196352,
+      "peak_increment": 4195840,
+      "output_bytes": 4195072,
+      "workspace_bytes": 0,
+      "allocation_allowance_bytes": 16384,
+      "after_each_release": [
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352,
+        4196352
+      ],
+      "outputs": [
+        {
+          "output": "query",
+          "elements": 128,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "key",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        },
+        {
+          "output": "value",
+          "elements": 1048704,
+          "bit_mismatches": 0
+        }
+      ]
+    }
+  ]
+}
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/memory.json =====
+
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/summary.json | bytes=428 | sha256=b3ce4fbe09d962ac5ce46d40ac6f6c45dba61f85ed64c67378e2f6ca8df67bea =====
+{
+  "status": "passed_functional_only",
+  "phase": "correctness",
+  "source_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "npu_executed": true,
+  "performance_executed": false,
+  "counts": {
+    "public_accuracy.json": 35,
+    "extended_accuracy.json": 150,
+    "engineering.json": 15,
+    "memory.json": 20
+  },
+  "limitation": "No performance measured or accepted; phase exit also requires post-process clearance."
+}
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/summary.json =====
+
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/binding_import.json | bytes=451 | sha256=7854493e3daaf777500248f517059d34f5bcdf31ce4ab6f38fe9e0fb7cbb7d68 =====
+{
+  "status": "import_passed",
+  "python_executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+  "torch": "2.10.0+cpu",
+  "torch_npu": "2.10.0.post4",
+  "extension": "/workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+  "bytes": 10538968,
+  "sha256": "77b2943dab7f139c8a947ee710db6e841f8a4df08d4a41969ea2c88094db39a6",
+  "npu_executed": false,
+  "set_device_called": false
+}
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/binding_import.json =====
+
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/environment_correctness_phase.json | bytes=6199 | sha256=806fcf811dc986fa1986b6c9acec4742a0660e575826168a3dc5f20494fd7932 =====
+{
+  "reference_unchanged": true,
+  "script_encoding": "UTF-8 no BOM, LF",
+  "original_manifest_valid": false,
+  "inventory": {
+    "platform": "Linux-5.10.0-216.0.0.115.oe2203sp4.aarch64-aarch64-with-glibc2.38",
+    "machine": "aarch64",
+    "python": "3.12.13",
+    "executable": "/workspace/t5_qkv_tasks/venv_t5_py312_torch210_20261116_offline_v3/bin/python",
+    "environment": {
+      "ASCEND_HOME_PATH": "/usr/local/Ascend/cann-9.1.0",
+      "ASCEND_RT_VISIBLE_DEVICES": "1",
+      "ASCEND_CUSTOM_OPP_PATH": "/root/.local/t5_qkv_a2013d56db4f/vendors/t5qkv",
+      "T5_OPP_ROOT": "/root/.local/t5_qkv_a2013d56db4f",
+      "T5_ACLNN_EXECUTOR_REUSE": null,
+      "TASK_QUEUE_ENABLE": null,
+      "T5_FUNCTIONAL_DEVICE_SCOPE": "selected",
+      "T5_PHYSICAL_DEVICE": "3",
+      "T5_CONTROL_REPORT": null,
+      "T5_CONTROL_SOLUTION": null,
+      "T5_CONTROL_COMMIT": null
+    },
+    "commands": [
+      {
+        "command": [
+          "npu-smi",
+          "info"
+        ],
+        "exit_code": 0,
+        "stdout": "+------------------------------------------------------------------------------------------------------------------+\n| npu-smi 26.1.1                              Version: 26.1.1                                                      |\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU   Name                | Health        | Power(W)             Temp(C)                 Hugepages-Usage(page)   |\n| Chip  Phy-ID              | Bus-Id        | AICore(%)            Memory-Usage(MB)        HBM-Usage(MB)           |\n+===========================+===============+======================================================================+\n| 1     Ascend910           | OK            | 174.4                47                      0    / 0                |\n| 0     2                   | 0000:99:00.0  | 0                    0    / 0                3124 / 65536            |\n+------------------------------------------------------------------------------------------------------------------+\n| 1     Ascend910           | OK            | -                    46                      0    / 0                |\n| 1     3                   | 0000:9B:00.0  | 0                    0    / 0                2874 / 65536            |\n+===========================+===============+======================================================================+\n+---------------------------+---------------+----------------------------------------------------------------------+\n| NPU     Chip              | Process id    | Process name       | Process memory(MB)    | Process id in container |\n+===========================+===============+======================================================================+\n| No running processes found in NPU 1                                                                              |\n+===========================+===============+======================================================================+\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ss",
+          "-lntp"
+        ],
+        "error": "[Errno 2] No such file or directory: 'ss'"
+      },
+      {
+        "command": [
+          "ps",
+          "-eo",
+          "pid,ppid,comm,args"
+        ],
+        "exit_code": 0,
+        "stdout": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            /bin/bash -c while true; do sleep 3600; done\n    148       1 sshd            sshd: /usr/sbin/sshd -e [listener] 0 of 10-60 startups\n    187       0 node            /root/codeserver/lib/node /root/codeserver --bind-addr 0.0.0.0:6988 --auth=none /workspace\n    232     187 node            /root/codeserver/lib/node /root/codeserver/out/node/entry\n    376       1 supervisord     /usr/bin/python3 /usr/bin/supervisord -c /etc/supervisord.conf\n    500     376 python3         python3 main/agent.py -c /opt/clabagent/config/clabagent.yml\n    527     500 vector          /opt/clabagent/plugins/vector/bin/vector -c /opt/clabagent/plugins/vector_blue_metric/runtime/vector_blue_metric.yml --watch-config --threads 2\n    550     500 npu-exporter    /opt/clabagent/plugins/npu-exporter/bin/npu-exporter --ip 127.0.0.1 --port 9501\n    732     500 node_exporter   /opt/clabagent/plugins/node_exporter/bin/node_exporter --web.listen-address=127.0.0.1:9500\n   6918     148 sshd            sshd: root [priv]\n   6922    6918 sshd            sshd: root@notty\n   6923    6922 sftp-server     /usr/libexec/openssh/sftp-server\n   7092    6922 bash            bash -c while sleep 20; do printf 't5-ssh-alive\\n' || exit; done\n  12448       1 sleep           sleep 3600\n  15576       1 bash            bash /tmp/t5_sources_20261116/launch_functional_pair_20261116.sh\n  16678    7092 sleep           sleep 20\n  16720   15576 bash            bash /tmp/t5_sources_20261116/run_functional_20261116.sh /workspace/t5_qkv_tasks/t5_qkv_a2013d56db4f correctness\n  16731   16720 python          python tools/preflight.py --require-soc Ascend910_9382 --output artifacts/validation/environment_correctness_phase.json\n  16745   16731 ps              ps -eo pid,ppid,comm,args\n",
+        "stderr": ""
+      }
+    ],
+    "versions": {
+      "torch": "2.10.0+cpu",
+      "torch_npu": "2.10.0.post4",
+      "numpy": "2.2.6",
+      "ml_dtypes": "0.6.0"
+    },
+    "torch_npu_git_version": "5dd8ef3f9b375b5ae4a83538d5785754148c3302",
+    "listening_tcp_ports": [
+      22,
+      6988,
+      9500,
+      9501,
+      9508,
+      38041
+    ],
+    "/etc/os-release": "NAME=\"openEuler\"\nVERSION=\"24.03 (LTS-SP3)\"\nID=\"openEuler\"\nVERSION_ID=\"24.03\"\nPRETTY_NAME=\"openEuler 24.03 (LTS-SP3)\"\nANSI_COLOR=\"0;31\"\n\n",
+    "/usr/local/Ascend/driver/version.info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n"
+  },
+  "target": {
+    "soc": "Ascend910_9382",
+    "visible_device_count": 1
+  }
+}
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/environment_correctness_phase.json =====
+
+===== BEGIN t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/clearance.log | bytes=96 | sha256=b9556267df7739d69f8984489970f8afebcebe150eb7d4ed9d0c213b98ca0c1f =====
+Selected device is clear; listening ports unchanged. Before/after process inventories retained.
+
+===== END t5_qkv_a2013d56db4f/artifacts/validation/functional_correctness/clearance.log =====
