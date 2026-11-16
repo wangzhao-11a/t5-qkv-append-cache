@@ -1,0 +1,48 @@
+{
+  "recorded_at_utc": "2026-11-16T15:46:40.527572+00:00",
+  "status": "blocked_before_jump_authentication",
+  "requested_target": "199.142.52.52",
+  "gateway": "113.47.8.48:2234",
+  "candidate_commit": "a2013d56db4ff8367160b157335d2ff670aad411",
+  "preserved_baselines": [
+    "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+    "f52671207769bf5f334972c997743eb6aa6f91b3"
+  ],
+  "attempts": [
+    {
+      "client": "Paramiko",
+      "session_id": 45041,
+      "stage": "gateway SSH banner before authentication",
+      "observed_error": "SSHException: Error reading SSH protocol banner; underlying EOFError",
+      "target_contacted": false
+    },
+    {
+      "client": "OpenSSH_for_Windows_10.0p2",
+      "stage": "gateway SSH banner before authentication",
+      "tcp_connected": true,
+      "local_banner_sent": true,
+      "remote_banner_received": false,
+      "observed_error": "kex_exchange_identification: Connection closed by remote host",
+      "exit_code": 1,
+      "authentication": "disabled diagnostic; no password or target command sent",
+      "target_contacted": false
+    }
+  ],
+  "facts": [
+    "No target connection was established",
+    "No remote files were read or written",
+    "No target SoC, container, device allocation or original five-run report has been verified",
+    "No NPU, correctness or benchmark execution occurred",
+    "Owned failed local SSH helpers were cleared after exact process identity verification"
+  ],
+  "unknowns": [
+    "Why the gateway closes before SSH banner exchange",
+    "Whether platform authorization or instance state changed"
+  ],
+  "retry_guard": {
+    "automatic_retries": false,
+    "requires_external_state_change": true,
+    "first_step_after_restore": "Confirm target identity; collect existing raw repeat reports and complete loaded binary fingerprints before choosing a contrast experiment"
+  },
+  "interactive_launch_guard": "Use exec_command tty=true for an interactive persistent stdin session; never send credentials to a closed stdin or place them in a saved script"
+}
