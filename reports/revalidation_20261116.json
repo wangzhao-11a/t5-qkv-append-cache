@@ -1,0 +1,142 @@
+{
+  "date": "2026-11-16",
+  "status": "reopened_user_reported_performance_regression",
+  "base_commit": "7e88ff57b9438aa773d632baaaf81bc944148a8c",
+  "tested_runtime_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+  "known_baseline_commit": "c9decf212667337d518e3a1d48dc3e07cd5fef0e",
+  "user_report": {
+    "five_rounds_or_runs": 5,
+    "failed": 3,
+    "case_007_worst_us": 75.11,
+    "case_017_worst_us": 78.1,
+    "other_performance_cases_passed": 8,
+    "accuracy": "35/35",
+    "engineering": "passed",
+    "memory": "passed",
+    "discrete_timing_levels": 8,
+    "timing_range_us": [
+      70.24,
+      112.13
+    ],
+    "raw_report_received": false,
+    "alignment_root_cause": "hypothesis_pending_address_and_loaded_kernel_evidence"
+  },
+  "historical_binary_manifest": {
+    "build_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "native_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "aclnn_source_commit": "f52671207769bf5f334972c997743eb6aa6f91b3",
+    "private_installation": "/root/.local/t5_qkv_f52671207769",
+    "physical_device": 7,
+    "logical_device": 0,
+    "visible_device_selector": "1",
+    "model_path": null,
+    "service_ports": [],
+    "commands": [
+      "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/start_optimized_build.sh",
+      "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_smoke.sh",
+      "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_correctness.sh",
+      "bash /workspace/t5_qkv_tasks/t5_qkv_f52671207769/scripts/phase_performance.sh"
+    ],
+    "files": [
+      {
+        "path": "artifacts/binaries/_t5_qkv.cpython-312-aarch64-linux-gnu.so",
+        "bytes": 10536784,
+        "sha256": "360873394364c46a3f908d5673b548ee855a94db459075ab0578ca0d752ed1bd"
+      },
+      {
+        "path": "artifacts/binaries/ldd_binding.txt",
+        "bytes": 9007,
+        "sha256": "2581d76e51a443957af7f561f3b0a6da6846d3d222f7cfed544b59e5cabf475e"
+      },
+      {
+        "path": "artifacts/binaries/ldd_direct.txt",
+        "bytes": 1856,
+        "sha256": "b1df1bd2d27874c208a6a3060d403a7f9598cb30407a1153ba970c7d99d75992"
+      },
+      {
+        "path": "artifacts/binaries/ldd_example.txt",
+        "bytes": 3067,
+        "sha256": "24b20703213e8318f5ec324b870d2b8e7405f9fcbded8e9ec2b9f9488f5b06aa"
+      },
+      {
+        "path": "artifacts/binaries/libt5_direct.so",
+        "bytes": 403560,
+        "sha256": "93d574c596fa9054595e20317564a85929e2817f2c2a88c6a8b5bb6cfd0ca7a2"
+      },
+      {
+        "path": "artifacts/binaries/readelf_binding.txt",
+        "bytes": 2592,
+        "sha256": "8a2500b196b56d25439981f25d72a9bb01831cc0b7dfae2eba49ce86230c7d00"
+      },
+      {
+        "path": "artifacts/binaries/t5_example",
+        "bytes": 101608,
+        "sha256": "7b74190750cf0d64298c58f32530f378381e97e10eff834a6ae697fe10696d91"
+      },
+      {
+        "path": "artifacts/custom_opp_openEuler_aarch64.run",
+        "bytes": 224384,
+        "sha256": "e8f92209df65f80e66874f601709c525a1a6df421c5f875c2983b30c504013c1"
+      }
+    ]
+  },
+  "runtime_source_unchanged": [
+    {
+      "path": "common/t5_plan.h",
+      "sha256": "dfe4f6bd28d74a76f9243c6555c679c2e8cc656f57db56a2eb9a7d52cbb41a99",
+      "matches_runtime": true
+    },
+    {
+      "path": "csrc/torch_binding.cpp",
+      "sha256": "3d29a98ff738658c46696634a2c5d6c093b99b61614058cfd5b3393caf463a93",
+      "matches_runtime": true
+    },
+    {
+      "path": "direct/CMakeLists.txt",
+      "sha256": "03ccb90c9de5b86de7f8a352dd455f3b9afbfe170630fe438bb1ed730142b064",
+      "matches_runtime": true
+    },
+    {
+      "path": "direct/t5_direct.cpp",
+      "sha256": "a398f82400cd8b0023b0f5f4aa3785aafc9e2800aad5a8d0cb4d1f765161d9d1",
+      "matches_runtime": true
+    },
+    {
+      "path": "op_host/t5_split_qkv_append_cache.cpp",
+      "sha256": "b234eccfa9d0ddc08cafa8eecb80ba86922e08ec191ae4663f019768a0e9d220",
+      "matches_runtime": true
+    },
+    {
+      "path": "op_host/t5_split_qkv_append_cache_tiling.h",
+      "sha256": "cf3dbfe73355e2749b6f2d0ad93affda56caff0d82ad6c252f89a683a03148ed",
+      "matches_runtime": true
+    },
+    {
+      "path": "op_kernel/t5_copy.h",
+      "sha256": "80187bdde2fc70e730a1f690dc1c0cfc4bf516a38a2d7988c9e3c0a911ea79c4",
+      "matches_runtime": true
+    },
+    {
+      "path": "op_kernel/t5_split_qkv_append_cache.cpp",
+      "sha256": "1f1fb9793e60a6c3a2261fe97cf597c6f49369bc472c2b12efc122ad65817227",
+      "matches_runtime": true
+    },
+    {
+      "path": "op_project.json",
+      "sha256": "e50d38f8c9e30e3e87ab26021a1d0d508157267ab1b52a0c7254acc430a3f2b2",
+      "matches_runtime": true
+    },
+    {
+      "path": "setup.py",
+      "sha256": "b575de3ef3f1abd0d4085497fe0de5b3832557b5b1520e7c5b0b8909b56fd9c2",
+      "matches_runtime": true
+    },
+    {
+      "path": "solution.py",
+      "sha256": "0a8a64a66c0b38f12ad2cc7302656f44b960e22e306e5f3232c66114d2344256",
+      "matches_runtime": true
+    }
+  ],
+  "current_remote_identity": "unknown_pending_new_connection",
+  "npu_executed_this_session": false
+}
